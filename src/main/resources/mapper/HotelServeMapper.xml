@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzk.dao.HotelServeMapper">
+    <resultMap id="BaseResultMap"
+               type="com.zzk.entity.HotelServe">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <id column="hotel_id" jdbcType="VARCHAR" property="hotelId"/>
+        <id column="park" jdbcType="INTEGER" property="park"/>
+        <id column="bathroom" jdbcType="INTEGER" property="bathroom"/>
+        <id column="air_conditioner" jdbcType="INTEGER" property="airConditioner"/>
+        <id column="free_wifi" jdbcType="INTEGER" property="freeWifi"/>
+        <id column="elevator" jdbcType="INTEGER" property="elevator"/>
+        <id column="hot_water" jdbcType="INTEGER" property="hotWater"/>
+        <id column="free_drinking_water" jdbcType="INTEGER" property="freeDrinkingWater"/>
+        <id column="adsl" jdbcType="INTEGER" property="adsl"/>
+        <id column="creator" jdbcType="VARCHAR" property="creator"/>
+        <id column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
+        <id column="updater" jdbcType="VARCHAR" property="updater"/>
+        <id column="update_date" jdbcType="TIMESTAMP" property="updateDate"/>
+        <id column="status" jdbcType="INTEGER" property="status"/>
+        <id column="icos" jdbcType="VARCHAR" property="icos"/>
+        <id column="service" jdbcType="VARCHAR" property="service"/>
+        
+    </resultMap>
+    <sql id="Base_Column_List">
+    id,
+    hotel_id,
+    park,
+    bathroom,
+    air_conditioner,
+    free_wifi,
+    elevator,
+    hot_water,
+    free_drinking_water,
+    adsl,
+    creator,
+    create_date,
+    updater,
+    update_date,
+    status,
+    icos,
+    service
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_mp_hotel_serve where ID = #{id,jdbcType=VARCHAR}
+    </select>
+    <select id="selectByHotelId" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_mp_hotel_serve where status = 1 and hotel_id = #{hotelId,jdbcType=VARCHAR}
+    </select>
+    
+    
+    <select id="selectByHotelIds" parameterType="java.util.List" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_mp_hotel_serve where status = 1 and hotel_id  in 
+       <foreach item="item" index="index" collection="list" open="("
+            separator="," close=")">
+            #{item}  
+       </foreach>
+    </select>
+    
+    
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from t_mp_hotel_serve where ID = #{id,jdbcType=VARCHAR}
+    </delete>
+    
+    <insert id="insert" parameterType="com.zzk.entity.HotelServe">
+        insert into t_mp_hotel_serve
+        (id,hotel_id,park,bathroom,air_conditioner,free_wifi,elevator,hot_water,free_drinking_water,adsl,creator,create_date,updater,update_date,status,icos,
+        service)
+        values
+        (#{id,jdbcType=VARCHAR},#{hotelId,jdbcType=VARCHAR},#{park,jdbcType=INTEGER},#{bathroom,jdbcType=INTEGER},#{airConditioner,jdbcType=INTEGER},#{freeWifi,jdbcType=INTEGER},#{elevator,jdbcType=INTEGER},#{hotWater,jdbcType=INTEGER},#{freeDrinkingWater,jdbcType=INTEGER},#{adsl,jdbcType=INTEGER},#{creator,jdbcType=VARCHAR},#{createDate,jdbcType=TIMESTAMP},#{updater,jdbcType=VARCHAR},#{updateDate,jdbcType=TIMESTAMP},#{status,jdbcType=INTEGER},#{icos,jdbcType=VARCHAR}
+        ,#{service,jdbcType=INTEGER})
+    </insert>
+    <insert id="insertSelective" parameterType="com.zzk.entity.HotelServe">
+        insert into t_mp_hotel_serve
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="hotelId != null">hotel_id,</if>
+            <if test="park != null">park,</if>
+            <if test="bathroom != null">bathroom,</if>
+            <if test="airConditioner != null">air_conditioner,</if>
+            <if test="freeWifi != null">free_wifi,</if>
+            <if test="elevator != null">elevator,</if>
+            <if test="hotWater != null">hot_water,</if>
+            <if test="freeDrinkingWater != null">free_drinking_water,</if>
+            <if test="adsl != null">adsl,</if>
+            <if test="creator != null">creator,</if>
+            <if test="createDate != null">create_date,</if>
+            <if test="updater != null">updater,</if>
+            <if test="updateDate != null">update_date,</if>
+            <if test="status != null">status,</if>
+            <if test="icos != null">icos,</if>
+    		<if test="service != null">service,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id,jdbcType=VARCHAR},</if>
+            <if test="hotelId != null">#{hotelId,jdbcType=VARCHAR},</if>
+            <if test="park != null">#{park,jdbcType=INTEGER},</if>
+            <if test="bathroom != null">#{bathroom,jdbcType=INTEGER},</if>
+            <if test="airConditioner != null">#{airConditioner,jdbcType=INTEGER},</if>
+            <if test="freeWifi != null">#{freeWifi,jdbcType=INTEGER},</if>
+            <if test="elevator != null">#{elevator,jdbcType=INTEGER},</if>
+            <if test="hotWater != null">#{hotWater,jdbcType=INTEGER},</if>
+            <if test="freeDrinkingWater != null">#{freeDrinkingWater,jdbcType=INTEGER},</if>
+            <if test="adsl != null">#{adsl,jdbcType=INTEGER},</if>
+            <if test="creator != null">#{creator,jdbcType=VARCHAR},</if>
+            <if test="createDate != null">#{createDate,jdbcType=TIMESTAMP},</if>
+            <if test="updater != null">#{updater,jdbcType=VARCHAR},</if>
+            <if test="updateDate != null">#{updateDate,jdbcType=TIMESTAMP},</if>
+            <if test="status != null">#{status,jdbcType=INTEGER},</if>
+            <if test="icos != null">#{icos,jdbcType=VARCHAR},</if>
+ 			<if test="service != null">#{service,jdbcType=INTEGER},</if>
+            
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.zzk.entity.HotelServe">
+        update t_mp_hotel_serve
+        <set>
+                <if test="hotelId != null">hotel_id=#{hotelId,jdbcType=VARCHAR},
+                </if>
+                <if test="park != null">park=#{park,jdbcType=INTEGER},
+                </if>
+                <if test="bathroom != null">bathroom=#{bathroom,jdbcType=INTEGER},
+                </if>
+                <if test="airConditioner != null">air_conditioner=#{airConditioner,jdbcType=INTEGER},
+                </if>
+                <if test="freeWifi != null">free_wifi=#{freeWifi,jdbcType=INTEGER},
+                </if>
+                <if test="elevator != null">elevator=#{elevator,jdbcType=INTEGER},
+                </if>
+                <if test="hotWater != null">hot_water=#{hotWater,jdbcType=INTEGER},
+                </if>
+                <if test="freeDrinkingWater != null">free_drinking_water=#{freeDrinkingWater,jdbcType=INTEGER},
+                </if>
+                <if test="adsl != null">adsl=#{adsl,jdbcType=INTEGER},
+                </if>
+                
+                <if test="creator != null">creator=#{creator,jdbcType=VARCHAR},
+                </if>
+                <if test="createDate != null">create_date=#{createDate,jdbcType=TIMESTAMP},
+                </if>
+                <if test="updater != null">updater=#{updater,jdbcType=VARCHAR},
+                </if>
+                <if test="updateDate != null">update_date=#{updateDate,jdbcType=TIMESTAMP},
+                </if>
+                <if test="status != null">status=#{status,jdbcType=INTEGER},
+                </if>
+                <if test="icos != null">updater=#{icos,jdbcType=VARCHAR},
+                </if>
+                <if test="service != null">service=#{service,jdbcType=VARCHAR},
+                </if>
+        </set>
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.zzk.entity.HotelServe">
+        update
+    t_mp_hotel_serve
+        set
+        park = #{park,jdbcType=INTEGER
+            },
+        bathroom = #{bathroom,jdbcType=INTEGER
+            },
+        air_conditioner = #{airConditioner,jdbcType=INTEGER
+            },
+        free_wifi = #{freeWifi,jdbcType=INTEGER
+            },
+        elevator = #{elevator,jdbcType=INTEGER
+            },
+        hot_water = #{hotWater,jdbcType=INTEGER
+            },
+        free_drinking_water = #{freeDrinkingWater,jdbcType=INTEGER
+            },
+        adsl = #{adsl,jdbcType=INTEGER
+            },
+        creator = #{creator,jdbcType=VARCHAR
+            },
+        create_date = #{createDate,jdbcType=TIMESTAMP
+            },
+        updater = #{updater,jdbcType=VARCHAR
+            },
+        update_date = #{updateDate,jdbcType=TIMESTAMP
+            },
+        status = #{status,jdbcType=INTEGER
+            }, 
+        icos = #{icos,jdbcType=VARCHAR
+            },
+   		service = #{service,jdbcType=INTEGER
+            }
+        
+        where hotel_id = #{hotelId,jdbcType=VARCHAR}
+    </update>
+    
+    <select id="selectByPage" parameterType="java.util.Map"
+            resultMap="BaseResultMap" resultType="java.util.List">
+        select
+        <include refid="Base_Column_List"/>
+        from t_mp_hotel_serve
+        <where>
+            1=1 and status = 1
+            <if test="search != null">
+                $(search)
+            </if>
+            <if test="orderName != null and orderName !=''">
+                order by ${orderName} ${descAsc}
+            </if>
+            <if test="startRow !=null">
+                limit ${startRow},${pageSize}
+            </if>
+        </where>
+    </select>
+    <select id="selectCount" parameterType="com.zzk.entity.HotelServe"
+            resultType="int">
+        select count(*) from t_mp_hotel_serve
+        <where>
+            1=1
+            <if test="search != null">
+                $(search)
+            </if>
+        </where>
+    </select>
+</mapper>

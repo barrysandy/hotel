@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzk.dao.RoomTypeMapper">
+    <resultMap id="BaseResultMap"
+               type="com.zzk.entity.RoomType">
+        <id column="ID" jdbcType="VARCHAR" property="id"/>
+        <id column="APARTMENT_NAME" jdbcType="VARCHAR" property="apartmentName"/>
+        <id column="HOTEL_ID" jdbcType="VARCHAR" property="hotelId"/>
+        <id column="AREA" jdbcType="VARCHAR" property="area"/>
+        <id column="FLOOR" jdbcType="VARCHAR" property="floor"/>
+        <id column="BED" jdbcType="VARCHAR" property="bed"/>
+        <id column="PEOPLE" jdbcType="VARCHAR" property="people"/>
+        <id column="STATUS" jdbcType="INTEGER" property="status"/>
+        <id column="SMOKE" jdbcType="VARCHAR" property="smoke"/>
+        <id column="WIDEBAND" jdbcType="VARCHAR" property="wideband"/>
+        <id column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
+        <id column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime"/>
+        <id column="COVER_IMG" jdbcType="VARCHAR" property="coverImg"/>
+        <id column="IMGS" jdbcType="VARCHAR" property="imgs"/>
+        <id column="DESCRIPTION" jdbcType="VARCHAR" property="description"/>
+        <id column="BED_TYPE" jdbcType="VARCHAR" property="bedType"/>
+        <id column="ADD_BED" jdbcType="VARCHAR" property="addBed"/>
+        <id column="STATES" jdbcType="INTEGER" property="states"/>
+        <id column="KID_NUM" jdbcType="VARCHAR" property="kidNum"/>
+        <id column="BATHROOM" jdbcType="VARCHAR" property="bathroom"/>
+        <id column="IS_WINDOW" jdbcType="VARCHAR" property="isWindow"/>
+        <id column="FREE_WIFI" jdbcType="VARCHAR" property="freeWifi"/>
+        <id column="BED_FEE" jdbcType="VARCHAR" property="bedFee"/>
+        <id column="CREATOR" jdbcType="VARCHAR" property="creator"/>
+        <id column="UPDATER" jdbcType="VARCHAR" property="updater"/>
+        
+        <id column="COOPERATE_TYPE" jdbcType="INTEGER" property="cooperateType"/>
+        <id column="BROKERAGE" jdbcType="VARCHAR" property="brokerage"/>
+        <id column="BROKERAGE_PROPORTION" jdbcType="VARCHAR" property="brokerageProportion"/>
+        <id column="INIT_STOCK" jdbcType="VARCHAR" property="initStock"/>
+        <id column="TOTAL_STOCK" jdbcType="VARCHAR" property="totalStock"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    ID,
+    APARTMENT_NAME,
+    HOTEL_ID,
+    AREA,
+    FLOOR,
+    BED,
+    PEOPLE,
+    STATUS,
+    SMOKE,
+    WIDEBAND,
+    CREATE_TIME,
+    UPDATE_TIME,
+    COVER_IMG,
+    IMGS,
+    DESCRIPTION,
+    BED_TYPE,
+    ADD_BED,
+    STATES,
+    KID_NUM,
+    BATHROOM,
+    IS_WINDOW,
+    FREE_WIFI,
+    BED_FEE,
+    CREATOR,
+    UPDATER,
+    COOPERATE_TYPE,
+    BROKERAGE,
+    BROKERAGE_PROPORTION,
+    INIT_STOCK,
+    TOTAL_STOCK
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_mp_roomtype where ID = #{id,jdbcType=VARCHAR}
+    </select>
+    
+    <select id="selectByHotelId" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_mp_roomtype where status=1 and  HOTEL_ID = #{hotelId,jdbcType=VARCHAR}
+        order by CREATE_TIME desc
+    </select>
+    <select id="getRoomtypeList" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        ID,
+    	APARTMENT_NAME,
+    	states,
+    	status
+        from t_mp_roomtype where status=1 and states = 1 and  HOTEL_ID = #{hotelId,jdbcType=VARCHAR}
+        order by CREATE_TIME desc
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from t_mp_roomtype where ID = #{id,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="com.zzk.entity.RoomType">
+        insert into t_mp_roomtype
+        (ID,APARTMENT_NAME,HOTEL_ID,AREA,FLOOR,BED,PEOPLE,STATUS,SMOKE,WIDEBAND,CREATE_TIME,UPDATE_TIME,COVER_IMG,IMGS,DESCRIPTION,BED_TYPE,ADD_BED,STATES,KID_NUM,BATHROOM,IS_WINDOW,FREE_WIFI,BED_FEE,CREATOR,UPDATER,COOPERATE_TYPE,BROKERAGE,BROKERAGE_PROPORTION,INIT_STOCK,TOTAL_STOCK)
+        values
+        (#{id,jdbcType=VARCHAR},#{apartmentName,jdbcType=VARCHAR},#{hotelId,jdbcType=VARCHAR},#{area,jdbcType=VARCHAR},#{floor,jdbcType=VARCHAR},#{bed,jdbcType=VARCHAR},#{people,jdbcType=VARCHAR},#{status,jdbcType=INTEGER},#{smoke,jdbcType=VARCHAR},#{wideband,jdbcType=VARCHAR},#{createTime,jdbcType=TIMESTAMP},#{updateTime,jdbcType=TIMESTAMP},#{coverImg,jdbcType=VARCHAR},#{imgs,jdbcType=VARCHAR},#{description,jdbcType=VARCHAR},#{bedType,jdbcType=VARCHAR},#{addBed,jdbcType=VARCHAR}
+        ,#{states,jdbcType=INTEGER},#{kidNum,jdbcType=VARCHAR},#{bathroom,jdbcType=VARCHAR},#{isWindow,jdbcType=VARCHAR},#{freeWifi,jdbcType=VARCHAR},#{bedFee,jdbcType=VARCHAR},#{creator,jdbcType=VARCHAR},#{updater,jdbcType=VARCHAR},
+        #{cooperateType,jdbcType=INTEGER},#{brokerage,jdbcType=VARCHAR},#{brokerageProportion,jdbcType=VARCHAR},#{initStock,jdbcType=VARCHAR},#{totalStock,jdbcType=VARCHAR}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="com.zzk.entity.RoomType">
+        insert into t_mp_roomtype
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">ID,</if>
+            <if test="apartmentName != null">APARTMENT_NAME,</if>
+            <if test="hotelId != null">HOTEL_ID,</if>
+            <if test="area != null">AREA,</if>
+            <if test="floor != null">FLOOR,</if>
+            <if test="bed != null">BED,</if>
+            <if test="people != null">PEOPLE,</if>
+            <if test="status != null">STATUS,</if>
+            <if test="smoke != null">SMOKE,</if>
+            <if test="wideband != null">WIDEBAND,</if>
+            <if test="createTime != null">CREATE_TIME,</if>
+            <if test="updateTime != null">UPDATE_TIME,</if>
+            <if test="coverImg != null">COVER_IMG,</if>
+            <if test="imgs != null">IMGS,</if>
+            <if test="description != null">DESCRIPTION,</if>
+            <if test="bedType != null">BED_TYPE,</if>
+            <if test="addBed != null">ADD_BED,</if>
+   			<if test="states != null">STATES,</if>
+            <if test="kidNum != null">KID_NUM,</if>
+            <if test="bathroom != null">BATHROOM,</if>
+            <if test="isWindow != null">IS_WINDOW,</if>
+            <if test="freeWifi != null">FREE_WIFI,</if>
+            <if test="bedFee != null">BED_FEE,</if>
+            <if test="creator != null">CREATOR,</if>
+            <if test="updater != null">UPDATER,</if>
+            
+            <if test="cooperateType != null">COOPERATE_TYPE,</if>
+            <if test="brokerage != null">BROKERAGE,</if>
+            <if test="brokerageProportion != null">BROKERAGE_PROPORTION,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id,jdbcType=VARCHAR},</if>
+            <if test="apartmentName != null">#{apartmentName,jdbcType=VARCHAR},</if>
+            <if test="hotelId != null">#{hotelId,jdbcType=VARCHAR},</if>
+            <if test="area != null">#{area,jdbcType=VARCHAR},</if>
+            <if test="floor != null">#{floor,jdbcType=VARCHAR},</if>
+            <if test="bed != null">#{bed,jdbcType=VARCHAR},</if>
+            <if test="people != null">#{people,jdbcType=VARCHAR},</if>
+            <if test="status != null">#{status,jdbcType=INTEGER},</if>
+            <if test="smoke != null">#{smoke,jdbcType=VARCHAR},</if>
+            <if test="wideband != null">#{wideband,jdbcType=VARCHAR},</if>
+            <if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+            <if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+            <if test="coverImg != null">#{coverImg,jdbcType=VARCHAR},</if>
+            <if test="imgs != null">#{imgs,jdbcType=VARCHAR},</if>
+            <if test="description != null">#{description,jdbcType=VARCHAR},</if>
+            <if test="bedType != null">#{bedType,jdbcType=VARCHAR},</if>
+            <if test="addBed != null">#{addBed,jdbcType=VARCHAR},</if>
+            <if test="states != null">#{states,jdbcType=INTEGER},</if>
+            <if test="kidNum != null">#{kidNum,jdbcType=VARCHAR},</if>
+            <if test="bathroom != null">#{bathroom,jdbcType=VARCHAR},</if>
+            <if test="isWindow != null">#{isWindow,jdbcType=VARCHAR},</if>
+            <if test="freeWifi != null">#{freeWifi,jdbcType=VARCHAR},</if>
+            <if test="bedFee != null">#{bedFee,jdbcType=VARCHAR},</if>
+            <if test="creator != null">#{creator,jdbcType=VARCHAR},</if>
+            <if test="updater != null">#{updater,jdbcType=VARCHAR},</if>
+ 			<if test="cooperateType != null">#{cooperateType,jdbcType=INTEGER},</if>
+            <if test="brokerageProportion != null">#{brokerageProportion,jdbcType=VARCHAR},</if>
+            <if test="brokerage != null">#{brokerage,jdbcType=VARCHAR},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.zzk.entity.RoomType">
+        update t_mp_roomtype
+        <set>
+                <if test="apartmentName != null">APARTMENT_NAME=#{apartmentName,jdbcType=VARCHAR},
+                </if>
+                <if test="hotelId != null">HOTEL_ID=#{hotelId,jdbcType=VARCHAR},
+                </if>
+                <if test="area != null">AREA=#{area,jdbcType=VARCHAR},
+                </if>
+                <if test="floor != null">FLOOR=#{floor,jdbcType=VARCHAR},
+                </if>
+                <if test="bed != null">BED=#{bed,jdbcType=VARCHAR},
+                </if>
+                <if test="people != null">PEOPLE=#{people,jdbcType=VARCHAR},
+                </if>
+                <if test="status != null">STATUS=#{status,jdbcType=INTEGER},
+                </if>
+                <if test="smoke != null">SMOKE=#{smoke,jdbcType=VARCHAR},
+                </if>
+                <if test="wideband != null">WIDEBAND=#{wideband,jdbcType=VARCHAR},
+                </if>
+                <if test="createTime != null">CREATE_TIME=#{createTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="updateTime != null">UPDATE_TIME=#{updateTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="coverImg != null">COVER_IMG=#{coverImg,jdbcType=VARCHAR},
+                </if>
+                <if test="imgs != null">IMGS=#{imgs,jdbcType=VARCHAR},
+                </if>
+                <if test="description != null">DESCRIPTION=#{description,jdbcType=VARCHAR},
+                </if>
+                <if test="bedType != null">BED_TYPE=#{bedType,jdbcType=VARCHAR},
+                </if>
+                <if test="addBed != null">ADD_BED=#{addBed,jdbcType=VARCHAR},
+                </if>
+               	<if test="states != null">STATES=#{states,jdbcType=INTEGER},
+                </if>
+                <if test="kidNum != null">KID_NUM=#{kidNum,jdbcType=VARCHAR},
+                </if>
+                <if test="bathroom != null">BATHROOM=#{bathroom,jdbcType=VARCHAR},
+                </if>
+                <if test="isWindow != null">IS_WINDOW=#{isWindow,jdbcType=VARCHAR},
+                </if>
+                <if test="freeWifi != null">BED_TYPE=#{freeWifi,jdbcType=VARCHAR},
+                </if>
+                <if test="bedFee != null">BED_FEE=#{bedFee,jdbcType=VARCHAR},
+                </if>
+                <if test="creator != null">CREATOR=#{creator,jdbcType=VARCHAR},
+                </if>
+                <if test="updater != null">UPDATER=#{updater,jdbcType=VARCHAR},
+                </if>
+                <if test="cooperateType != null">COOPERATE_TYPE=#{cooperateType,jdbcType=INTEGER},
+                </if>
+                <if test="brokerage != null">BROKERAGE=#{brokerage,jdbcType=VARCHAR},
+                </if>
+                <if test="brokerageProportion != null">BROKERAGE_PROPORTION=#{brokerageProportion,jdbcType=VARCHAR},
+                </if>
+    	</set>
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.zzk.entity.RoomType">
+        update
+    t_mp_roomtype
+        set
+        
+        APARTMENT_NAME = #{apartmentName,jdbcType=VARCHAR
+            },
+        HOTEL_ID = #{hotelId,jdbcType=VARCHAR
+            },
+        AREA = #{area,jdbcType=VARCHAR
+            },
+        FLOOR = #{floor,jdbcType=VARCHAR
+            },
+        BED = #{bed,jdbcType=VARCHAR
+            },
+        PEOPLE = #{people,jdbcType=VARCHAR
+            },
+        STATUS = #{status,jdbcType=INTEGER
+            },
+        SMOKE = #{smoke,jdbcType=VARCHAR
+            },
+        WIDEBAND = #{wideband,jdbcType=VARCHAR
+            },
+        FREE_WIFI = #{freeWifi,jdbcType=VARCHAR
+            },
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP
+            },
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP
+            },
+        COVER_IMG = #{coverImg,jdbcType=VARCHAR
+            },
+        IMGS = #{imgs,jdbcType=VARCHAR
+            },
+        DESCRIPTION = #{description,jdbcType=VARCHAR
+            },
+        BED_TYPE = #{bedType,jdbcType=VARCHAR
+            },
+        ADD_BED = #{addBed,jdbcType=VARCHAR
+            },
+        STATES = #{states,jdbcType=INTEGER
+            },
+        KID_NUM = #{kidNum,jdbcType=VARCHAR
+            },
+        BATHROOM = #{bathroom,jdbcType=VARCHAR
+            },
+        IS_WINDOW = #{isWindow,jdbcType=VARCHAR
+            },
+        BED_TYPE = #{bedType,jdbcType=VARCHAR
+            },
+        BED_FEE = #{bedFee,jdbcType=VARCHAR
+            },
+        CREATOR = #{creator,jdbcType=VARCHAR
+            },
+        UPDATER = #{updater,jdbcType=VARCHAR
+            },
+        COOPERATE_TYPE = #{cooperateType,jdbcType=INTEGER
+            },
+        BROKERAGE_PROPORTION = #{brokerageProportion,jdbcType=VARCHAR
+            },
+        BROKERAGE = #{brokerage,jdbcType=VARCHAR
+            },
+        INIT_STOCK = #{initStock,jdbcType=VARCHAR
+            }
+        where ID = #{id,jdbcType=VARCHAR}
+        
+    </update>
+    <select id="selectByPage" parameterType="java.util.Map"
+            resultMap="BaseResultMap" resultType="java.util.List">
+        select
+        <include refid="Base_Column_List"/>
+        from t_mp_roomtype
+        <where>
+            1=1 and status = 1
+            <if test="search != null">
+                $(search)
+            </if>
+            <if test="orderName != null and orderName !=''">
+                order by ${orderName} ${descAsc}
+            </if>
+            <if test="startRow !=null">
+                limit ${startRow},${pageSize}
+            </if>
+        </where>
+    </select>
+    <select id="selectCount" parameterType="com.zzk.entity.RoomType"
+            resultType="int">
+        select count(*) from t_mp_roomtype
+        <where>
+            1=1
+            <if test="search != null">
+                $(search)
+            </if>
+        </where>
+    </select>
+    <select id="selectByGoodsId" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        t1.*
+        from t_mp_roomtype t1 left join t_mp_hotel_goods t2 on t1.ID = t2.ROOMTYPE_ID where t2.ID = #{id,jdbcType=VARCHAR}
+    </select>
+    
+    <select id="selectByHotelsId" parameterType="java.util.List" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_mp_roomtype where status=1 
+        <if test="null != idList and idList.size > 0">
+        and  HOTEL_ID
+         in (
+         <foreach collection="idList" item="it" index="index" separator=",">
+         	#{it,jdbcType=VARCHAR}
+         </foreach>
+         )
+         </if>
+        order by CREATE_TIME desc
+    </select>
+    
+</mapper>

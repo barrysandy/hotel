@@ -1,0 +1,756 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzk.dao.UserMapper">
+
+	<resultMap id="BaseResultMap" type="com.zzk.entity.User">
+		<id column="ID" jdbcType="VARCHAR" property="id" />
+		<id column="HONOR" jdbcType="VARCHAR" property="honor" />
+		<id column="PASSWORD" jdbcType="VARCHAR" property="password" />
+		<id column="HEAD_IMG" jdbcType="VARCHAR" property="headImg" />
+		<id column="ACCOUNT" jdbcType="VARCHAR" property="account" />
+		<id column="NICKNAME" jdbcType="VARCHAR" property="nickname" />
+		<id column="PHONE_NUM" jdbcType="VARCHAR" property="phoneNum" />
+		<id column="EMAIL" jdbcType="VARCHAR" property="email" />
+		<id column="LEVEL" jdbcType="VARCHAR" property="level" />
+		<id column="USER_TYPE" jdbcType="INTEGER" property="userType" />
+		<id column="GENDER" jdbcType="INTEGER" property="gender" />
+		<id column="INTEGRAL" jdbcType="INTEGER" property="integral" />
+		<id column="SPACE_MAX_LIMIT" jdbcType="INTEGER" property="spaceMaxLimit" />
+		<id column="ACTIVE" jdbcType="VARCHAR" property="active" />
+		<id column="PERSONAL_LABEL" jdbcType="VARCHAR" property="personalLabel" />
+		<id column="IS_TALENT" jdbcType="TINYINT" property="isTalent" />
+		<id column="IS_SILENT" jdbcType="TINYINT" property="isSilent" />
+		<id column="HONOR_POINT" jdbcType="INTEGER" property="honorPoint" />
+		<id column="FREEZE_THAW" jdbcType="INTEGER" property="freezeThaw" />
+		<id column="FREEZING_CAUSE" jdbcType="VARCHAR" property="freezingCause" />
+		<id column="FREEZING_DAYS" jdbcType="INTEGER" property="freezingDays" />
+		<id column="REMARKS" jdbcType="VARCHAR" property="remarks" />
+		<id column="LONGITUDE" jdbcType="DECIMAL" property="longitude" />
+		<id column="LATITUDE" jdbcType="DECIMAL" property="latitude" />
+		<id column="COUNTY_ID" jdbcType="VARCHAR" property="countyId" />
+		<id column="REG_SOURCE" jdbcType="INTEGER" property="regSource" />
+		<id column="MERCHAT_ID" jdbcType="VARCHAR" property="merchatId" />
+		<id column="REG_TIME" jdbcType="TIMESTAMP" property="regTime" />
+		<id column="LAST_LOGIN_TIME" jdbcType="TIMESTAMP" property="lastLoginTime" />
+		<id column="SIGNATURE" jdbcType="VARCHAR" property="signature" />
+		<id column="STATUS" jdbcType="INTEGER" property="status" />
+		<id column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+		<id column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+		<id column="PNAME" jdbcType="VARCHAR" property="pname" />
+		<id column="IS_NAVY" jdbcType="INTEGER" property="isNavy" />
+		<id column="BIRTHDAY" jdbcType="TIMESTAMP" property="birthday" />
+		<id column="FREEZING_DATE" jdbcType="TIMESTAMP" property="freezingDate" />
+		<id column="RELEASES" jdbcType="INTEGER" property="releases" />
+		<id column="PROFILE" jdbcType="VARCHAR" property="profile" />
+		<id column="AGE" jdbcType="VARCHAR" property="age" />
+		<id column="HEIGHT" jdbcType="FLOAT" property="height" />
+		<id column="HOME_TOWN" jdbcType="VARCHAR" property="homeTown" />
+		<id column="USER_SINGATURE" jdbcType="VARCHAR" property="userSingature" />
+		<id column="PROVINCE" jdbcType="VARCHAR" property="province" />
+		<id column="CITY" jdbcType="VARCHAR" property="city" />
+		<id column="COUNTY" jdbcType="VARCHAR" property="county" />
+		<id column="PCC" jdbcType="VARCHAR" property="pcc" />
+		<id column="OPEN_ID" jdbcType="VARCHAR" property="openId" />
+		<id column="QQ" jdbcType="VARCHAR" property="qq" />
+		<id column="PAY_PASSWORD" jdbcType="VARCHAR" property="payPassword" />
+		<id column="IS_TOPIC_CALL" jdbcType="INTEGER" property="isTopicCall" />
+		<id column="LOGIN_STATE" jdbcType="VARCHAR" property="loginState" />
+		<id column="ID_CARD" jdbcType="VARCHAR" property="idCard" />
+		<id column="ID_CARD_IMG" jdbcType="VARCHAR" property="idCardImg" />
+		<id column="IS_AUTH" jdbcType="INTEGER" property="isAuth" />
+		<id column="IS_ROOKIE" jdbcType="INTEGER" property="isRookie" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		ID,
+		HONOR,
+		PASSWORD,
+		HEAD_IMG,
+		ACCOUNT,
+		NICKNAME,
+		PHONE_NUM,
+		EMAIL,
+		LEVEL,
+		USER_TYPE,
+		GENDER,
+		INTEGRAL,
+		SPACE_MAX_LIMIT,
+		ACTIVE,
+		PERSONAL_LABEL,
+		IS_TALENT,
+		IS_SILENT,
+		HONOR_POINT,
+		FREEZE_THAW,
+		FREEZING_CAUSE,
+		FREEZING_DAYS,
+		REMARKS,
+		LONGITUDE,
+		LATITUDE,
+		COUNTY_ID,
+		REG_SOURCE,
+		MERCHAT_ID,
+		REG_TIME,
+		LAST_LOGIN_TIME,
+		SIGNATURE,
+		STATUS,
+		UPDATE_TIME,
+		CREATE_TIME,
+		PNAME,
+		IS_NAVY,
+		BIRTHDAY,
+		FREEZING_DATE,
+		RELEASES,
+		PROFILE,
+		AGE,
+		HEIGHT,
+		HOME_TOWN,
+		USER_SINGATURE,
+		PROVINCE,
+		CITY,
+		COUNTY,
+		PCC,
+		OPEN_ID,
+		QQ,
+		PAY_PASSWORD,
+		IS_TOPIC_CALL,
+		LOGIN_STATE,
+		ID_CARD,
+		ID_CARD_IMG,
+		IS_AUTH,
+		IS_ROOKIE
+	</sql>
+	
+	<select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" /> from line_user where ID = #{id,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="checkUser" parameterType="java.lang.String" resultType="int">
+		select count(1) from line_user where PHONE_NUM = #{phoneNum,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="selectByPhoneNum" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" /> from line_user where PHONE_NUM = #{phoneNum,jdbcType=VARCHAR}
+	</select>
+	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from line_user where ID = #{id,jdbcType=VARCHAR}
+	</delete>
+	
+	<insert id="insert" parameterType="com.zzk.entity.User">
+		insert into line_user
+		(ID,HONOR,PASSWORD,HEAD_IMG,ACCOUNT,NICKNAME,PHONE_NUM,EMAIL,LEVEL,USER_TYPE,GENDER,INTEGRAL,SPACE_MAX_LIMIT,ACTIVE,PERSONAL_LABEL,IS_TALENT,IS_SILENT,HONOR_POINT,FREEZE_THAW,FREEZING_CAUSE,FREEZING_DAYS,REMARKS,LONGITUDE,LATITUDE,COUNTY_ID,REG_SOURCE,MERCHAT_ID,REG_TIME,LAST_LOGIN_TIME,SIGNATURE,STATUS,UPDATE_TIME,CREATE_TIME,PNAME,IS_NAVY,BIRTHDAY,FREEZING_DATE,RELEASES,PROFILE,AGE,HEIGHT,HOME_TOWN,USER_SINGATURE,PROVINCE,CITY,COUNTY,PCC,OPEN_ID,QQ,PAY_PASSWORD,IS_TOPIC_CALL,LOGIN_STATE,ID_CARD,ID_CARD_IMG,IS_AUTH,IS_ROOKIE)
+		values
+		(#{id,jdbcType=VARCHAR},#{honor,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR},#{headImg,jdbcType=VARCHAR},#{account,jdbcType=VARCHAR},#{nickname,jdbcType=VARCHAR},#{phoneNum,jdbcType=VARCHAR},#{email,jdbcType=VARCHAR},#{level,jdbcType=VARCHAR},#{userType,jdbcType=INTEGER},#{gender,jdbcType=INTEGER},#{integral,jdbcType=INTEGER},#{spaceMaxLimit,jdbcType=INTEGER},#{active,jdbcType=VARCHAR},#{personalLabel,jdbcType=VARCHAR},#{isTalent,jdbcType=TINYINT},#{isSilent,jdbcType=TINYINT},#{honorPoint,jdbcType=INTEGER},#{freezeThaw,jdbcType=INTEGER},#{freezingCause,jdbcType=VARCHAR},#{freezingDays,jdbcType=INTEGER},#{remarks,jdbcType=VARCHAR},#{longitude,jdbcType=DECIMAL},#{latitude,jdbcType=DECIMAL},#{countyId,jdbcType=VARCHAR},#{regSource,jdbcType=INTEGER},#{merchatId,jdbcType=VARCHAR},#{regTime,jdbcType=TIMESTAMP},#{lastLoginTime,jdbcType=TIMESTAMP},#{signature,jdbcType=VARCHAR},#{status,jdbcType=INTEGER},#{updateTime,jdbcType=TIMESTAMP},#{createTime,jdbcType=TIMESTAMP},#{pname,jdbcType=VARCHAR},#{isNavy,jdbcType=INTEGER},#{birthday,jdbcType=TIMESTAMP},#{freezingDate,jdbcType=TIMESTAMP},#{releases,jdbcType=INTEGER},#{profile,jdbcType=VARCHAR},#{age,jdbcType=VARCHAR},#{height,jdbcType=FLOAT},#{homeTown,jdbcType=VARCHAR},#{userSingature,jdbcType=VARCHAR},#{province,jdbcType=VARCHAR},#{city,jdbcType=VARCHAR},#{county,jdbcType=VARCHAR},#{pcc,jdbcType=VARCHAR},#{openId,jdbcType=VARCHAR},#{qq,jdbcType=VARCHAR},#{payPassword,jdbcType=VARCHAR},#{isTopicCall,jdbcType=INTEGER},#{loginState,jdbcType=VARCHAR},#{idCard,jdbcType=VARCHAR},#{idCardImg,jdbcType=VARCHAR},#{isAuth,jdbcType=INTEGER},#{isRookie,jdbcType=INTEGER})
+	</insert>
+	
+	<insert id="insertSelective" parameterType="com.zzk.entity.User">
+		insert into line_user
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">ID,</if>
+			<if test="honor != null">HONOR,</if>
+			<if test="password != null">PASSWORD,</if>
+			<if test="headImg != null">HEAD_IMG,</if>
+			<if test="account != null">ACCOUNT,</if>
+			<if test="nickname != null">NICKNAME,</if>
+			<if test="phoneNum != null">PHONE_NUM,</if>
+			<if test="email != null">EMAIL,</if>
+			<if test="level != null">LEVEL,</if>
+			<if test="userType != null">USER_TYPE,</if>
+			<if test="gender != null">GENDER,</if>
+			<if test="integral != null">INTEGRAL,</if>
+			<if test="spaceMaxLimit != null">SPACE_MAX_LIMIT,</if>
+			<if test="active != null">ACTIVE,</if>
+			<if test="personalLabel != null">PERSONAL_LABEL,</if>
+			<if test="isTalent != null">IS_TALENT,</if>
+			<if test="isSilent != null">IS_SILENT,</if>
+			<if test="honorPoint != null">HONOR_POINT,</if>
+			<if test="freezeThaw != null">FREEZE_THAW,</if>
+			<if test="freezingCause != null">FREEZING_CAUSE,</if>
+			<if test="freezingDays != null">FREEZING_DAYS,</if>
+			<if test="remarks != null">REMARKS,</if>
+			<if test="longitude != null">LONGITUDE,</if>
+			<if test="latitude != null">LATITUDE,</if>
+			<if test="countyId != null">COUNTY_ID,</if>
+			<if test="regSource != null">REG_SOURCE,</if>
+			<if test="merchatId != null">MERCHAT_ID,</if>
+			<if test="regTime != null">REG_TIME,</if>
+			<if test="lastLoginTime != null">LAST_LOGIN_TIME,</if>
+			<if test="signature != null">SIGNATURE,</if>
+			<if test="status != null">STATUS,</if>
+			<if test="updateTime != null">UPDATE_TIME,</if>
+			<if test="createTime != null">CREATE_TIME,</if>
+			<if test="pname != null">PNAME,</if>
+			<if test="isNavy != null">IS_NAVY,</if>
+			<if test="birthday != null">BIRTHDAY,</if>
+			<if test="freezingDate != null">FREEZING_DATE,</if>
+			<if test="releases != null">RELEASES,</if>
+			<if test="profile != null">PROFILE,</if>
+			<if test="age != null">AGE,</if>
+			<if test="height != null">HEIGHT,</if>
+			<if test="homeTown != null">HOME_TOWN,</if>
+			<if test="userSingature != null">USER_SINGATURE,</if>
+			<if test="province != null">PROVINCE,</if>
+			<if test="city != null">CITY,</if>
+			<if test="county != null">COUNTY,</if>
+			<if test="pcc != null">PCC,</if>
+			<if test="openId != null">OPEN_ID,</if>
+			<if test="qq != null">QQ,</if>
+			<if test="payPassword != null">PAY_PASSWORD,</if>
+			<if test="isTopicCall != null">IS_TOPIC_CALL,</if>
+			<if test="loginState != null">LOGIN_STATE,</if>
+			<if test="idCard != null">ID_CARD,</if>
+			<if test="idCardImg != null">ID_CARD_IMG,</if>
+			<if test="isAuth != null">IS_AUTH,</if>
+			<if test="isRookie != null">IS_ROOKIE,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=VARCHAR},</if>
+			<if test="honor != null">#{honor,jdbcType=VARCHAR},</if>
+			<if test="password != null">#{password,jdbcType=VARCHAR},</if>
+			<if test="headImg != null">#{headImg,jdbcType=VARCHAR},</if>
+			<if test="account != null">#{account,jdbcType=VARCHAR},</if>
+			<if test="nickname != null">#{nickname,jdbcType=VARCHAR},</if>
+			<if test="phoneNum != null">#{phoneNum,jdbcType=VARCHAR},</if>
+			<if test="email != null">#{email,jdbcType=VARCHAR},</if>
+			<if test="level != null">#{level,jdbcType=VARCHAR},</if>
+			<if test="userType != null">#{userType,jdbcType=INTEGER},</if>
+			<if test="gender != null">#{gender,jdbcType=INTEGER},</if>
+			<if test="integral != null">#{integral,jdbcType=INTEGER},</if>
+			<if test="spaceMaxLimit != null">#{spaceMaxLimit,jdbcType=INTEGER},</if>
+			<if test="active != null">#{active,jdbcType=VARCHAR},</if>
+			<if test="personalLabel != null">#{personalLabel,jdbcType=VARCHAR},</if>
+			<if test="isTalent != null">#{isTalent,jdbcType=TINYINT},</if>
+			<if test="isSilent != null">#{isSilent,jdbcType=TINYINT},</if>
+			<if test="honorPoint != null">#{honorPoint,jdbcType=INTEGER},</if>
+			<if test="freezeThaw != null">#{freezeThaw,jdbcType=INTEGER},</if>
+			<if test="freezingCause != null">#{freezingCause,jdbcType=VARCHAR},</if>
+			<if test="freezingDays != null">#{freezingDays,jdbcType=INTEGER},</if>
+			<if test="remarks != null">#{remarks,jdbcType=VARCHAR},</if>
+			<if test="longitude != null">#{longitude,jdbcType=DECIMAL},</if>
+			<if test="latitude != null">#{latitude,jdbcType=DECIMAL},</if>
+			<if test="countyId != null">#{countyId,jdbcType=VARCHAR},</if>
+			<if test="regSource != null">#{regSource,jdbcType=INTEGER},</if>
+			<if test="merchatId != null">#{merchatId,jdbcType=VARCHAR},</if>
+			<if test="regTime != null">#{regTime,jdbcType=TIMESTAMP},</if>
+			<if test="lastLoginTime != null">#{lastLoginTime,jdbcType=TIMESTAMP},</if>
+			<if test="signature != null">#{signature,jdbcType=VARCHAR},</if>
+			<if test="status != null">#{status,jdbcType=INTEGER},</if>
+			<if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+			<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+			<if test="pname != null">#{pname,jdbcType=VARCHAR},</if>
+			<if test="isNavy != null">#{isNavy,jdbcType=INTEGER},</if>
+			<if test="birthday != null">#{birthday,jdbcType=TIMESTAMP},</if>
+			<if test="freezingDate != null">#{freezingDate,jdbcType=TIMESTAMP},</if>
+			<if test="releases != null">#{releases,jdbcType=INTEGER},</if>
+			<if test="profile != null">#{profile,jdbcType=VARCHAR},</if>
+			<if test="age != null">#{age,jdbcType=VARCHAR},</if>
+			<if test="height != null">#{height,jdbcType=FLOAT},</if>
+			<if test="homeTown != null">#{homeTown,jdbcType=VARCHAR},</if>
+			<if test="userSingature != null">#{userSingature,jdbcType=VARCHAR},</if>
+			<if test="province != null">#{province,jdbcType=VARCHAR},</if>
+			<if test="city != null">#{city,jdbcType=VARCHAR},</if>
+			<if test="county != null">#{county,jdbcType=VARCHAR},</if>
+			<if test="pcc != null">#{pcc,jdbcType=VARCHAR},</if>
+			<if test="openId != null">#{openId,jdbcType=VARCHAR},</if>
+			<if test="qq != null">#{qq,jdbcType=VARCHAR},</if>
+			<if test="payPassword != null">#{payPassword,jdbcType=VARCHAR},</if>
+			<if test="isTopicCall != null">#{isTopicCall,jdbcType=INTEGER},</if>
+			<if test="loginState != null">#{loginState,jdbcType=VARCHAR},</if>
+			<if test="idCard != null">#{idCard,jdbcType=VARCHAR},</if>
+			<if test="idCardImg != null">#{idCardImg,jdbcType=VARCHAR},</if>
+			<if test="isAuth != null">#{isAuth,jdbcType=INTEGER},</if>
+			<if test="isRookie != null">#{isRookie,jdbcType=INTEGER},</if>
+		</trim>
+	</insert>
+	
+	<update id="updateByPrimaryKeySelective" parameterType="com.zzk.entity.User">
+		update line_user
+		<set>
+			<if test="honor != null">HONOR =#{honor,jdbcType=VARCHAR},</if>
+			<if test="password != null">PASSWORD =#{password,jdbcType=VARCHAR},</if>
+			<if test="headImg != null">HEAD_IMG =#{headImg,jdbcType=VARCHAR},</if>
+			<if test="account != null">ACCOUNT =#{account,jdbcType=VARCHAR},</if>
+			<if test="nickname != null">NICKNAME =#{nickname,jdbcType=VARCHAR},</if>
+			<if test="phoneNum != null">PHONE_NUM =#{phoneNum,jdbcType=VARCHAR},</if>
+			<if test="email != null">EMAIL =#{email,jdbcType=VARCHAR},</if>
+			<if test="level != null">LEVEL =#{level,jdbcType=VARCHAR},</if>
+			<if test="userType != null">USER_TYPE =#{userType,jdbcType=INTEGER},</if>
+			<if test="gender != null">GENDER =#{gender,jdbcType=INTEGER},</if>
+			<if test="integral != null">INTEGRAL =#{integral,jdbcType=INTEGER},</if>
+			<if test="spaceMaxLimit != null">SPACE_MAX_LIMIT =#{spaceMaxLimit,jdbcType=INTEGER},</if>
+			<if test="active != null">ACTIVE =#{active,jdbcType=VARCHAR},</if>
+			<if test="personalLabel != null">PERSONAL_LABEL =#{personalLabel,jdbcType=VARCHAR},</if>
+			<if test="isTalent != null">IS_TALENT =#{isTalent,jdbcType=TINYINT},</if>
+			<if test="isSilent != null">IS_SILENT =#{isSilent,jdbcType=TINYINT},</if>
+			<if test="honorPoint != null">HONOR_POINT =#{honorPoint,jdbcType=INTEGER},</if>
+			<if test="freezeThaw != null">FREEZE_THAW =#{freezeThaw,jdbcType=INTEGER},</if>
+			<if test="freezingCause != null">FREEZING_CAUSE =#{freezingCause,jdbcType=VARCHAR},</if>
+			<if test="freezingDays != null">FREEZING_DAYS =#{freezingDays,jdbcType=INTEGER},</if>
+			<if test="remarks != null">REMARKS =#{remarks,jdbcType=VARCHAR},</if>
+			<if test="longitude != null">LONGITUDE =#{longitude,jdbcType=DECIMAL},</if>
+			<if test="latitude != null">LATITUDE =#{latitude,jdbcType=DECIMAL},</if>
+			<if test="countyId != null">COUNTY_ID =#{countyId,jdbcType=VARCHAR},</if>
+			<if test="regSource != null">REG_SOURCE =#{regSource,jdbcType=INTEGER},</if>
+			<if test="merchatId != null">MERCHAT_ID =#{merchatId,jdbcType=VARCHAR},</if>
+			<if test="regTime != null">REG_TIME =#{regTime,jdbcType=TIMESTAMP},</if>
+			<if test="lastLoginTime != null">LAST_LOGIN_TIME =#{lastLoginTime,jdbcType=TIMESTAMP},</if>
+			<if test="signature != null">SIGNATURE =#{signature,jdbcType=VARCHAR},</if>
+			<if test="status != null">STATUS =#{status,jdbcType=INTEGER},</if>
+			<if test="updateTime != null">UPDATE_TIME =#{updateTime,jdbcType=TIMESTAMP},</if>
+			<if test="createTime != null">CREATE_TIME =#{createTime,jdbcType=TIMESTAMP},</if>
+			<if test="pname != null">PNAME =#{pname,jdbcType=VARCHAR},</if>
+			<if test="isNavy != null">IS_NAVY =#{isNavy,jdbcType=INTEGER},</if>
+			<if test="birthday != null">BIRTHDAY =#{birthday,jdbcType=TIMESTAMP},</if>
+			<if test="freezingDate != null">FREEZING_DATE =#{freezingDate,jdbcType=TIMESTAMP},</if>
+			<if test="releases != null">RELEASES =#{releases,jdbcType=INTEGER},</if>
+			<if test="profile != null">PROFILE =#{profile,jdbcType=VARCHAR},</if>
+			<if test="age != null">AGE =#{age,jdbcType=VARCHAR},</if>
+			<if test="height != null">HEIGHT =#{height,jdbcType=FLOAT},</if>
+			<if test="homeTown != null">HOME_TOWN =#{homeTown,jdbcType=VARCHAR},</if>
+			<if test="userSingature != null">USER_SINGATURE =#{userSingature,jdbcType=VARCHAR},</if>
+			<if test="province != null">PROVINCE =#{province,jdbcType=VARCHAR},</if>
+			<if test="city != null">CITY =#{city,jdbcType=VARCHAR},</if>
+			<if test="county != null">COUNTY =#{county,jdbcType=VARCHAR},</if>
+			<if test="pcc != null">PCC =#{pcc,jdbcType=VARCHAR},</if>
+			<if test="openId != null">OPEN_ID =#{openId,jdbcType=VARCHAR},</if>
+			<if test="qq != null">QQ =#{qq,jdbcType=VARCHAR},</if>
+			<if test="payPassword != null">PAY_PASSWORD =#{payPassword,jdbcType=VARCHAR},</if>
+			<if test="isTopicCall != null">IS_TOPIC_CALL =#{isTopicCall,jdbcType=INTEGER},</if>
+			<if test="loginState != null">LOGIN_STATE =#{loginState,jdbcType=VARCHAR},</if>
+			<if test="idCard != null">ID_CARD =#{idCard,jdbcType=VARCHAR},</if>
+			<if test="idCardImg != null">ID_CARD_IMG =#{idCardImg,jdbcType=VARCHAR},</if>
+			<if test="isAuth != null">IS_AUTH =#{isAuth,jdbcType=INTEGER},</if>
+			<if test="isRookie != null">IS_ROOKIE =#{isRookie,jdbcType=INTEGER},</if>
+		</set>
+		where ID = #{id,jdbcType=VARCHAR}
+	</update>
+	
+	<update id="updateByPrimaryKey" parameterType="com.zzk.entity.User">
+		update
+		line_user
+		set
+		
+		HONOR = #{honor,jdbcType=VARCHAR},
+		PASSWORD = #{password,jdbcType=VARCHAR},
+		HEAD_IMG = #{headImg,jdbcType=VARCHAR},
+		ACCOUNT = #{account,jdbcType=VARCHAR},
+		NICKNAME = #{nickname,jdbcType=VARCHAR},
+		PHONE_NUM = #{phoneNum,jdbcType=VARCHAR},
+		EMAIL = #{email,jdbcType=VARCHAR},
+		LEVEL = #{level,jdbcType=VARCHAR},
+		USER_TYPE = #{userType,jdbcType=INTEGER},
+		GENDER = #{gender,jdbcType=INTEGER},
+		INTEGRAL = #{integral,jdbcType=INTEGER},
+		SPACE_MAX_LIMIT = #{spaceMaxLimit,jdbcType=INTEGER},
+		ACTIVE = #{active,jdbcType=VARCHAR},
+		PERSONAL_LABEL = #{personalLabel,jdbcType=VARCHAR},
+		IS_TALENT = #{isTalent,jdbcType=TINYINT},
+		IS_SILENT = #{isSilent,jdbcType=TINYINT},
+		HONOR_POINT = #{honorPoint,jdbcType=INTEGER},
+		FREEZE_THAW = #{freezeThaw,jdbcType=INTEGER},
+		FREEZING_CAUSE = #{freezingCause,jdbcType=VARCHAR},
+		FREEZING_DAYS = #{freezingDays,jdbcType=INTEGER},
+		REMARKS = #{remarks,jdbcType=VARCHAR},
+		LONGITUDE = #{longitude,jdbcType=DECIMAL},
+		LATITUDE = #{latitude,jdbcType=DECIMAL},
+		COUNTY_ID = #{countyId,jdbcType=VARCHAR},
+		REG_SOURCE = #{regSource,jdbcType=INTEGER},
+		MERCHAT_ID = #{merchatId,jdbcType=VARCHAR},
+		REG_TIME = #{regTime,jdbcType=TIMESTAMP},
+		LAST_LOGIN_TIME = #{lastLoginTime,jdbcType=TIMESTAMP},
+		SIGNATURE = #{signature,jdbcType=VARCHAR},
+		STATUS = #{status,jdbcType=INTEGER},
+		UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+		CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+		PNAME = #{pname,jdbcType=VARCHAR},
+		IS_NAVY = #{isNavy,jdbcType=INTEGER},
+		BIRTHDAY = #{birthday,jdbcType=TIMESTAMP},
+		FREEZING_DATE = #{freezingDate,jdbcType=TIMESTAMP},
+		RELEASES = #{releases,jdbcType=INTEGER},
+		PROFILE = #{profile,jdbcType=VARCHAR},
+		AGE = #{age,jdbcType=VARCHAR},
+		HEIGHT = #{height,jdbcType=FLOAT},
+		HOME_TOWN = #{homeTown,jdbcType=VARCHAR},
+		USER_SINGATURE = #{userSingature,jdbcType=VARCHAR},
+		PROVINCE = #{province,jdbcType=VARCHAR},
+		CITY = #{city,jdbcType=VARCHAR},
+		COUNTY = #{county,jdbcType=VARCHAR},
+		PCC = #{pcc,jdbcType=VARCHAR},
+		OPEN_ID = #{openId,jdbcType=VARCHAR},
+		QQ = #{qq,jdbcType=VARCHAR},
+		PAY_PASSWORD = #{payPassword,jdbcType=VARCHAR},
+		IS_TOPIC_CALL = #{isTopicCall,jdbcType=INTEGER},
+		LOGIN_STATE = #{loginState,jdbcType=VARCHAR},
+		ID_CARD = #{idCard,jdbcType=VARCHAR},
+		ID_CARD_IMG = #{idCardImg,jdbcType=VARCHAR},
+		IS_AUTH = #{isAuth,jdbcType=INTEGER},
+		IS_ROOKIE = #{isRookie,jdbcType=INTEGER}
+		where ID = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateLastLoginTime" parameterType="com.zzk.entity.User">
+        update
+        line_user
+        set
+		LAST_LOGIN_TIME = #{lastLoginTime,jdbcType=TIMESTAMP}
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+	<select id="selectByPage" parameterType="java.util.Map" resultMap="BaseResultMap" resultType="java.util.List">
+		select
+		<include refid="Base_Column_List" />
+		from line_user
+		<where>
+			1=1 and status = 1
+			<if test="search != null">
+			</if>
+			<if test="orderName != null and orderName !=''">
+				order by ${orderName} ${descAsc}
+			</if>
+			<if test="startRow !=null">
+				limit ${startRow},${pageSize}
+			</if>
+		</where>
+	</select>
+	
+	<select id="selectCount" parameterType="com.zzk.entity.User" resultType="int">
+		select count(1) from line_user
+		<where>
+			1=1 and status = 1
+			<if test="search != null">
+
+			</if>
+		</where>
+	</select>
+	
+	<select id="selectByPhoneNumMap" resultType="java.util.Map" parameterType="java.lang.String">
+        select
+       *
+        from line_user
+        where PHONE_NUM = #{phoneNum,jdbcType=VARCHAR} AND STATUS = 1
+    </select>
+    <select id="selectByEmail" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from line_user
+        where EMAIL = #{email,jdbcType=VARCHAR} and status =1
+    </select>
+    <select id="selectByNickName" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from line_user
+        where NICKNAME = #{nickname,jdbcType=VARCHAR} and status =1
+    </select>
+    
+    
+    <select id="findLoginUser" resultMap="BaseResultMap" parameterType="java.util.Map">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        line_user
+        WHERE
+        (ACCOUNT = #{userName,jdbcType=VARCHAR}
+        or EMAIL = #{userName,jdbcType=VARCHAR}
+        or ACCOUNT = #{userName,jdbcType=VARCHAR}
+        )
+        AND
+        PASSWORD = #{pass,jdbcType=VARCHAR}
+        <if test="regSource!=null">
+            AND (REG_SOURCE = #{regSource,jdbcType=INTEGER} or REG_SOURCE is null or REG_SOURCE ='')
+        </if>
+        AND STATUS != -1
+    </select>
+    <select id="fingUserByAccount" resultMap="BaseResultMap" parameterType="java.util.Map">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        line_user
+        where status != -1
+        and account=#{userName}
+    </select>
+    <select id="checkPhone" resultType="int" parameterType="java.lang.String">
+		SELECT count(*) FROM
+		line_user
+		WHERE PHONE_NUM = #{phone} and status =1
+	</select>
+    <update id="resetPwd" parameterType="com.zzk.entity.User">
+        update
+        line_user
+        set
+        PASSWORD = #{password,jdbcType=VARCHAR},
+        ACCOUNT = #{account,jdbcType=VARCHAR},
+        PHONE_NUM = #{phoneNum,jdbcType=VARCHAR},
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+        where PHONE_NUM = #{phoneNum,jdbcType=VARCHAR}
+    </update>
+    <update id="changePwd" parameterType="com.zzk.entity.User">
+        update
+        line_user
+        set
+        PASSWORD = #{password,jdbcType=VARCHAR},
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+        WHERE ID = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <select id="getNearUser" parameterType="java.util.Map" resultMap="BaseResultMap">
+        SELECT
+        *
+        FROM
+        line_user
+        <if test="lat!=null and lon!=null">
+            ORDER BY
+            ACOS(
+            SIN(('${lat}' * 3.1415) / 180) * SIN((LATITUDE* 3.1415) / 180) + COS(('${lat}' * 3.1415) / 180) *
+            COS((LATITUDE * 3.1415) / 180) * COS(
+            ('${lon}' * 3.1415) / 180 - (LONGITUDE * 3.1415) / 180
+            )
+            ) * 6380 ASC
+        </if>
+        <if test="startRow !=null">
+            limit ${startRow},${pageSize}
+        </if>
+    </select>
+
+
+    
+
+    
+
+    
+
+    <select id="getUsersByIds" parameterType="java.util.Map" resultMap="BaseResultMap">
+        SELECT
+        *
+        FROM
+        line_user
+        WHERE
+        ID in
+        <foreach item="item" index="index" collection="userIds" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+
+    <select id="getVisitorNum" resultType="java.lang.Integer" parameterType="java.lang.String">
+
+        SELECT count(ID)
+
+        FROM mem_visit
+
+        <where>
+            USER_ID = #{userId} AND STATUS != -1
+        </where>
+
+    </select>
+
+    <select id="regulatoryAppLogin" parameterType="java.util.Map" resultType="java.util.Map">
+        SELECT * FROM t_sys_user WHERE
+        LOGIN_NAME = '${loginName}' AND PASSWD = '${password}'
+    </select>
+    <select id="getUserIfo" resultType="java.util.List">
+        SELECT
+        w.NICKNAME AS nickname,
+        w.HEAD_IMG AS headImgUrl,
+        w.REG_SOURCE AS appkey,
+        w.ID AS userId
+        FROM
+        line_user w
+        WHERE
+        w.PHONE_NUM IN
+        <foreach item="item" index="index" collection="ids" open="(" separator="," close=")">
+            '#{item}'
+        </foreach>
+    </select>
+    <insert id="CreateIms" parameterType="java.util.Map">
+    INSERT INTO t_mp_im_group (id,GROUP_NAME,ADMIN_ID,PASS_WORD,topicType,imgUrl,groupId,appkey,RefId)
+     VALUES
+      ('${ids}','${groupName}','${adminId}','${passWord}','${topicType}','${imgUrl}','${groupIds}','${appkey}','${RefId}')
+    </insert>
+
+    <select id="selectByOpenId" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT * FROM line_user WHERE OPEN_ID = #{openId,jdbcType=VARCHAR} AND status = 1
+    </select>
+
+    <select id="getUserInfoByPhoneNum" parameterType="java.lang.String" resultType="java.util.Map">
+        SELECT
+            p1.*, p2.focusCount,
+            p3.fansCount
+        FROM
+            line_user p1
+        LEFT JOIN (
+            SELECT
+                t1.id,
+                count(1) AS focusCount
+            FROM
+                line_user t1
+            INNER JOIN mem_fans t2 ON t1.id = t2.from_id
+            AND t1.`STATUS` = 1
+            AND t2.`status` = 1
+            GROUP BY
+                t1.id
+        ) p2 ON p1.id = p2.id
+        LEFT JOIN (
+            SELECT
+                t1.id,
+                count(1) AS fansCount
+            FROM
+                line_user t1
+            INNER JOIN mem_fans t2 ON t1.id = t2.to_id
+            AND t1.`STATUS` = 1
+            AND t2.`status` = 1
+            GROUP BY
+                t1.id
+        ) p3 ON p1.id = p3.id
+        WHERE
+            p1.ACCOUNT = #{phoneNum,jdbcType=VARCHAR}
+    </select>
+
+    <select id="getUserBalance" parameterType="java.lang.String" resultType="java.util.Map">
+        SELECT
+            t2.ACCOUNT_BALANCE
+        FROM
+            `line_user` t1
+        LEFT JOIN plat_account_balance t2 ON t1.ID = t2.user_id
+        WHERE
+            t1.`STATUS` = 1
+        AND t2.`status` = 1
+        AND t1.ID = #{userId,jdbcType=VARCHAR}
+    </select>
+
+    <select id="getUserOrderListOrDetail" parameterType="java.util.Map" resultType="java.util.Map">
+        SELECT
+        p1.*, t3.NICKNAME,
+        t3.PHONE_NUM
+        FROM
+        (
+        SELECT
+        t1.ORDER_ID,
+        t1.BUYER_ID,
+        t2.GOODS_ID,
+        t1.ORDER_TIME,
+        t1.REG_CODE,
+        t1.ORDER_STATE,
+        t2.`NAME`,
+        t2.price_real,
+        t2.number,
+        t1.ORDER_MONEY,
+        t1.ACTUAL_MONEY,
+        t1.TRANSPORT_FEE
+        FROM
+        `seller_order_info` t1
+        LEFT JOIN seller_order_goods_detail t2 ON t1.ORDER_ID = t2.ORDER_ID
+        WHERE
+        t1.`STATUS` = 1
+        AND t2.`STATUS` = 1
+        ) p1
+        LEFT JOIN line_user t3 ON p1.BUYER_ID = t3.ID
+        WHERE
+        t3.`STATUS` = 1
+        <if test="phoneNum !=null">
+           AND t3.ACCOUNT = '${phoneNum}'
+        </if>
+        <if test="orderId !=null">
+            AND p1.ORDER_ID = '${orderId}'
+        </if>
+        ORDER BY p1.ORDER_TIME DESC
+        <if test="startRow !=null">
+            limit ${startRow},${pageSize}
+        </if>
+    </select>
+
+    <select id="countUserOrderListOrDetail" parameterType="java.util.Map" resultType="java.lang.String">
+        SELECT count(1) FROM (
+        SELECT
+        p1.*, t3.NICKNAME,
+        t3.PHONE_NUM
+        FROM
+        (
+        SELECT
+        t1.ORDER_ID,
+        t1.BUYER_ID,
+        t2.GOODS_ID,
+        t1.ORDER_TIME,
+        t1.REG_CODE,
+        t1.ORDER_STATE,
+        t2.`NAME`,
+        t2.price_real,
+        t2.number,
+        t1.ORDER_MONEY,
+        t1.ACTUAL_MONEY,
+        t1.TRANSPORT_FEE
+        FROM
+        `seller_order_info` t1
+        LEFT JOIN seller_order_goods_detail t2 ON t1.ORDER_ID = t2.ORDER_ID
+        WHERE
+        t1.`STATUS` = 1
+        AND t2.`STATUS` = 1
+        ) p1
+        LEFT JOIN line_user t3 ON p1.BUYER_ID = t3.ID
+        WHERE
+        t3.`STATUS` = 1
+        <if test="userId !=null">
+            t3.ACCOUNT = '${phoneNume}'
+        </if>
+        <if test="orderId !=null">
+            AND p1.ORDER_ID = '${orderId}'
+        </if>
+        ORDER BY p1.ORDER_TIME DESC
+        ) t
+    </select>
+
+    <select id="getUserComment" parameterType="java.util.Map" resultType="java.util.Map">
+        SELECT
+        t1.*
+        FROM
+        `seller_estimate_info` t1
+        LEFT JOIN line_user t2 ON t1.USER_ID = t2.ID
+        WHERE
+        t1.`STATUS` = 1
+        AND t2.`STATUS` = 1
+        <if test="phoneNum !=null">
+            AND t2.ACCOUNT = '${phoneNum}'
+        </if>
+        <if test="destId !=null">
+            AND t1.ESTIMATED_ID = '${destId}'
+        </if>
+        order BY t1.create_time DESC
+        <if test="startRow !=null">
+            limit ${startRow},${pageSize}
+        </if>
+    </select>
+
+    
+
+    
+    
+    
+
+    <update id="changeLoginState" parameterType="java.util.Map">
+        UPDATE line_user set LOGIN_STATE = '${loginState}' WHERE ID = '${userId}'
+    </update>
+
+    <select id="validateNickName" parameterType="java.lang.String" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM line_user WHERE NICKNAME = #{nickName,jdbcType=VARCHAR} and STATUS = 1
+    </select>
+
+    <insert id="focus" parameterType="java.util.Map">
+        INSERT INTO mem_fans (ID,from_id,to_id,status,create_time,update_time) VALUES (
+        '${ID}','${userId}','${focusId}',1,now(),now())
+    </insert>
+
+    <select id="checkIsAlreadyFocus" parameterType="java.util.Map" resultType="java.lang.String">
+        SELECT COUNT(1) FROM mem_fans WHERE from_id = '${userId}' AND to_id = '${focusId}' AND STATUS = 1
+    </select>
+
+    <insert id="batchConcern" parameterType="java.lang.String" >
+        INSERT  INTO  mem_fans (id,from_id,to_id,status,create_time,update_time)
+        SELECT
+        UUID() AS id,
+        #{userId} as from_id,
+        CONCERN_USER as to_id,
+        1 as status,
+         NOW() as create_time,
+        now() as update_time
+         FROM  plat_mem_concern WHERE  SETTING_ID =  (SELECT  ID  FROM  plat_mem_setting LIMIT  0,1)
+    </insert>
+    
+    
+</mapper>

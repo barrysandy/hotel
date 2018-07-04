@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzk.dao.TripElementMapper">
+
+    <resultMap id="BaseResultMap" type="com.zzk.entity.TripElement">
+        <id column="ID" jdbcType="VARCHAR" property="id"/>
+        <id column="TYPE_ID" jdbcType="VARCHAR" property="typeId"/>
+        <id column="NAME" jdbcType="VARCHAR" property="name"/>
+        <id column="OTHER_NAME" jdbcType="VARCHAR" property="otherName"/>
+        <id column="IMAGE" jdbcType="VARCHAR" property="image"/>
+        <id column="VIDEO" jdbcType="VARCHAR" property="video"/>
+        <id column="COVER_IMAGE" jdbcType="VARCHAR" property="coverImage"/>
+        <id column="CONTENT" jdbcType="VARCHAR" property="content"/>
+        <id column="RECOMMEND" jdbcType="VARCHAR" property="recommend"/>
+        <id column="LON" jdbcType="DECIMAL" property="lon"/>
+        <id column="LAT" jdbcType="DECIMAL" property="lat"/>
+        <id column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
+        <id column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime"/>
+        <id column="STATUS" jdbcType="INTEGER" property="status"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+		ID,
+		TYPE_ID,
+		NAME,
+		OTHER_NAME,
+		IMAGE,
+		VIDEO,
+		COVER_IMAGE,
+		CONTENT,
+		RECOMMEND,
+		LON,
+		LAT,
+		CREATE_TIME,
+		UPDATE_TIME,
+		STATUS
+	</sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from trip_element where ID = #{id,jdbcType=VARCHAR}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from trip_element where ID = #{id,jdbcType=VARCHAR}
+	</delete>
+
+    <insert id="insert" parameterType="com.zzk.entity.TripElement">
+		insert into trip_element
+		(ID,TYPE_ID,NAME,OTHER_NAME,IMAGE,VIDEO,COVER_IMAGE,CONTENT,RECOMMEND,LON,LAT,CREATE_TIME,UPDATE_TIME,STATUS)
+		values
+		(#{id,jdbcType=VARCHAR},#{typeId,jdbcType=VARCHAR},#{name,jdbcType=VARCHAR},#{otherName,jdbcType=VARCHAR},#{image,jdbcType=VARCHAR},#{video,jdbcType=VARCHAR},#{coverImage,jdbcType=VARCHAR},#{content,jdbcType=VARCHAR},#{recommend,jdbcType=VARCHAR},#{lon,jdbcType=DECIMAL},#{lat,jdbcType=DECIMAL},#{createTime,jdbcType=TIMESTAMP},#{updateTime,jdbcType=TIMESTAMP},#{status,jdbcType=INTEGER})
+	</insert>
+
+    <insert id="insertSelective" parameterType="com.zzk.entity.TripElement">
+        insert into trip_element
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">ID,</if>
+            <if test="typeId != null">TYPE_ID,</if>
+            <if test="name != null">NAME,</if>
+            <if test="otherName != null">OTHER_NAME,</if>
+            <if test="image != null">IMAGE,</if>
+            <if test="video != null">VIDEO,</if>
+            <if test="coverImage != null">COVER_IMAGE,</if>
+            <if test="content != null">CONTENT,</if>
+            <if test="recommend != null">RECOMMEND,</if>
+            <if test="lon != null">LON,</if>
+            <if test="lat != null">LAT,</if>
+            <if test="createTime != null">CREATE_TIME,</if>
+            <if test="updateTime != null">UPDATE_TIME,</if>
+            <if test="status != null">STATUS,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id,jdbcType=VARCHAR},</if>
+            <if test="typeId != null">#{typeId,jdbcType=VARCHAR},</if>
+            <if test="name != null">#{name,jdbcType=VARCHAR},</if>
+            <if test="otherName != null">#{otherName,jdbcType=VARCHAR},</if>
+            <if test="image != null">#{image,jdbcType=VARCHAR},</if>
+            <if test="video != null">#{video,jdbcType=VARCHAR},</if>
+            <if test="coverImage != null">#{coverImage,jdbcType=VARCHAR},</if>
+            <if test="content != null">#{content,jdbcType=VARCHAR},</if>
+            <if test="recommend != null">#{recommend,jdbcType=VARCHAR},</if>
+            <if test="lon != null">#{lon,jdbcType=DECIMAL},</if>
+            <if test="lat != null">#{lat,jdbcType=DECIMAL},</if>
+            <if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+            <if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+            <if test="status != null">#{status,jdbcType=INTEGER},</if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.zzk.entity.TripElement">
+        update trip_element
+        <set>
+            <if test="typeId != null">TYPE_ID =#{typeId,jdbcType=VARCHAR},</if>
+            <if test="name != null">NAME =#{name,jdbcType=VARCHAR},</if>
+            <if test="otherName != null">OTHER_NAME =#{otherName,jdbcType=VARCHAR},</if>
+            <if test="image != null">IMAGE =#{image,jdbcType=VARCHAR},</if>
+            <if test="video != null">VIDEO =#{video,jdbcType=VARCHAR},</if>
+            <if test="coverImage != null">COVER_IMAGE =#{coverImage,jdbcType=VARCHAR},</if>
+            <if test="content != null">CONTENT =#{content,jdbcType=VARCHAR},</if>
+            <if test="recommend != null">RECOMMEND =#{recommend,jdbcType=VARCHAR},</if>
+            <if test="lon != null">LON =#{lon,jdbcType=DECIMAL},</if>
+            <if test="lat != null">LAT =#{lat,jdbcType=DECIMAL},</if>
+            <if test="createTime != null">CREATE_TIME =#{createTime,jdbcType=TIMESTAMP},</if>
+            <if test="updateTime != null">UPDATE_TIME =#{updateTime,jdbcType=TIMESTAMP},</if>
+            <if test="status != null">STATUS =#{status,jdbcType=INTEGER},</if>
+        </set>
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.zzk.entity.TripElement">
+		update
+		trip_element
+		set
+		
+		TYPE_ID = #{typeId,jdbcType=VARCHAR},
+		NAME = #{name,jdbcType=VARCHAR},
+		OTHER_NAME = #{otherName,jdbcType=VARCHAR},
+		IMAGE = #{image,jdbcType=VARCHAR},
+		VIDEO = #{video,jdbcType=VARCHAR},
+		COVER_IMAGE = #{coverImage,jdbcType=VARCHAR},
+		CONTENT = #{content,jdbcType=VARCHAR},
+		RECOMMEND = #{recommend,jdbcType=VARCHAR},
+		LON = #{lon,jdbcType=DECIMAL},
+		LAT = #{lat,jdbcType=DECIMAL},
+		CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+		UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+		STATUS = #{status,jdbcType=INTEGER}
+		where ID = #{id,jdbcType=VARCHAR}
+	</update>
+
+    <select id="selectByPage" parameterType="java.util.Map" resultMap="BaseResultMap" resultType="java.util.List">
+        select
+        <include refid="Base_Column_List"/>
+        from trip_element
+        <where>
+            1=1 and status = 1
+            <if test="search != null">
+            </if>
+            <if test="orderName != null and orderName !=''">
+                order by ${orderName} ${descAsc}
+            </if>
+            <if test="startRow !=null">
+                limit ${startRow},${pageSize}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectCount" parameterType="com.zzk.entity.TripElement" resultType="int">
+        select count(1) from trip_element
+        <where>
+            1=1 and status = 1
+            <if test="search != null">
+
+            </if>
+        </where>
+    </select>
+
+    <select id="selectAll" resultType="java.lang.String">
+		select
+		NAME
+		from trip_element
+		where status = 1
+	</select>
+
+    <select id="selectByName" resultType="com.zzk.entity.TripElement" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from trip_element
+        where
+        name=#{name,jdbcType=VARCHAR }
+        or POSITION(#{name,jdbcType=VARCHAR} IN other_name)
+    </select>
+    <select id="selectByList" resultType="java.util.Map" parameterType="java.util.List">
+        select
+        name address,merger_name content,lat,lng
+        from sh_area
+        where
+        name in
+        (
+        <foreach collection="list" index="index" item="it" separator=",">
+            #{it,jdbcType=VARCHAR}
+        </foreach>
+        )
+        <foreach collection="list" index="index" item="it">
+            or POSITION(#{it,jdbcType=VARCHAR} IN shortname)
+        </foreach>
+    </select>
+
+    <select id="selectOneByName" parameterType="java.lang.String" resultType="java.util.Map">
+        select
+        name address,content,lat,lon lng
+        from trip_element
+        where
+        name LIKE CONCAT('%',#{name},'%') or other_name LIKE CONCAT('%',#{name},'%') limit 1
+    </select>
+
+</mapper>

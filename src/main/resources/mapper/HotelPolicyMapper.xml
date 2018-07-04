@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzk.dao.HotelPolicyMapper">
+    <resultMap id="BaseResultMap"
+               type="com.zzk.entity.HotelPolicy">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <id column="hotel_id" jdbcType="VARCHAR" property="hotelId"/>
+        <id column="earliest_checkin_time" jdbcType="VARCHAR" property="earliestCheckinTime"/>
+        <id column="lastest_leave_time" jdbcType="VARCHAR" property="lastestLeaveTime"/>
+        <id column="breakfast" jdbcType="INTEGER" property="breakfast"/>
+        <id column="breakfast_fee" jdbcType="VARCHAR" property="breakfastFee"/>
+        <id column="pet_bring" jdbcType="INTEGER" property="petBring"/>
+        <id column="pet_fee" jdbcType="VARCHAR" property="petFee"/>
+        <id column="credit_card" jdbcType="INTEGER" property="creditCard"/>
+        <id column="other_credit_card" jdbcType="VARCHAR" property="otherCreditCard"/>
+        <id column="other_policy" jdbcType="VARCHAR" property="otherPolicy"/>
+        <id column="status" jdbcType="INTEGER" property="status"/>
+        <id column="creator" jdbcType="VARCHAR" property="creator"/>
+        <id column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
+        <id column="updater" jdbcType="VARCHAR" property="updater"/>
+        <id column="update_date" jdbcType="TIMESTAMP" property="updateDate"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id,
+    hotel_id,
+    earliest_checkin_time,
+    lastest_leave_time,
+    breakfast,
+    breakfast_fee,
+    pet_bring,
+    pet_fee,
+    credit_card,
+    other_credit_card,
+    other_policy,
+    status,
+    creator,
+    create_date,
+    updater,
+    update_date
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_mp_hotel_policy where ID = #{id,jdbcType=VARCHAR}
+    </select>
+    
+    <select id="selectByHotelId" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_mp_hotel_policy where status=1 and hotel_id = #{hotelId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from t_mp_hotel_policy where ID = #{id,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="com.zzk.entity.HotelPolicy">
+        insert into t_mp_hotel_policy
+        (id,hotel_id,earliest_checkin_time,lastest_leave_time,breakfast,breakfast_fee,pet_bring,pet_fee,credit_card,other_credit_card,other_policy,status,creator,create_date,updater,update_date)
+        values
+        (#{id,jdbcType=VARCHAR},#{hotelId,jdbcType=VARCHAR},#{earliestCheckinTime,jdbcType=VARCHAR},#{lastestLeaveTime,jdbcType=VARCHAR},#{breakfast,jdbcType=INTEGER},#{breakfastFee,jdbcType=VARCHAR},#{petBring,jdbcType=INTEGER},#{petFee,jdbcType=VARCHAR},#{creditCard,jdbcType=INTEGER},#{otherCreditCard,jdbcType=VARCHAR},#{otherPolicy,jdbcType=VARCHAR},#{status,jdbcType=INTEGER},#{creator,jdbcType=VARCHAR},#{createDate,jdbcType=TIMESTAMP},#{updater,jdbcType=VARCHAR},#{updateDate,jdbcType=TIMESTAMP}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="com.zzk.entity.HotelPolicy">
+        insert into t_mp_hotel_policy
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="hotelId != null">hotel_id,</if>
+            <if test="earliestCheckinTime != null">earliest_checkin_time,</if>
+            <if test="lastestLeaveTime != null">lastest_leave_time,</if>
+            <if test="breakfast != null">breakfast,</if>
+            <if test="breakfastFee != null">breakfast_fee,</if>
+            <if test="petBring != null">pet_bring,</if>
+            <if test="petFee != null">pet_fee,</if>
+            <if test="creditCard != null">credit_card,</if>
+            <if test="otherCreditCard != null">other_credit_card,</if>
+            <if test="otherPolicy != null">other_policy,</if>
+            <if test="status != null">status,</if>
+            <if test="creator != null">creator,</if>
+            <if test="createDate != null">create_date,</if>
+            <if test="updater != null">updater,</if>
+            <if test="updateDate != null">update_date,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id,jdbcType=VARCHAR},</if>
+            <if test="hotelId != null">#{hotelId,jdbcType=VARCHAR},</if>
+            <if test="earliestCheckinTime != null">#{earliestCheckinTime,jdbcType=TIMESTAMP},</if>
+            <if test="lastestLeaveTime != null">#{lastestLeaveTime,jdbcType=TIMESTAMP},</if>
+            <if test="breakfast != null">#{breakfast,jdbcType=INTEGER},</if>
+            <if test="breakfastFee != null">#{breakfastFee,jdbcType=VARCHAR},</if>
+            <if test="petBring != null">#{petBring,jdbcType=INTEGER},</if>
+            <if test="petFee != null">#{petFee,jdbcType=VARCHAR},</if>
+            <if test="creditCard != null">#{creditCard,jdbcType=INTEGER},</if>
+            <if test="otherCreditCard != null">#{otherCreditCard,jdbcType=VARCHAR},</if>
+            <if test="otherPolicy != null">#{otherPolicy,jdbcType=VARCHAR},</if>
+            <if test="status != null">#{status,jdbcType=INTEGER},</if>
+            <if test="creator != null">#{creator,jdbcType=VARCHAR},</if>
+            <if test="createDate != null">#{createDate,jdbcType=TIMESTAMP},</if>
+            <if test="updater != null">#{updater,jdbcType=VARCHAR},</if>
+            <if test="updateDate != null">#{updateDate,jdbcType=TIMESTAMP},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.zzk.entity.HotelPolicy">
+        update t_mp_hotel_policy
+        <set>
+                <if test="hotelId != null">hotel_id=#{hotelId,jdbcType=VARCHAR},
+                </if>
+                <if test="earliestCheckinTime != null">earliest_checkin_time=#{earliestCheckinTime,jdbcType=VARCHAR},
+                </if>
+                <if test="lastestLeaveTime != null">lastest_leave_time=#{lastestLeaveTime,jdbcType=VARCHAR},
+                </if>
+                <if test="breakfast != null">breakfast=#{breakfast,jdbcType=INTEGER},
+                </if>
+                <if test="breakfastFee != null">breakfast_fee=#{breakfastFee,jdbcType=VARCHAR},
+                </if>
+                <if test="petBring != null">pet_bring=#{petBring,jdbcType=INTEGER},
+                </if>
+                <if test="petFee != null">pet_fee=#{petFee,jdbcType=VARCHAR},
+                </if>
+                <if test="creditCard != null">credit_card=#{creditCard,jdbcType=INTEGER},
+                </if>
+                <if test="otherCreditCard != null">other_credit_card=#{otherCreditCard,jdbcType=VARCHAR},
+                </if>
+                <if test="otherPolicy != null">other_policy=#{otherPolicy,jdbcType=VARCHAR},
+                </if>
+                <if test="status != null">status=#{status,jdbcType=INTEGER},
+                </if>
+                <if test="creator != null">creator=#{creator,jdbcType=VARCHAR},
+                </if>
+                <if test="createDate != null">create_date=#{createDate,jdbcType=TIMESTAMP},
+                </if>
+                <if test="updater != null">updater=#{updater,jdbcType=VARCHAR},
+                </if>
+                <if test="updateDate != null">update_date=#{updateDate,jdbcType=TIMESTAMP},
+                </if>
+        </set>
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.zzk.entity.HotelPolicy">
+        update
+    t_mp_hotel_policy
+        set
+        earliest_checkin_time = #{earliestCheckinTime,jdbcType=VARCHAR
+            },
+        lastest_leave_time = #{lastestLeaveTime,jdbcType=VARCHAR
+            },
+        breakfast = #{breakfast,jdbcType=INTEGER
+            },
+        breakfast_fee = #{breakfastFee,jdbcType=VARCHAR
+            },
+        pet_bring = #{petBring,jdbcType=INTEGER
+            },
+        pet_fee = #{petFee,jdbcType=VARCHAR
+            },
+        credit_card = #{creditCard,jdbcType=INTEGER
+            },
+        other_credit_card = #{otherCreditCard,jdbcType=VARCHAR
+            },
+        other_policy = #{otherPolicy,jdbcType=VARCHAR
+            },
+        status = #{status,jdbcType=INTEGER
+            },
+        creator = #{creator,jdbcType=VARCHAR
+            },
+        create_date = #{createDate,jdbcType=TIMESTAMP
+            },
+        updater = #{updater,jdbcType=VARCHAR
+            },
+        update_date = #{updateDate,jdbcType=TIMESTAMP
+            }
+        where hotel_id = #{hotelId,jdbcType=VARCHAR}
+    </update>
+    <select id="selectByPage" parameterType="java.util.Map"
+            resultMap="BaseResultMap" resultType="java.util.List">
+        select
+        <include refid="Base_Column_List"/>
+        from t_mp_hotel_policy
+        <where>
+            1=1 and status = 1
+            <if test="search != null">
+                $(search)
+            </if>
+            <if test="orderName != null and orderName !=''">
+                order by ${orderName} ${descAsc}
+            </if>
+            <if test="startRow !=null">
+                limit ${startRow},${pageSize}
+            </if>
+        </where>
+    </select>
+    <select id="selectCount" parameterType="com.zzk.entity.HotelPolicy"
+            resultType="int">
+        select count(*) from t_mp_hotel_policy
+        <where>
+            1=1
+            <if test="search != null">
+                $(search)
+            </if>
+        </where>
+    </select>
+</mapper>

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzk.dao.CooperationInfoMapper">
+
+	<resultMap id="BaseResultMap" type="com.zzk.entity.CooperationInfo">
+		<id column="ID" jdbcType="VARCHAR" property="id" />
+		<id column="BUSINNESS_ID" jdbcType="VARCHAR" property="businnessId" />
+		<id column="COMM_MODE" jdbcType="INTEGER" property="commMode" />
+		<id column="COMM_RATE" jdbcType="DOUBLE" property="commRate" />
+		<id column="CON_PERSON" jdbcType="VARCHAR" property="conPerson" />
+		<id column="CON_PHONE" jdbcType="VARCHAR" property="conPhone" />
+		<id column="STATUS" jdbcType="INTEGER" property="status" />
+		<id column="REMARK" jdbcType="VARCHAR" property="remark" />
+		<id column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+		<id column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		ID,
+		BUSINNESS_ID,
+		COMM_MODE,
+		COMM_RATE,
+		CON_PERSON,
+		CON_PHONE,
+		STATUS,
+		REMARK,
+		CREATE_TIME,
+		UPDATE_TIME
+	</sql>
+	
+	<select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" /> from cooperation_info where ID = #{id,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="selectByBusinessId" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" /> from cooperation_info where BUSINNESS_ID = #{businessId,jdbcType=VARCHAR}
+	</select>
+	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from cooperation_info where ID = #{id,jdbcType=VARCHAR}
+	</delete>
+	
+	<insert id="insert" parameterType="com.zzk.entity.CooperationInfo">
+		insert into cooperation_info
+		(ID,BUSINNESS_ID,COMM_MODE,COMM_RATE,CON_PERSON,CON_PHONE,STATUS,REMARK,CREATE_TIME,UPDATE_TIME)
+		values
+		(#{id,jdbcType=VARCHAR},#{businnessId,jdbcType=VARCHAR},#{commMode,jdbcType=INTEGER},#{commRate,jdbcType=DOUBLE},#{conPerson,jdbcType=VARCHAR},#{conPhone,jdbcType=VARCHAR},#{status,jdbcType=INTEGER},#{remark,jdbcType=VARCHAR},#{createTime,jdbcType=TIMESTAMP},#{updateTime,jdbcType=TIMESTAMP})
+	</insert>
+	
+	<insert id="insertSelective" parameterType="com.zzk.entity.CooperationInfo">
+		insert into cooperation_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">ID,</if>
+			<if test="businnessId != null">BUSINNESS_ID,</if>
+			<if test="commMode != null">COMM_MODE,</if>
+			<if test="commRate != null">COMM_RATE,</if>
+			<if test="conPerson != null">CON_PERSON,</if>
+			<if test="conPhone != null">CON_PHONE,</if>
+			<if test="status != null">STATUS,</if>
+			<if test="remark != null">REMARK,</if>
+			<if test="createTime != null">CREATE_TIME,</if>
+			<if test="updateTime != null">UPDATE_TIME,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=VARCHAR},</if>
+			<if test="businnessId != null">#{businnessId,jdbcType=VARCHAR},</if>
+			<if test="commMode != null">#{commMode,jdbcType=INTEGER},</if>
+			<if test="commRate != null">#{commRate,jdbcType=DOUBLE},</if>
+			<if test="conPerson != null">#{conPerson,jdbcType=VARCHAR},</if>
+			<if test="conPhone != null">#{conPhone,jdbcType=VARCHAR},</if>
+			<if test="status != null">#{status,jdbcType=INTEGER},</if>
+			<if test="remark != null">#{remark,jdbcType=VARCHAR},</if>
+			<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+			<if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+		</trim>
+	</insert>
+	
+	<update id="updateByPrimaryKeySelective" parameterType="com.zzk.entity.CooperationInfo">
+		update cooperation_info
+		<set>
+			<if test="businnessId != null">BUSINNESS_ID =#{businnessId,jdbcType=VARCHAR},</if>
+			<if test="commMode != null">COMM_MODE =#{commMode,jdbcType=INTEGER},</if>
+			<if test="commRate != null">COMM_RATE =#{commRate,jdbcType=DOUBLE},</if>
+			<if test="conPerson != null">CON_PERSON =#{conPerson,jdbcType=VARCHAR},</if>
+			<if test="conPhone != null">CON_PHONE =#{conPhone,jdbcType=VARCHAR},</if>
+			<if test="status != null">STATUS =#{status,jdbcType=INTEGER},</if>
+			<if test="remark != null">REMARK =#{remark,jdbcType=VARCHAR},</if>
+			<if test="createTime != null">CREATE_TIME =#{createTime,jdbcType=TIMESTAMP},</if>
+			<if test="updateTime != null">UPDATE_TIME =#{updateTime,jdbcType=TIMESTAMP},</if>
+		</set>
+		where ID = #{id,jdbcType=VARCHAR}
+	</update>
+	
+	<update id="updateByPrimaryKey" parameterType="com.zzk.entity.CooperationInfo">
+		update
+		cooperation_info
+		set
+		
+		BUSINNESS_ID = #{businnessId,jdbcType=VARCHAR},
+		COMM_MODE = #{commMode,jdbcType=INTEGER},
+		COMM_RATE = #{commRate,jdbcType=DOUBLE},
+		CON_PERSON = #{conPerson,jdbcType=VARCHAR},
+		CON_PHONE = #{conPhone,jdbcType=VARCHAR},
+		STATUS = #{status,jdbcType=INTEGER},
+		REMARK = #{remark,jdbcType=VARCHAR},
+		CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+		UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+		where ID = #{id,jdbcType=VARCHAR}
+	</update>
+	
+	<select id="selectByPage" parameterType="java.util.Map" resultMap="BaseResultMap" resultType="java.util.List">
+		select
+		<include refid="Base_Column_List" />
+		from cooperation_info
+		<where>
+			1=1 and status = 1
+			<if test="search != null">
+			</if>
+			<if test="orderName != null and orderName !=''">
+				order by ${orderName} ${descAsc}
+			</if>
+			<if test="startRow !=null">
+				limit ${startRow},${pageSize}
+			</if>
+		</where>
+	</select>
+	
+	<select id="selectCount" parameterType="com.zzk.entity.CooperationInfo" resultType="int">
+		select count(1) from cooperation_info
+		<where>
+			1=1 and status = 1
+			<if test="search != null">
+
+			</if>
+		</where>
+	</select>
+</mapper>

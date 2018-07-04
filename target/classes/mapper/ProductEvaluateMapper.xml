@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzk.dao.ProductEvaluateMapper">
+
+    <resultMap id="BaseResultMap" type="com.zzk.entity.ProductEvaluate">
+        <id column="ID" jdbcType="VARCHAR" property="id"/>
+        <id column="PRODUCT_ID" jdbcType="VARCHAR" property="productId"/>
+        <id column="SKU_ID" jdbcType="VARCHAR" property="skuId"/>
+        <id column="USER_ID" jdbcType="VARCHAR" property="userId"/>
+        <id column="ORDER_NO" jdbcType="VARCHAR" property="orderNo"/>
+        <id column="CONTENT" jdbcType="VARCHAR" property="content"/>
+        <id column="SCORE" jdbcType="DOUBLE" property="score"/>
+        <id column="IMAGES" jdbcType="VARCHAR" property="images"/>
+        <id column="FEATURES_SCORE" jdbcType="INTEGER" property="featuresScore"/>
+        <id column="SERVICE_SCORE" jdbcType="INTEGER" property="serviceScore"/>
+        <id column="SECURITY_SCORE" jdbcType="INTEGER" property="securityScore"/>
+        <id column="HEALTH_SCORE" jdbcType="INTEGER" property="healthScore"/>
+        <id column="EVALUATE_TYPE" jdbcType="VARCHAR" property="evaluateType"/>
+        <id column="REPLAY_STATE" jdbcType="INTEGER" property="replayState"/>
+        <id column="REPLAY_CONTENT" jdbcType="VARCHAR" property="replayContent"/>
+        <id column="STATUS" jdbcType="INTEGER" property="status"/>
+        <id column="REPLAY_TIME" jdbcType="TIMESTAMP" property="replayTime"/>
+        <id column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
+        <id column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+		ID,
+		PRODUCT_ID,
+		SKU_ID,
+		USER_ID,
+		ORDER_NO,
+		CONTENT,
+		SCORE,
+		IMAGES,
+		FEATURES_SCORE,
+		SERVICE_SCORE,
+		SECURITY_SCORE,
+		HEALTH_SCORE,
+		EVALUATE_TYPE,
+		REPLAY_STATE,
+		REPLAY_CONTENT,
+		STATUS,
+		REPLAY_TIME,
+		CREATE_TIME,
+		UPDATE_TIME,
+		TYPE
+	</sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from product_evaluate where ID = #{id,jdbcType=VARCHAR}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from product_evaluate where ID = #{id,jdbcType=VARCHAR}
+	</delete>
+
+    <insert id="insert" parameterType="com.zzk.entity.ProductEvaluate">
+		insert into product_evaluate
+		(ID,PRODUCT_ID,SKU_ID,USER_ID,ORDER_NO,CONTENT,SCORE,IMAGES,FEATURES_SCORE,SERVICE_SCORE,SECURITY_SCORE,HEALTH_SCORE,EVALUATE_TYPE,REPLAY_STATE,REPLAY_CONTENT,STATUS,REPLAY_TIME,CREATE_TIME,UPDATE_TIME,TYPE)
+		values
+		(#{id,jdbcType=VARCHAR},#{productId,jdbcType=VARCHAR},#{skuId,jdbcType=VARCHAR},#{userId,jdbcType=VARCHAR},#{orderNo,jdbcType=VARCHAR},#{content,jdbcType=VARCHAR},#{score,jdbcType=DOUBLE},#{images,jdbcType=VARCHAR},#{featuresScore,jdbcType=INTEGER},#{serviceScore,jdbcType=INTEGER},#{securityScore,jdbcType=INTEGER},#{healthScore,jdbcType=INTEGER},#{evaluateType,jdbcType=VARCHAR},#{replayState,jdbcType=INTEGER},#{replayContent,jdbcType=VARCHAR},#{status,jdbcType=INTEGER},#{replayTime,jdbcType=TIMESTAMP},#{createTime,jdbcType=TIMESTAMP},#{updateTime,jdbcType=TIMESTAMP},#{type,jdbcType=INTEGER})
+	</insert>
+
+    <insert id="insertSelective" parameterType="com.zzk.entity.ProductEvaluate">
+        insert into product_evaluate
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">ID,</if>
+            <if test="productId != null">PRODUCT_ID,</if>
+            <if test="skuId != null">SKU_ID,</if>
+            <if test="userId != null">USER_ID,</if>
+            <if test="orderNo != null">ORDER_NO,</if>
+            <if test="content != null">CONTENT,</if>
+            <if test="score != null">SCORE,</if>
+            <if test="images != null">IMAGES,</if>
+            <if test="featuresScore != null">FEATURES_SCORE,</if>
+            <if test="serviceScore != null">SERVICE_SCORE,</if>
+            <if test="securityScore != null">SECURITY_SCORE,</if>
+            <if test="healthScore != null">HEALTH_SCORE,</if>
+            <if test="evaluateType != null">EVALUATE_TYPE,</if>
+            <if test="replayState != null">REPLAY_STATE,</if>
+            <if test="replayContent != null">REPLAY_CONTENT,</if>
+            <if test="status != null">STATUS,</if>
+            <if test="replayTime != null">REPLAY_TIME,</if>
+            <if test="createTime != null">CREATE_TIME,</if>
+            <if test="updateTime != null">UPDATE_TIME,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id,jdbcType=VARCHAR},</if>
+            <if test="productId != null">#{productId,jdbcType=VARCHAR},</if>
+            <if test="skuId != null">#{skuId,jdbcType=VARCHAR},</if>
+            <if test="userId != null">#{userId,jdbcType=VARCHAR},</if>
+            <if test="orderNo != null">#{orderNo,jdbcType=VARCHAR},</if>
+            <if test="content != null">#{content,jdbcType=VARCHAR},</if>
+            <if test="score != null">#{score,jdbcType=DOUBLE},</if>
+            <if test="images != null">#{images,jdbcType=VARCHAR},</if>
+            <if test="featuresScore != null">#{featuresScore,jdbcType=INTEGER},</if>
+            <if test="serviceScore != null">#{serviceScore,jdbcType=INTEGER},</if>
+            <if test="securityScore != null">#{securityScore,jdbcType=INTEGER},</if>
+            <if test="healthScore != null">#{healthScore,jdbcType=INTEGER},</if>
+            <if test="evaluateType != null">#{evaluateType,jdbcType=VARCHAR},</if>
+            <if test="replayState != null">#{replayState,jdbcType=INTEGER},</if>
+            <if test="replayContent != null">#{replayContent,jdbcType=VARCHAR},</if>
+            <if test="status != null">#{status,jdbcType=INTEGER},</if>
+            <if test="replayTime != null">#{replayTime,jdbcType=TIMESTAMP},</if>
+            <if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+            <if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.zzk.entity.ProductEvaluate">
+        update product_evaluate
+        <set>
+            <if test="productId != null">PRODUCT_ID =#{productId,jdbcType=VARCHAR},</if>
+            <if test="skuId != null">SKU_ID =#{skuId,jdbcType=VARCHAR},</if>
+            <if test="userId != null">USER_ID =#{userId,jdbcType=VARCHAR},</if>
+            <if test="orderNo != null">ORDER_NO =#{orderNo,jdbcType=VARCHAR},</if>
+            <if test="content != null">CONTENT =#{content,jdbcType=VARCHAR},</if>
+            <if test="score != null">SCORE =#{score,jdbcType=DOUBLE},</if>
+            <if test="images != null">IMAGES =#{images,jdbcType=VARCHAR},</if>
+            <if test="featuresScore != null">FEATURES_SCORE =#{featuresScore,jdbcType=INTEGER},</if>
+            <if test="serviceScore != null">SERVICE_SCORE =#{serviceScore,jdbcType=INTEGER},</if>
+            <if test="securityScore != null">SECURITY_SCORE =#{securityScore,jdbcType=INTEGER},</if>
+            <if test="healthScore != null">HEALTH_SCORE =#{healthScore,jdbcType=INTEGER},</if>
+            <if test="evaluateType != null">EVALUATE_TYPE =#{evaluateType,jdbcType=VARCHAR},</if>
+            <if test="replayState != null">REPLAY_STATE =#{replayState,jdbcType=INTEGER},</if>
+            <if test="replayContent != null">REPLAY_CONTENT =#{replayContent,jdbcType=VARCHAR},</if>
+            <if test="status != null">STATUS =#{status,jdbcType=INTEGER},</if>
+            <if test="replayTime != null">REPLAY_TIME =#{replayTime,jdbcType=TIMESTAMP},</if>
+            <if test="createTime != null">CREATE_TIME =#{createTime,jdbcType=TIMESTAMP},</if>
+            <if test="updateTime != null">UPDATE_TIME =#{updateTime,jdbcType=TIMESTAMP},</if>
+        </set>
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.zzk.entity.ProductEvaluate">
+		update
+		product_evaluate
+		set
+
+		PRODUCT_ID = #{productId,jdbcType=VARCHAR},
+		SKU_ID = #{skuId,jdbcType=VARCHAR},
+		USER_ID = #{userId,jdbcType=VARCHAR},
+		ORDER_NO = #{orderNo,jdbcType=VARCHAR},
+		CONTENT = #{content,jdbcType=VARCHAR},
+		SCORE = #{score,jdbcType=DOUBLE},
+		IMAGES = #{images,jdbcType=VARCHAR},
+		FEATURES_SCORE = #{featuresScore,jdbcType=INTEGER},
+		SERVICE_SCORE = #{serviceScore,jdbcType=INTEGER},
+		SECURITY_SCORE = #{securityScore,jdbcType=INTEGER},
+		HEALTH_SCORE = #{healthScore,jdbcType=INTEGER},
+		EVALUATE_TYPE = #{evaluateType,jdbcType=VARCHAR},
+		REPLAY_STATE = #{replayState,jdbcType=INTEGER},
+		REPLAY_CONTENT = #{replayContent,jdbcType=VARCHAR},
+		STATUS = #{status,jdbcType=INTEGER},
+		REPLAY_TIME = #{replayTime,jdbcType=TIMESTAMP},
+		CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+		UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+		where ID = #{id,jdbcType=VARCHAR}
+	</update>
+
+    <select id="selectByPage" parameterType="java.util.Map" resultMap="BaseResultMap" resultType="java.util.List">
+        select
+        <include refid="Base_Column_List"/>
+        from product_evaluate
+        <where>
+            1=1 and status = 1
+            <if test="search != null">
+            </if>
+            <if test="orderName != null and orderName !=''">
+                order by ${orderName} ${descAsc}
+            </if>
+            <if test="startRow !=null">
+                limit ${startRow},${pageSize}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectCount" parameterType="com.zzk.entity.ProductEvaluate" resultType="int">
+        select count(1) from product_evaluate
+        <where>
+            1=1 and status = 1
+            <if test="search != null">
+
+            </if>
+        </where>
+    </select>
+
+    <select id="getSellerAllScoreInfo" parameterType="java.lang.String" resultType="java.util.Map">
+        SELECT
+            SUM(CASE WHEN t1.STATUS =1 THEN 1 ELSE 0 END) AS ALL_DATA,
+            SUM(CASE WHEN t1.STATUS=1 AND REPLAY_STATE = 0 THEN 1 ELSE 0 END) AS NO_REPLY,
+            SUM(CASE WHEN t1.STATUS =1 AND IMAGES IS NOT NULL AND IMAGES != '' THEN 1 ELSE 0 END) AS HAVE_IMG,
+            SUM(CASE WHEN t1.STATUS =1 AND EVALUATE_TYPE = '好评' THEN 1 ELSE 0 END) AS GOOD_COUNT,
+            SUM(CASE WHEN t1.STATUS =1 AND EVALUATE_TYPE = '中评' THEN 1 ELSE 0 END) AS MID_COUNT,
+            SUM(CASE WHEN t1.STATUS =1 AND EVALUATE_TYPE = '差评' THEN 1 ELSE 0 END) AS BAD_COUNT,
+            ROUND(AVG(HEALTH_SCORE) ,1) AS HEALTH_SCORE,
+            ROUND(AVG(SECURITY_SCORE) ,1) AS SECURITY_SCORE,
+            ROUND(AVG(SERVICE_SCORE) ,1) AS SERVICE_SCORE,
+            ROUND(AVG(FEATURES_SCORE) ,1) AS FEATURES_SCORE	,
+            ROUND(AVG(SCORE) ,1) AS SCORE
+        FROM
+            product_evaluate t1
+        INNER JOIN order_base_info t2 on t1.ORDER_NO = t2.ORDER_NO AND t2.SELLER_ID = #{sellerId} AND t1.status = 1
+    </select>
+
+    <select id="getEvaluateList" parameterType="java.util.Map" resultType="java.util.Map">
+        SELECT
+            t1.ID EVALUATE_ID,
+            t1.USER_ID,
+            t4.NICKNAME,
+            t4.HEAD_IMG,
+            t1.ORDER_NO,
+            t1.CONTENT,
+            t1.SCORE,
+            t1.IMAGES,
+            t1.FEATURES_SCORE,
+            t1.SERVICE_SCORE,
+            t1.SECURITY_SCORE,
+            t1.HEALTH_SCORE,
+            t1.EVALUATE_TYPE,
+            t1.REPLAY_CONTENT,
+            t1.REPLAY_STATE,
+            DATE_FORMAT(t1.REPLAY_TIME,'%Y-%m-%d %H:%i:%s') REPLAY_TIME,
+            DATE_FORMAT(t1.CREATE_TIME,'%Y-%m-%d %H:%i:%s') EVALUATE_TIME,
+            DATE_FORMAT(t2.TRIP_TIME,'%Y-%m-%d %H:%i:%s') TRIP_TIME,
+            t3.SKU_NAME
+        FROM
+            product_evaluate t1
+        INNER JOIN order_base_info t2 ON t1.ORDER_NO = t2.ORDER_NO and t1.status = 1
+        INNER JOIN order_detail_info t3 ON t2.ORDER_NO = t3.ORDER_NO
+        LEFT JOIN line_user t4 ON t4.ID = t1.USER_ID
+        WHERE 1=1
+        AND t2.SELLER_ID = #{sellerId,jdbcType=VARCHAR}
+        <if test="evaluateType != null and evaluateType != '' ">
+            AND t1.EVALUATE_TYPE = #{evaluateType}
+        </if>
+        <if test="haveImg != null">
+            AND t1.IMAGES IS NOT NULL AND t1.IMAGES != ''
+        </if>
+        <if test="noReply != null">
+            AND t1.REPLAY_STATE = 0
+        </if>
+        ORDER BY t1.CREATE_TIME DESC
+    </select>
+
+    <select id="getOneProductScore" parameterType="java.lang.String" resultType="java.lang.String">
+            SELECT
+                ROUND(AVG(SCORE), 1) AS SCORE
+            FROM
+                product_evaluate t1
+            INNER JOIN order_detail_info t2 ON t1.ORDER_NO = t2.ORDER_NO
+            WHERE
+                t2.PRODUCT_ID = #{productId}
+            AND t1.STATUS = 1
+    </select>
+    
+    <select id="listProductEvaluate" parameterType="java.lang.String" resultType="java.util.Map">
+        SELECT
+            t1.ID evaluateId,
+            t1.USER_ID userId,
+            t3.NICKNAME nickname,
+            t3.head_img headImg,
+            t1.score,
+            t1.images evaluateImages,
+            t1.content,
+            t2.TRIP_TIME tripTime
+        FROM
+            product_evaluate t1
+        INNER JOIN order_base_info t2 ON t1.ORDER_NO = t2.ORDER_NO and t1.status = 1
+        INNER JOIN line_user t3 ON t3.ID = t1.USER_ID
+        INNER JOIN order_detail_info t4 on t2.ORDER_NO = t4.ORDER_NO
+        INNER JOIN goods_sku_info t5 on t5.ID = t4.SKU_ID
+        WHERE t5.PRODUCT_ID = #{productId} AND t1.status = 1
+        ORDER BY t1.CREATE_TIME DESC limit 1
+    </select>
+
+
+</mapper>

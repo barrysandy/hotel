@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzk.dao.SinglePlanMapper">
+
+    <resultMap id="BaseResultMap" type="com.zzk.entity.SinglePlan">
+        <id column="ID" jdbcType="VARCHAR" property="id" />
+        <id column="PLAN_ID" jdbcType="VARCHAR" property="planId" />
+        <id column="DAY_SORT" jdbcType="VARCHAR" property="daySort" />
+        <id column="START_TIME" jdbcType="DATE" property="startTime" />
+        <id column="END_TIE" jdbcType="DATE" property="endTie" />
+        <id column="DESTINATION" jdbcType="VARCHAR" property="destination" />
+        <id column="LON" jdbcType="DECIMAL" property="lon" />
+        <id column="LAT" jdbcType="DECIMAL" property="lat" />
+        <id column="NODE_TYPE" jdbcType="INTEGER" property="nodeType" />
+        <id column="BRIGHT_SPOT" jdbcType="VARCHAR" property="brightSpot" />
+        <id column="DESCRIPTION" jdbcType="VARCHAR" property="description" />
+        <id column="MILEAGE" jdbcType="DOUBLE" property="mileage" />
+        <id column="STATUS" jdbcType="INTEGER" property="status" />
+        <id column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+        <id column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        ID,
+        PLAN_ID,
+        DAY_SORT,
+        START_TIME,
+        END_TIE,
+        DESTINATION,
+        LON,
+        LAT,
+        NODE_TYPE,
+        BRIGHT_SPOT,
+        DESCRIPTION,
+        MILEAGE,
+        STATUS,
+        CREATE_TIME,
+        UPDATE_TIME
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" /> from single_plan where ID = #{id,jdbcType=VARCHAR}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from single_plan where ID = #{id,jdbcType=VARCHAR}
+    </delete>
+
+    <insert id="insert" parameterType="com.zzk.entity.SinglePlan">
+        insert into single_plan
+        (ID,PLAN_ID,DAY_SORT,START_TIME,END_TIE,DESTINATION,LON,LAT,NODE_TYPE,BRIGHT_SPOT,DESCRIPTION,MILEAGE,STATUS,CREATE_TIME,UPDATE_TIME)
+        values
+        (#{id,jdbcType=VARCHAR},#{planId,jdbcType=VARCHAR},#{daySort,jdbcType=VARCHAR},#{startTime,jdbcType=DATE},#{endTie,jdbcType=DATE},#{destination,jdbcType=VARCHAR},#{lon,jdbcType=DECIMAL},#{lat,jdbcType=DECIMAL},#{nodeType,jdbcType=INTEGER},#{brightSpot,jdbcType=VARCHAR},#{description,jdbcType=VARCHAR},#{mileage,jdbcType=DOUBLE},#{status,jdbcType=INTEGER},#{createTime,jdbcType=TIMESTAMP},#{updateTime,jdbcType=TIMESTAMP})
+    </insert>
+
+    <insert id="insertSelective" parameterType="com.zzk.entity.SinglePlan">
+        insert into single_plan
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">ID,</if>
+            <if test="planId != null">PLAN_ID,</if>
+            <if test="daySort != null">DAY_SORT,</if>
+            <if test="startTime != null">START_TIME,</if>
+            <if test="endTie != null">END_TIE,</if>
+            <if test="destination != null">DESTINATION,</if>
+            <if test="lon != null">LON,</if>
+            <if test="lat != null">LAT,</if>
+            <if test="nodeType != null">NODE_TYPE,</if>
+            <if test="brightSpot != null">BRIGHT_SPOT,</if>
+            <if test="description != null">DESCRIPTION,</if>
+            <if test="mileage != null">MILEAGE,</if>
+            <if test="status != null">STATUS,</if>
+            <if test="createTime != null">CREATE_TIME,</if>
+            <if test="updateTime != null">UPDATE_TIME,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id,jdbcType=VARCHAR},</if>
+            <if test="planId != null">#{planId,jdbcType=VARCHAR},</if>
+            <if test="daySort != null">#{daySort,jdbcType=VARCHAR},</if>
+            <if test="startTime != null">#{startTime,jdbcType=DATE},</if>
+            <if test="endTie != null">#{endTie,jdbcType=DATE},</if>
+            <if test="destination != null">#{destination,jdbcType=VARCHAR},</if>
+            <if test="lon != null">#{lon,jdbcType=DECIMAL},</if>
+            <if test="lat != null">#{lat,jdbcType=DECIMAL},</if>
+            <if test="nodeType != null">#{nodeType,jdbcType=INTEGER},</if>
+            <if test="brightSpot != null">#{brightSpot,jdbcType=VARCHAR},</if>
+            <if test="description != null">#{description,jdbcType=VARCHAR},</if>
+            <if test="mileage != null">#{mileage,jdbcType=DOUBLE},</if>
+            <if test="status != null">#{status,jdbcType=INTEGER},</if>
+            <if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+            <if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.zzk.entity.SinglePlan">
+        update single_plan
+        <set>
+            <if test="planId != null">PLAN_ID =#{planId,jdbcType=VARCHAR},</if>
+            <if test="daySort != null">DAY_SORT =#{daySort,jdbcType=VARCHAR},</if>
+            <if test="startTime != null">START_TIME =#{startTime,jdbcType=DATE},</if>
+            <if test="endTie != null">END_TIE =#{endTie,jdbcType=DATE},</if>
+            <if test="destination != null">DESTINATION =#{destination,jdbcType=VARCHAR},</if>
+            <if test="lon != null">LON =#{lon,jdbcType=DECIMAL},</if>
+            <if test="lat != null">LAT =#{lat,jdbcType=DECIMAL},</if>
+            <if test="nodeType != null">NODE_TYPE =#{nodeType,jdbcType=INTEGER},</if>
+            <if test="brightSpot != null">BRIGHT_SPOT =#{brightSpot,jdbcType=VARCHAR},</if>
+            <if test="description != null">DESCRIPTION =#{description,jdbcType=VARCHAR},</if>
+            <if test="mileage != null">MILEAGE =#{mileage,jdbcType=DOUBLE},</if>
+            <if test="status != null">STATUS =#{status,jdbcType=INTEGER},</if>
+            <if test="createTime != null">CREATE_TIME =#{createTime,jdbcType=TIMESTAMP},</if>
+            <if test="updateTime != null">UPDATE_TIME =#{updateTime,jdbcType=TIMESTAMP},</if>
+        </set>
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.zzk.entity.SinglePlan">
+        update
+        single_plan
+        set
+
+        PLAN_ID = #{planId,jdbcType=VARCHAR},
+        DAY_SORT = #{daySort,jdbcType=VARCHAR},
+        START_TIME = #{startTime,jdbcType=DATE},
+        END_TIE = #{endTie,jdbcType=DATE},
+        DESTINATION = #{destination,jdbcType=VARCHAR},
+        LON = #{lon,jdbcType=DECIMAL},
+        LAT = #{lat,jdbcType=DECIMAL},
+        NODE_TYPE = #{nodeType,jdbcType=INTEGER},
+        BRIGHT_SPOT = #{brightSpot,jdbcType=VARCHAR},
+        DESCRIPTION = #{description,jdbcType=VARCHAR},
+        MILEAGE = #{mileage,jdbcType=DOUBLE},
+        STATUS = #{status,jdbcType=INTEGER},
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <select id="selectByPage" parameterType="java.util.Map" resultMap="BaseResultMap" resultType="java.util.List">
+        select
+        <include refid="Base_Column_List" />
+        from single_plan
+        <where>
+            1=1 and status = 1
+            <if test="search != null">
+            </if>
+            <if test="orderName != null and orderName !=''">
+                order by ${orderName} ${descAsc}
+            </if>
+            <if test="startRow !=null">
+                limit ${startRow},${pageSize}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectCount" parameterType="com.zzk.entity.SinglePlan" resultType="int">
+        select count(1) from single_plan
+        <where>
+            1=1 and status = 1
+            <if test="search != null">
+
+            </if>
+        </where>
+    </select>
+
+    <select id="listSinglePlanByPlanId" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT * from single_plan where PLAN_ID = #{planId,jdbcType=VARCHAR} AND STATUS = 1 ORDER BY DAY_SORT ASC
+    </select>
+
+    <select id="getSinglePlan" parameterType="java.lang.String" resultType="java.util.Map">
+        SELECT
+            id,DAY_SORT day,destination,BRIGHT_SPOT brightSpot ,mileage,description introduce
+        from single_plan where PLAN_ID = #{planId,jdbcType=VARCHAR} AND STATUS = 1 ORDER BY DAY_SORT ASC
+    </select>
+
+    <delete id="deleteByPlanId" parameterType="java.lang.String">
+        DELETE FROM single_plan WHERE PLAN_ID = #{planId,jdbcType=VARCHAR}
+    </delete>
+
+    <insert id="insertBatch" parameterType="java.util.List">
+        insert into single_plan
+        (ID,PLAN_ID,DAY_SORT,DESTINATION,BRIGHT_SPOT,DESCRIPTION,MILEAGE,STATUS,CREATE_TIME,UPDATE_TIME)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.id,jdbcType=VARCHAR},#{item.planId,jdbcType=VARCHAR},#{item.daySort,jdbcType=VARCHAR},
+            #{item.destination,jdbcType=VARCHAR},#{item.brightSpot,jdbcType=VARCHAR},#{item.description,jdbcType=VARCHAR},
+            #{item.mileage,jdbcType=DOUBLE},#{item.status,jdbcType=INTEGER},#{item.createTime,jdbcType=TIMESTAMP},
+            #{item.updateTime,jdbcType=TIMESTAMP})
+        </foreach>
+    </insert>
+</mapper>

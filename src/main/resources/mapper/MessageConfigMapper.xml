@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zzk.dao.MessageConfigMapper" >
+  <resultMap id="BaseResultMap" type="com.zzk.entity.MessageConfig" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="SHOP_ID" property="shopId" jdbcType="VARCHAR" />
+    <result column="NEW_ORDER_MSG" property="newOrderMsg" jdbcType="VARCHAR" />
+    <result column="REFUND_MSG" property="refundMsg" jdbcType="VARCHAR" />
+    <result column="CANCEL_ORDER_MSG" property="cancelOrderMsg" jdbcType="VARCHAR" />
+    <result column="BAD_COMMENT_MSG" property="badCommentMsg" jdbcType="VARCHAR" />
+    <result column="FINANCIAL_MSG" property="financialMsg" jdbcType="VARCHAR" />
+    <result column="FULL_ROOM_MSG" property="fullRoomMsg" jdbcType="VARCHAR" />
+    <result column="MESSAGE_EMAIL" property="messageEmail" jdbcType="VARCHAR" />
+    <result column="MESSAGE_PHONE" property="messagePhone" jdbcType="VARCHAR" />
+    <result column="MESSAGE_TEL" property="messageTel" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, SHOP_ID, NEW_ORDER_MSG, REFUND_MSG, CANCEL_ORDER_MSG, BAD_COMMENT_MSG, FINANCIAL_MSG, 
+    FULL_ROOM_MSG, MESSAGE_EMAIL, MESSAGE_PHONE, MESSAGE_TEL
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_mp_message_config
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+   <select id="selectByShopId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_mp_message_config
+    where SHOP_ID = #{shopId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_mp_message_config
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zzk.entity.MessageConfig" >
+    insert into t_mp_message_config (ID, SHOP_ID, NEW_ORDER_MSG, 
+      REFUND_MSG, CANCEL_ORDER_MSG, BAD_COMMENT_MSG, 
+      FINANCIAL_MSG, FULL_ROOM_MSG, MESSAGE_EMAIL, 
+      MESSAGE_PHONE, MESSAGE_TEL)
+    values (#{id,jdbcType=VARCHAR}, #{shopId,jdbcType=VARCHAR}, #{newOrderMsg,jdbcType=VARCHAR}, 
+      #{refundMsg,jdbcType=VARCHAR}, #{cancelOrderMsg,jdbcType=VARCHAR}, #{badCommentMsg,jdbcType=VARCHAR}, 
+      #{financialMsg,jdbcType=VARCHAR}, #{fullRoomMsg,jdbcType=VARCHAR}, #{messageEmail,jdbcType=VARCHAR}, 
+      #{messagePhone,jdbcType=VARCHAR}, #{messageTel,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zzk.entity.MessageConfig" >
+    insert into t_mp_message_config
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="shopId != null" >
+        SHOP_ID,
+      </if>
+      <if test="newOrderMsg != null" >
+        NEW_ORDER_MSG,
+      </if>
+      <if test="refundMsg != null" >
+        REFUND_MSG,
+      </if>
+      <if test="cancelOrderMsg != null" >
+        CANCEL_ORDER_MSG,
+      </if>
+      <if test="badCommentMsg != null" >
+        BAD_COMMENT_MSG,
+      </if>
+      <if test="financialMsg != null" >
+        FINANCIAL_MSG,
+      </if>
+      <if test="fullRoomMsg != null" >
+        FULL_ROOM_MSG,
+      </if>
+      <if test="messageEmail != null" >
+        MESSAGE_EMAIL,
+      </if>
+      <if test="messagePhone != null" >
+        MESSAGE_PHONE,
+      </if>
+      <if test="messageTel != null" >
+        MESSAGE_TEL,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="shopId != null" >
+        #{shopId,jdbcType=VARCHAR},
+      </if>
+      <if test="newOrderMsg != null" >
+        #{newOrderMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="refundMsg != null" >
+        #{refundMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="cancelOrderMsg != null" >
+        #{cancelOrderMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="badCommentMsg != null" >
+        #{badCommentMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="financialMsg != null" >
+        #{financialMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="fullRoomMsg != null" >
+        #{fullRoomMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="messageEmail != null" >
+        #{messageEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="messagePhone != null" >
+        #{messagePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="messageTel != null" >
+        #{messageTel,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zzk.entity.MessageConfig" >
+    update t_mp_message_config
+    <set >
+      <if test="shopId != null" >
+        SHOP_ID = #{shopId,jdbcType=VARCHAR},
+      </if>
+      <if test="newOrderMsg != null" >
+        NEW_ORDER_MSG = #{newOrderMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="refundMsg != null" >
+        REFUND_MSG = #{refundMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="cancelOrderMsg != null" >
+        CANCEL_ORDER_MSG = #{cancelOrderMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="badCommentMsg != null" >
+        BAD_COMMENT_MSG = #{badCommentMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="financialMsg != null" >
+        FINANCIAL_MSG = #{financialMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="fullRoomMsg != null" >
+        FULL_ROOM_MSG = #{fullRoomMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="messageEmail != null" >
+        MESSAGE_EMAIL = #{messageEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="messagePhone != null" >
+        MESSAGE_PHONE = #{messagePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="messageTel != null" >
+        MESSAGE_TEL = #{messageTel,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zzk.entity.MessageConfig" >
+    update t_mp_message_config
+    set SHOP_ID = #{shopId,jdbcType=VARCHAR},
+      NEW_ORDER_MSG = #{newOrderMsg,jdbcType=VARCHAR},
+      REFUND_MSG = #{refundMsg,jdbcType=VARCHAR},
+      CANCEL_ORDER_MSG = #{cancelOrderMsg,jdbcType=VARCHAR},
+      BAD_COMMENT_MSG = #{badCommentMsg,jdbcType=VARCHAR},
+      FINANCIAL_MSG = #{financialMsg,jdbcType=VARCHAR},
+      FULL_ROOM_MSG = #{fullRoomMsg,jdbcType=VARCHAR},
+      MESSAGE_EMAIL = #{messageEmail,jdbcType=VARCHAR},
+      MESSAGE_PHONE = #{messagePhone,jdbcType=VARCHAR},
+      MESSAGE_TEL = #{messageTel,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

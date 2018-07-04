@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzk.dao.SellerAccountMapper">
+
+	<resultMap id="BaseResultMap" type="com.zzk.entity.SellerAccount">
+		<id column="ID" jdbcType="VARCHAR" property="id" />
+		<id column="SELLER_ID" jdbcType="VARCHAR" property="sellerId" />
+		<id column="TYPE" jdbcType="INTEGER" property="type" />
+		<id column="NAME" jdbcType="VARCHAR" property="name" />
+		<id column="ACCOUNT_NAME" jdbcType="VARCHAR" property="accountName" />
+		<id column="ACCOUNT_NUM" jdbcType="VARCHAR" property="accountNum" />
+		<id column="DEPOSIT_BANK" jdbcType="INTEGER" property="depositBank" />
+		<id column="SUB_BANK" jdbcType="VARCHAR" property="subBank" />
+		<id column="BANK_CODE" jdbcType="VARCHAR" property="bankCode" />
+		<id column="PAY_QR" jdbcType="VARCHAR" property="payQr" />
+		<id column="ACCOUNT_STATUS" jdbcType="INTEGER" property="accountStatus" />
+		<id column="STATUS" jdbcType="INTEGER" property="status" />
+		<id column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+		<id column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		ID,
+		SELLER_ID,
+		TYPE,
+		NAME,
+		ACCOUNT_NAME,
+		ACCOUNT_NUM,
+		DEPOSIT_BANK,
+		SUB_BANK,
+		BANK_CODE,
+		PAY_QR,
+		ACCOUNT_STATUS,
+		STATUS,
+		CREATE_TIME,
+		UPDATE_TIME
+	</sql>
+	
+	<select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" /> from seller_account where ID = #{id,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="selectBySellerId" parameterType="map" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" /> from seller_account where SELLER_ID = #{sellerId,jdbcType=VARCHAR} AND TYPE=#{type,jdbcType=INTEGER}
+	</select>
+	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from seller_account where ID = #{id,jdbcType=VARCHAR}
+	</delete>
+	
+	<insert id="insert" parameterType="com.zzk.entity.SellerAccount">
+		insert into seller_account
+		(ID,SELLER_ID,TYPE,NAME,ACCOUNT_NAME,ACCOUNT_NUM,DEPOSIT_BANK,SUB_BANK,BANK_CODE,PAY_QR,ACCOUNT_STATUS,STATUS,CREATE_TIME,UPDATE_TIME)
+		values
+		(#{id,jdbcType=VARCHAR},#{sellerId,jdbcType=VARCHAR},#{type,jdbcType=INTEGER},#{name,jdbcType=VARCHAR},#{accountName,jdbcType=VARCHAR},#{accountNum,jdbcType=VARCHAR},#{depositBank,jdbcType=INTEGER},#{subBank,jdbcType=VARCHAR},#{bankCode,jdbcType=VARCHAR},#{payQr,jdbcType=VARCHAR},#{accountStatus,jdbcType=INTEGER},#{status,jdbcType=INTEGER},#{createTime,jdbcType=TIMESTAMP},#{updateTime,jdbcType=TIMESTAMP})
+	</insert>
+	
+	<insert id="insertSelective" parameterType="com.zzk.entity.SellerAccount">
+		insert into seller_account
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">ID,</if>
+			<if test="sellerId != null">SELLER_ID,</if>
+			<if test="type != null">TYPE,</if>
+			<if test="name != null">NAME,</if>
+			<if test="accountName != null">ACCOUNT_NAME,</if>
+			<if test="accountNum != null">ACCOUNT_NUM,</if>
+			<if test="depositBank != null">DEPOSIT_BANK,</if>
+			<if test="subBank != null">SUB_BANK,</if>
+			<if test="bankCode != null">BANK_CODE,</if>
+			<if test="payQr != null">PAY_QR,</if>
+			<if test="accountStatus != null">ACCOUNT_STATUS,</if>
+			<if test="status != null">STATUS,</if>
+			<if test="createTime != null">CREATE_TIME,</if>
+			<if test="updateTime != null">UPDATE_TIME,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=VARCHAR},</if>
+			<if test="sellerId != null">#{sellerId,jdbcType=VARCHAR},</if>
+			<if test="type != null">#{type,jdbcType=INTEGER},</if>
+			<if test="name != null">#{name,jdbcType=VARCHAR},</if>
+			<if test="accountName != null">#{accountName,jdbcType=VARCHAR},</if>
+			<if test="accountNum != null">#{accountNum,jdbcType=VARCHAR},</if>
+			<if test="depositBank != null">#{depositBank,jdbcType=INTEGER},</if>
+			<if test="subBank != null">#{subBank,jdbcType=VARCHAR},</if>
+			<if test="bankCode != null">#{bankCode,jdbcType=VARCHAR},</if>
+			<if test="payQr != null">#{payQr,jdbcType=VARCHAR},</if>
+			<if test="accountStatus != null">#{accountStatus,jdbcType=INTEGER},</if>
+			<if test="status != null">#{status,jdbcType=INTEGER},</if>
+			<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+			<if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+		</trim>
+	</insert>
+	
+	<update id="updateByPrimaryKeySelective" parameterType="com.zzk.entity.SellerAccount">
+		update seller_account
+		<set>
+			<if test="sellerId != null">SELLER_ID =#{sellerId,jdbcType=VARCHAR},</if>
+			<if test="type != null">TYPE =#{type,jdbcType=INTEGER},</if>
+			<if test="name != null">NAME =#{name,jdbcType=VARCHAR},</if>
+			<if test="accountName != null">ACCOUNT_NAME =#{accountName,jdbcType=VARCHAR},</if>
+			<if test="accountNum != null">ACCOUNT_NUM =#{accountNum,jdbcType=VARCHAR},</if>
+			<if test="depositBank != null">DEPOSIT_BANK =#{depositBank,jdbcType=INTEGER},</if>
+			<if test="subBank != null">SUB_BANK =#{subBank,jdbcType=VARCHAR},</if>
+			<if test="bankCode != null">BANK_CODE =#{bankCode,jdbcType=VARCHAR},</if>
+			<if test="payQr != null">PAY_QR =#{payQr,jdbcType=VARCHAR},</if>
+			<if test="accountStatus != null">ACCOUNT_STATUS =#{accountStatus,jdbcType=INTEGER},</if>
+			<if test="status != null">STATUS =#{status,jdbcType=INTEGER},</if>
+			<if test="createTime != null">CREATE_TIME =#{createTime,jdbcType=TIMESTAMP},</if>
+			<if test="updateTime != null">UPDATE_TIME =#{updateTime,jdbcType=TIMESTAMP},</if>
+		</set>
+		where ID = #{id,jdbcType=VARCHAR}
+	</update>
+	
+	<update id="updateByPrimaryKey" parameterType="com.zzk.entity.SellerAccount">
+		update
+		seller_account
+		set
+		
+		SELLER_ID = #{sellerId,jdbcType=VARCHAR},
+		TYPE = #{type,jdbcType=INTEGER},
+		NAME = #{name,jdbcType=VARCHAR},
+		ACCOUNT_NAME = #{accountName,jdbcType=VARCHAR},
+		ACCOUNT_NUM = #{accountNum,jdbcType=VARCHAR},
+		DEPOSIT_BANK = #{depositBank,jdbcType=INTEGER},
+		SUB_BANK = #{subBank,jdbcType=VARCHAR},
+		BANK_CODE = #{bankCode,jdbcType=VARCHAR},
+		PAY_QR = #{payQr,jdbcType=VARCHAR},
+		ACCOUNT_STATUS = #{accountStatus,jdbcType=INTEGER},
+		STATUS = #{status,jdbcType=INTEGER},
+		CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+		UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+		where ID = #{id,jdbcType=VARCHAR}
+	</update>
+	
+	<select id="selectByPage" parameterType="java.util.Map" resultMap="BaseResultMap" resultType="java.util.List">
+		select
+		<include refid="Base_Column_List" />
+		from seller_account
+		<where>
+			1=1 and status = 1
+			<if test="search != null">
+			</if>
+			<if test="orderName != null and orderName !=''">
+				order by ${orderName} ${descAsc}
+			</if>
+			<if test="startRow !=null">
+				limit ${startRow},${pageSize}
+			</if>
+		</where>
+	</select>
+	
+	<select id="selectCount" parameterType="com.zzk.entity.SellerAccount" resultType="int">
+		select count(1) from seller_account
+		<where>
+			1=1 and status = 1
+			<if test="search != null">
+
+			</if>
+		</where>
+	</select>
+</mapper>

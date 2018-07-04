@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzk.dao.PlanInfoMapper">
+
+    <resultMap id="BaseResultMap" type="com.zzk.entity.PlanInfo">
+        <id column="ID" jdbcType="VARCHAR" property="id" />
+        <id column="PRODUCT_ID" jdbcType="VARCHAR" property="productId" />
+        <id column="SKU_ID" jdbcType="VARCHAR" property="skuId" />
+        <id column="DAYS" jdbcType="INTEGER" property="days" />
+        <id column="NIGHTS" jdbcType="INTEGER" property="nights" />
+        <id column="DESCRIPTION" jdbcType="VARCHAR" property="description" />
+        <id column="CONTENT" jdbcType="VARCHAR" property="content" />
+        <id column="TYPE" jdbcType="INTEGER" property="type" />
+        <id column="DAYS_LIMIT" jdbcType="VARCHAR" property="daysLimit" />
+        <id column="HOURS_LIMIT" jdbcType="VARCHAR" property="hoursLimit" />
+        <id column="START_ADDRESS" jdbcType="VARCHAR" property="startAddress" />
+        <id column="END_ADDRESS" jdbcType="VARCHAR" property="endAddress" />
+        <id column="DESTINATION" jdbcType="VARCHAR" property="destination" />
+        <id column="START_TIME" jdbcType="TIMESTAMP" property="startTime" />
+        <id column="END_TIME" jdbcType="TIMESTAMP" property="endTime" />
+        <id column="STATUS" jdbcType="INTEGER" property="status" />
+        <id column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+        <id column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        ID,
+        PRODUCT_ID,
+        SKU_ID,
+        DAYS,
+        NIGHTS,
+        DESCRIPTION,
+        CONTENT,
+        TYPE,
+        DAYS_LIMIT,
+        HOURS_LIMIT,
+        START_ADDRESS,
+        END_ADDRESS,
+        DESTINATION,
+        START_TIME,
+        END_TIME,
+        STATUS,
+        CREATE_TIME,
+        UPDATE_TIME
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" /> from plan_info where ID = #{id,jdbcType=VARCHAR}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from plan_info where ID = #{id,jdbcType=VARCHAR}
+    </delete>
+
+    <insert id="insert" parameterType="com.zzk.entity.PlanInfo">
+        insert into plan_info
+        (ID,PRODUCT_ID,SKU_ID,DAYS,NIGHTS,DESCRIPTION,CONTENT,TYPE,DAYS_LIMIT,HOURS_LIMIT,START_ADDRESS,END_ADDRESS,DESTINATION,START_TIME,END_TIME,STATUS,CREATE_TIME,UPDATE_TIME)
+        values
+        (#{id,jdbcType=VARCHAR},#{productId,jdbcType=VARCHAR},#{skuId,jdbcType=VARCHAR},#{days,jdbcType=INTEGER},#{nights,jdbcType=INTEGER},#{description,jdbcType=VARCHAR},#{content,jdbcType=VARCHAR},#{type,jdbcType=INTEGER},#{daysLimit,jdbcType=VARCHAR},#{hoursLimit,jdbcType=VARCHAR},#{startAddress,jdbcType=VARCHAR},#{endAddress,jdbcType=VARCHAR},#{destination,jdbcType=VARCHAR},#{startTime,jdbcType=TIMESTAMP},#{endTime,jdbcType=TIMESTAMP},#{status,jdbcType=INTEGER},#{createTime,jdbcType=TIMESTAMP},#{updateTime,jdbcType=TIMESTAMP})
+    </insert>
+
+    <insert id="insertSelective" parameterType="com.zzk.entity.PlanInfo">
+        insert into plan_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">ID,</if>
+            <if test="productId != null">PRODUCT_ID,</if>
+            <if test="skuId != null">SKU_ID,</if>
+            <if test="days != null">DAYS,</if>
+            <if test="nights != null">NIGHTS,</if>
+            <if test="description != null">DESCRIPTION,</if>
+            <if test="content != null">CONTENT,</if>
+            <if test="type != null">TYPE,</if>
+            <if test="daysLimit != null">DAYS_LIMIT,</if>
+            <if test="hoursLimit != null">HOURS_LIMIT,</if>
+            <if test="startAddress != null">START_ADDRESS,</if>
+            <if test="endAddress != null">END_ADDRESS,</if>
+            <if test="destination != null">DESTINATION,</if>
+            <if test="startTime != null">START_TIME,</if>
+            <if test="endTime != null">END_TIME,</if>
+            <if test="status != null">STATUS,</if>
+            <if test="createTime != null">CREATE_TIME,</if>
+            <if test="updateTime != null">UPDATE_TIME,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id,jdbcType=VARCHAR},</if>
+            <if test="productId != null">#{productId,jdbcType=VARCHAR},</if>
+            <if test="skuId != null">#{skuId,jdbcType=VARCHAR},</if>
+            <if test="days != null">#{days,jdbcType=INTEGER},</if>
+            <if test="nights != null">#{nights,jdbcType=INTEGER},</if>
+            <if test="description != null">#{description,jdbcType=VARCHAR},</if>
+            <if test="content != null">#{content,jdbcType=VARCHAR},</if>
+            <if test="type != null">#{type,jdbcType=INTEGER},</if>
+            <if test="daysLimit != null">#{daysLimit,jdbcType=VARCHAR},</if>
+            <if test="hoursLimit != null">#{hoursLimit,jdbcType=VARCHAR},</if>
+            <if test="startAddress != null">#{startAddress,jdbcType=VARCHAR},</if>
+            <if test="endAddress != null">#{endAddress,jdbcType=VARCHAR},</if>
+            <if test="destination != null">#{destination,jdbcType=VARCHAR},</if>
+            <if test="startTime != null">#{startTime,jdbcType=TIMESTAMP},</if>
+            <if test="endTime != null">#{endTime,jdbcType=TIMESTAMP},</if>
+            <if test="status != null">#{status,jdbcType=INTEGER},</if>
+            <if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+            <if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.zzk.entity.PlanInfo">
+        update plan_info
+        <set>
+            <if test="productId != null">PRODUCT_ID =#{productId,jdbcType=VARCHAR},</if>
+            <if test="skuId != null">SKU_ID =#{skuId,jdbcType=VARCHAR},</if>
+            <if test="days != null">DAYS =#{days,jdbcType=INTEGER},</if>
+            <if test="nights != null">NIGHTS =#{nights,jdbcType=INTEGER},</if>
+            <if test="description != null">DESCRIPTION =#{description,jdbcType=VARCHAR},</if>
+            <if test="content != null">CONTENT =#{content,jdbcType=VARCHAR},</if>
+            <if test="type != null">TYPE =#{type,jdbcType=INTEGER},</if>
+            <if test="daysLimit != null">DAYS_LIMIT =#{daysLimit,jdbcType=VARCHAR},</if>
+            <if test="hoursLimit != null">HOURS_LIMIT =#{hoursLimit,jdbcType=VARCHAR},</if>
+            <if test="startAddress != null">START_ADDRESS =#{startAddress,jdbcType=VARCHAR},</if>
+            <if test="endAddress != null">END_ADDRESS =#{endAddress,jdbcType=VARCHAR},</if>
+            <if test="destination != null">DESTINATION =#{destination,jdbcType=VARCHAR},</if>
+            <if test="startTime != null">START_TIME =#{startTime,jdbcType=TIMESTAMP},</if>
+            <if test="endTime != null">END_TIME =#{endTime,jdbcType=TIMESTAMP},</if>
+            <if test="status != null">STATUS =#{status,jdbcType=INTEGER},</if>
+            <if test="createTime != null">CREATE_TIME =#{createTime,jdbcType=TIMESTAMP},</if>
+            <if test="updateTime != null">UPDATE_TIME =#{updateTime,jdbcType=TIMESTAMP},</if>
+        </set>
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.zzk.entity.PlanInfo">
+        update
+        plan_info
+        set
+
+        PRODUCT_ID = #{productId,jdbcType=VARCHAR},
+        SKU_ID = #{skuId,jdbcType=VARCHAR},
+        DAYS = #{days,jdbcType=INTEGER},
+        NIGHTS = #{nights,jdbcType=INTEGER},
+        DESCRIPTION = #{description,jdbcType=VARCHAR},
+        CONTENT = #{content,jdbcType=VARCHAR},
+        TYPE = #{type,jdbcType=INTEGER},
+        DAYS_LIMIT = #{daysLimit,jdbcType=VARCHAR},
+        HOURS_LIMIT = #{hoursLimit,jdbcType=VARCHAR},
+        START_ADDRESS = #{startAddress,jdbcType=VARCHAR},
+        END_ADDRESS = #{endAddress,jdbcType=VARCHAR},
+        DESTINATION = #{destination,jdbcType=VARCHAR},
+        START_TIME = #{startTime,jdbcType=TIMESTAMP},
+        END_TIME = #{endTime,jdbcType=TIMESTAMP},
+        STATUS = #{status,jdbcType=INTEGER},
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <select id="selectByPage" parameterType="java.util.Map" resultMap="BaseResultMap" resultType="java.util.List">
+        select
+        <include refid="Base_Column_List" />
+        from plan_info
+        <where>
+            1=1 and status = 1
+            <if test="search != null">
+            </if>
+            <if test="orderName != null and orderName !=''">
+                order by ${orderName} ${descAsc}
+            </if>
+            <if test="startRow !=null">
+                limit ${startRow},${pageSize}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectCount" parameterType="com.zzk.entity.PlanInfo" resultType="int">
+        select count(1) from plan_info
+        <where>
+            1=1 and status = 1
+            <if test="search != null">
+
+            </if>
+        </where>
+    </select>
+
+    <select id="getDetailModePlanInfo" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT * FROM plan_info where PRODUCT_ID = #{productId,jdbcType=VARCHAR} AND TYPE = 2 AND STATUS = 1
+    </select>
+
+    <select id="getConciseModePlanInfo" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT * FROM plan_info where PRODUCT_ID = #{productId,jdbcType=VARCHAR} AND TYPE = 1 AND STATUS = 1
+    </select>
+</mapper>

@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzk.dao.SellerChooseAttributeInfoMapper">
+
+	<resultMap id="BaseResultMap" type="com.zzk.entity.SellerChooseAttributeInfo">
+		<id column="ID" jdbcType="VARCHAR" property="id" />
+		<id column="PRODUCT_ID" jdbcType="VARCHAR" property="productId" />
+		<id column="SKU_ID" jdbcType="VARCHAR" property="skuId" />
+		<id column="ATTR_ID" jdbcType="VARCHAR" property="attrId" />
+		<id column="ATTR_TYPE" jdbcType="VARCHAR" property="attrType" />
+		<id column="NAME" jdbcType="VARCHAR" property="name" />
+		<id column="TYPE" jdbcType="INTEGER" property="type" />
+		<id column="CONTENT" jdbcType="VARCHAR" property="content" />
+		<id column="VALUE" jdbcType="VARCHAR" property="value" />
+		<id column="SORT" jdbcType="INTEGER" property="sort" />
+		<id column="STATUS" jdbcType="INTEGER" property="status" />
+		<id column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+		<id column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		ID,
+		PRODUCT_ID,
+		SKU_ID,
+		ATTR_ID,
+		ATTR_TYPE,
+		NAME,
+		TYPE,
+		CONTENT,
+		VALUE,
+		SORT,
+		STATUS,
+		CREATE_TIME,
+		UPDATE_TIME
+	</sql>
+	
+	<select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" /> from seller_choose_attribute_info where ID = #{id,jdbcType=VARCHAR}
+	</select>
+	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from seller_choose_attribute_info where ID = #{id,jdbcType=VARCHAR}
+	</delete>
+	
+	<insert id="insert" parameterType="com.zzk.entity.SellerChooseAttributeInfo">
+		insert into seller_choose_attribute_info
+		(ID,PRODUCT_ID,SKU_ID,ATTR_ID,ATTR_TYPE,NAME,TYPE,CONTENT,VALUE,SORT,STATUS,CREATE_TIME,UPDATE_TIME)
+		values
+		(#{id,jdbcType=VARCHAR},#{productId,jdbcType=VARCHAR},#{skuId,jdbcType=VARCHAR},#{attrId,jdbcType=VARCHAR},#{attrType,jdbcType=VARCHAR},#{name,jdbcType=VARCHAR},#{type,jdbcType=INTEGER},#{content,jdbcType=VARCHAR},#{value,jdbcType=VARCHAR},#{sort,jdbcType=INTEGER},#{status,jdbcType=INTEGER},#{createTime,jdbcType=TIMESTAMP},#{updateTime,jdbcType=TIMESTAMP})
+	</insert>
+	
+	<insert id="insertSelective" parameterType="com.zzk.entity.SellerChooseAttributeInfo">
+		insert into seller_choose_attribute_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">ID,</if>
+			<if test="productId != null">PRODUCT_ID,</if>
+			<if test="skuId != null">SKU_ID,</if>
+			<if test="attrId != null">ATTR_ID,</if>
+			<if test="attrType != null">ATTR_TYPE,</if>
+			<if test="name != null">NAME,</if>
+			<if test="type != null">TYPE,</if>
+			<if test="content != null">CONTENT,</if>
+			<if test="value != null">VALUE,</if>
+			<if test="sort != null">SORT,</if>
+			<if test="status != null">STATUS,</if>
+			<if test="createTime != null">CREATE_TIME,</if>
+			<if test="updateTime != null">UPDATE_TIME,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=VARCHAR},</if>
+			<if test="productId != null">#{productId,jdbcType=VARCHAR},</if>
+			<if test="skuId != null">#{skuId,jdbcType=VARCHAR},</if>
+			<if test="attrId != null">#{attrId,jdbcType=VARCHAR},</if>
+			<if test="attrType != null">#{attrType,jdbcType=VARCHAR},</if>
+			<if test="name != null">#{name,jdbcType=VARCHAR},</if>
+			<if test="type != null">#{type,jdbcType=INTEGER},</if>
+			<if test="content != null">#{content,jdbcType=VARCHAR},</if>
+			<if test="value != null">#{value,jdbcType=VARCHAR},</if>
+			<if test="sort != null">#{sort,jdbcType=INTEGER},</if>
+			<if test="status != null">#{status,jdbcType=INTEGER},</if>
+			<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+			<if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+		</trim>
+	</insert>
+	
+	<update id="updateByPrimaryKeySelective" parameterType="com.zzk.entity.SellerChooseAttributeInfo">
+		update seller_choose_attribute_info
+		<set>
+			<if test="productId != null">PRODUCT_ID =#{productId,jdbcType=VARCHAR},</if>
+			<if test="skuId != null">SKU_ID =#{skuId,jdbcType=VARCHAR},</if>
+			<if test="attrId != null">ATTR_ID =#{attrId,jdbcType=VARCHAR},</if>
+			<if test="attrType != null">ATTR_TYPE =#{attrType,jdbcType=VARCHAR},</if>
+			<if test="name != null">NAME =#{name,jdbcType=VARCHAR},</if>
+			<if test="type != null">TYPE =#{type,jdbcType=INTEGER},</if>
+			<if test="content != null">CONTENT =#{content,jdbcType=VARCHAR},</if>
+			<if test="value != null">VALUE =#{value,jdbcType=VARCHAR},</if>
+			<if test="sort != null">SORT =#{sort,jdbcType=INTEGER},</if>
+			<if test="status != null">STATUS =#{status,jdbcType=INTEGER},</if>
+			<if test="createTime != null">CREATE_TIME =#{createTime,jdbcType=TIMESTAMP},</if>
+			<if test="updateTime != null">UPDATE_TIME =#{updateTime,jdbcType=TIMESTAMP},</if>
+		</set>
+		where ID = #{id,jdbcType=VARCHAR}
+	</update>
+	
+	<update id="updateByPrimaryKey" parameterType="com.zzk.entity.SellerChooseAttributeInfo">
+		update
+		seller_choose_attribute_info
+		set
+		
+		PRODUCT_ID = #{productId,jdbcType=VARCHAR},
+		SKU_ID = #{skuId,jdbcType=VARCHAR},
+		ATTR_ID = #{attrId,jdbcType=VARCHAR},
+		ATTR_TYPE = #{attrType,jdbcType=VARCHAR},
+		NAME = #{name,jdbcType=VARCHAR},
+		TYPE = #{type,jdbcType=INTEGER},
+		CONTENT = #{content,jdbcType=VARCHAR},
+		VALUE = #{value,jdbcType=VARCHAR},
+		SORT = #{sort,jdbcType=INTEGER},
+		STATUS = #{status,jdbcType=INTEGER},
+		CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+		UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+		where ID = #{id,jdbcType=VARCHAR}
+	</update>
+	
+	<select id="selectByPage" parameterType="java.util.Map" resultMap="BaseResultMap" resultType="java.util.List">
+		select
+		<include refid="Base_Column_List" />
+		from seller_choose_attribute_info
+		<where>
+			1=1 and status = 1
+			<if test="search != null">
+			</if>
+			<if test="orderName != null and orderName !=''">
+				order by ${orderName} ${descAsc}
+			</if>
+			<if test="startRow !=null">
+				limit ${startRow},${pageSize}
+			</if>
+		</where>
+	</select>
+	
+	<select id="selectCount" parameterType="com.zzk.entity.SellerChooseAttributeInfo" resultType="int">
+		select count(1) from seller_choose_attribute_info
+		<where>
+			1=1 and status = 1
+			<if test="search != null">
+
+			</if>
+		</where>
+	</select>
+
+	<select id="listChooseProductAttrByProductId" parameterType="java.lang.String" resultType="java.util.Map">
+		SELECT
+			ID,ATTR_ID,TYPE,NAME,CONTENT,VALUE
+		FROM
+			seller_choose_attribute_info
+		where
+		PRODUCT_ID = #{producrtId,jdbcType=VARCHAR} AND ATTR_TYPE = 1 AND STATUS = 1
+		ORDER BY sort ASC
+	</select>
+	<select id="selectPhoneNumberByProductId" parameterType="java.lang.String" resultType="java.lang.String">
+		SELECT
+			VALUE
+		FROM
+			seller_choose_attribute_info
+		where
+		PRODUCT_ID = #{producrtId,jdbcType=VARCHAR} AND ATTR_TYPE = 1 AND STATUS = 1
+		AND TYPE=1
+	</select>
+
+    <insert id="insertBatch" parameterType="java.util.List">
+        insert into seller_choose_attribute_info
+        (ID,PRODUCT_ID,SKU_ID,ATTR_ID,ATTR_TYPE,NAME,TYPE,CONTENT,VALUE,SORT,STATUS,CREATE_TIME,UPDATE_TIME)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.id,jdbcType=VARCHAR},#{item.productId,jdbcType=VARCHAR},#{item.skuId,jdbcType=VARCHAR},#{item.attrId,jdbcType=VARCHAR},
+            #{item.attrType,jdbcType=INTEGER},#{item.name,jdbcType=VARCHAR},#{item.type,jdbcType=INTEGER},#{item.content,jdbcType=VARCHAR},
+            #{item.value,jdbcType=VARCHAR},#{item.sort,jdbcType=INTEGER},
+            #{item.status,jdbcType=INTEGER},#{item.createTime,jdbcType=TIMESTAMP},#{item.updateTime,jdbcType=TIMESTAMP})
+        </foreach>
+    </insert>
+
+    <update id="deleteByProductId" parameterType="java.lang.String">
+        DELETE from seller_choose_attribute_info where PRODUCT_ID = #{productId,jdbcType=VARCHAR} AND ATTR_TYPE = 1
+    </update>
+</mapper>

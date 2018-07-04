@@ -1,0 +1,603 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzk.dao.OrderMapper">
+    <resultMap id="BaseResultMap" type="com.zzk.entity.OrderBaseInfo">
+        <id column="ID" jdbcType="VARCHAR" property="id"/>
+        <id column="ORDER_NO" jdbcType="VARCHAR" property="orderNo"/>
+        <id column="ORDER_NAME" jdbcType="VARCHAR" property="orderName"/>
+        <id column="SELLER_ID" jdbcType="VARCHAR" property="sellerId"/>
+        <id column="SELLER_NAME" jdbcType="VARCHAR" property="sellerName"/>
+        <id column="BUYER_ID" jdbcType="VARCHAR" property="buyerId"/>
+        <id column="BILL_ID" jdbcType="VARCHAR" property="billId"/>
+        <id column="ORDER_MONEY" jdbcType="DECIMAL" property="orderMoney"/>
+        <id column="ACTUAL_MONEY" jdbcType="DECIMAL" property="actualMoney"/>
+        <id column="PAY_STATE" jdbcType="INTEGER" property="payState"/>
+        <id column="PAY_MODE" jdbcType="INTEGER" property="payMode"/>
+        <id column="PAY_TIME" jdbcType="TIMESTAMP" property="payTime"/>
+        <id column="ORDER_STATE" jdbcType="INTEGER" property="orderState"/>
+        <id column="ORDER_TIME" jdbcType="TIMESTAMP" property="orderTime"/>
+        <id column="TRIP_TIME" jdbcType="TIMESTAMP" property="tripTime"/>
+        <id column="CONTACT_PERSON" jdbcType="VARCHAR" property="contactPerson"/>
+        <id column="CONTACT_PHONE" jdbcType="VARCHAR" property="contactPhone"/>
+        <id column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
+        <id column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime"/>
+        <id column="STATUS" jdbcType="INTEGER" property="status"/>
+        <id column="OPENID" jdbcType="VARCHAR" property="openid"/>
+        <id column="PAY_ORDER_ID" jdbcType="VARCHAR" property="payOrderId"/>
+        <id column="CURRENT_TIME_LONG" jdbcType="VARCHAR" property="currentTimeLong"/>
+        <id column="COMMISSION" jdbcType="DECIMAL" property="commission"/>
+        
+        <id column="CHECKIN_PERSON" jdbcType="VARCHAR" property="checkinPerson"/>
+        <id column="REMARK" jdbcType="VARCHAR" property="remark"/>
+       	<id column="COME_TIME" jdbcType="TIMESTAMP" property="comeTime"/>
+        <id column="LEAVE_TIME" jdbcType="TIMESTAMP" property="leaveTime"/>
+        <id column="ARRIVE_TIME" jdbcType="TIMESTAMP" property="arriveTime"/>
+        <id column="ORDER_TYPE" jdbcType="INTEGER" property="orderType"/>
+        <id column="GOODS_ID" jdbcType="VARCHAR" property="goodsId"/>
+        <id column="GOODS_NUM" jdbcType="VARCHAR" property="goodsNum"/>
+        <id column="NICKNAME" jdbcType="VARCHAR" property="nickName"/>
+    </resultMap>
+    <resultMap type="com.zzk.entity.OrderCustomDo" id="CustomResultMap" extends="BaseResultMap">
+        <result column="NAME" jdbcType="VARCHAR" property="hotelName"/>
+        <result column="ROOMTYPENAME" jdbcType="VARCHAR" property="roomTypeName"/>
+        <association property="hotelGoods" javaType="com.zzk.entity.HotelGoods"
+        	resultMap="BaseResultMap1">   
+        </association>
+    </resultMap>
+    <resultMap id="BaseResultMap1"
+               type="com.zzk.entity.HotelGoods">
+        <id column="ID" jdbcType="VARCHAR" property="id"/>
+        <id column="ROOMTYPE_ID" jdbcType="VARCHAR" property="roomtypeId"/>
+        <id column="LABEL" jdbcType="VARCHAR" property="label"/>
+        <id column="GOODS_NAME" jdbcType="VARCHAR" property="goodsName"/>
+        <id column="STATUS" jdbcType="INTEGER" property="status"/>
+        <id column="STATE" jdbcType="INTEGER" property="state"/>
+        <id column="PRICE" jdbcType="VARCHAR" property="price"/>
+        <id column="DESCRIPTION" jdbcType="VARCHAR" property="description"/>
+        <id column="BREAKFAST" jdbcType="INTEGER" property="breakfast"/>
+        <id column="IS_WINDOW" jdbcType="INTEGER" property="isWindow"/>
+        <id column="CANCEl" jdbcType="INTEGER" property="cancel"/>
+        <id column="CONFIRM" jdbcType="INTEGER" property="confirm"/>
+        <id column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
+        <id column="CREATOR" jdbcType="VARCHAR" property="creator"/>
+        <id column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime"/>
+        <id column="UPDATE_MAN" jdbcType="VARCHAR" property="updateMan"/>
+        <id column="CANCEL_TIME" jdbcType="VARCHAR" property="cancelTime"/>
+        <id column="CONFIRM_TIME" jdbcType="VARCHAR" property="confirmTime"/>
+        <id column="BED" jdbcType="VARCHAR" property="bed"/>
+        <id column="PEOPLE" jdbcType="VARCHAR" property="people"/>
+        <id column="AREA" jdbcType="VARCHAR" property="area"/>
+        <id column="ADD_BED" jdbcType="VARCHAR" property="addBed"/>
+        <id column="BED_FEE" jdbcType="VARCHAR" property="bedFee"/>
+        <id column="BED_TYPE" jdbcType="VARCHAR" property="bedType"/>
+        <id column="FLOOR" jdbcType="VARCHAR" property="floor"/>
+        <id column="COVER_IMG" jdbcType="VARCHAR" property="coverImg"/>
+        <id column="SMOKE" jdbcType="VARCHAR" property="smoke"/>
+        <id column="FREE_WIFI" jdbcType="VARCHAR" property="freeWifi"/>
+        <id column="HOTEL_ID" jdbcType="VARCHAR" property="hotelId"/>
+        <id column="APARTMENT_NAME" jdbcType="VARCHAR" property="apartmentName"/>
+    </resultMap>
+     <resultMap type="java.util.HashMap" id="DailyOrderResult">
+     	<result column="dataCount" property="DATACOUNT"/>
+     	<result column="actualMoney" property="ACTUALMONEY"/>
+     	<result column="basicMoney" property="BASICMONEY"/>
+     	<result column="cancelCount" property="CANCELCOUNT"/>
+    </resultMap>
+    <resultMap type="java.util.HashMap" id="newMap">
+     	<id column="count" jdbcType="INTEGER" property="count"/>
+        <id column="roomtypeId" jdbcType="VARCHAR" property="roomtypeId"/>
+     	
+    </resultMap>
+    <sql id="Base_Column_List">
+    	ID,
+		ORDER_NO,
+		ORDER_NAME,
+		SELLER_ID,
+		SELLER_NAME,
+		BUYER_ID,
+		BILL_ID,
+		ORDER_MONEY,
+		ACTUAL_MONEY,
+		PAY_STATE,
+		PAY_MODE,
+		PAY_TIME,
+		ORDER_STATE,
+		ORDER_TIME,
+		TRIP_TIME,
+		CONTACT_PERSON,
+		CONTACT_PHONE,
+		CREATE_TIME,
+		UPDATE_TIME,
+		STATUS,
+		OPENID,
+		PAY_ORDER_ID,
+		CURRENT_TIME_LONG,
+		COMMISSION,
+		CHECKIN_PERSON,
+		REMARK,
+		COME_TIME,
+		LEAVE_TIME,
+		ARRIVE_TIME,
+		ORDER_TYPE,
+		GOODS_ID,
+		GOODS_NUM
+	</sql>
+    <sql id="orderSql">
+    order_base_info.ID,
+		order_base_info.ORDER_NO,
+		order_base_info.ORDER_NAME,
+		order_base_info.SELLER_ID,
+		order_base_info.SELLER_NAME,
+		order_base_info.BUYER_ID,
+		order_base_info.BILL_ID,
+		order_base_info.ORDER_MONEY,
+		order_base_info.ACTUAL_MONEY,
+		order_base_info.PAY_STATE,
+		order_base_info.PAY_MODE,
+		order_base_info.PAY_TIME,
+		order_base_info.ORDER_STATE,
+		order_base_info.ORDER_TIME,
+		order_base_info.TRIP_TIME,
+		order_base_info.CONTACT_PERSON,
+		order_base_info.CONTACT_PHONE,
+		order_base_info.CREATE_TIME,
+		order_base_info.UPDATE_TIME,
+		order_base_info.STATUS,
+		order_base_info.OPENID,
+		order_base_info.PAY_ORDER_ID,
+		order_base_info.CURRENT_TIME_LONG,
+		order_base_info.COMMISSION,
+		order_base_info.CHECKIN_PERSON,
+		order_base_info.REMARK,
+		order_base_info.COME_TIME,
+		order_base_info.LEAVE_TIME,
+		order_base_info.ARRIVE_TIME,
+		order_base_info.ORDER_TYPE,
+		order_base_info.GOODS_ID,
+		order_base_info.GOODS_NUM,
+    t_mp_hotel_goods.ID,
+    t_mp_hotel_goods.ROOMTYPE_ID,
+    t_mp_hotel_goods.GOODS_NAME,
+    t_mp_hotel_goods.PRICE,
+    t_mp_hotel_goods.DESCRIPTION,
+    t_mp_hotel_goods.CANCEL,
+    t_mp_hotel_goods.CANCEL_TIME,
+    t_mp_hotel_goods.CONFIRM_TIME,
+    t_mp_roomtype.APARTMENT_NAME AS ROOMTYPENAME,
+    t_mp_hotel.NAME,
+    line_user.NICKNAME
+    </sql>
+    <sql id="orderAndHotelGoodsSql">
+    order_base_info.ID,
+		order_base_info.ORDER_NO,
+		order_base_info.ORDER_NAME,
+		order_base_info.SELLER_ID,
+		order_base_info.SELLER_NAME,
+		order_base_info.BUYER_ID,
+		order_base_info.BILL_ID,
+		order_base_info.ORDER_MONEY,
+		order_base_info.ACTUAL_MONEY,
+		order_base_info.PAY_STATE,
+		order_base_info.PAY_MODE,
+		order_base_info.PAY_TIME,
+		order_base_info.ORDER_STATE,
+		order_base_info.ORDER_TIME,
+		order_base_info.TRIP_TIME,
+		order_base_info.CONTACT_PERSON,
+		order_base_info.CONTACT_PHONE,
+		order_base_info.CREATE_TIME,
+		order_base_info.UPDATE_TIME,
+		order_base_info.STATUS,
+		order_base_info.OPENID,
+		order_base_info.PAY_ORDER_ID,
+		order_base_info.CURRENT_TIME_LONG,
+		order_base_info.COMMISSION,
+		order_base_info.CHECKIN_PERSON,
+		order_base_info.REMARK,
+		order_base_info.COME_TIME,
+		order_base_info.LEAVE_TIME,
+		order_base_info.ARRIVE_TIME,
+		order_base_info.ORDER_TYPE,
+		order_base_info.GOODS_ID,
+		order_base_info.GOODS_NUM,
+    t_mp_hotel_goods.ID,
+    t_mp_hotel_goods.ROOMTYPE_ID,
+    t_mp_hotel_goods.GOODS_NAME,
+    t_mp_hotel_goods.PRICE,
+    t_mp_hotel_goods.DESCRIPTION,
+    t_mp_hotel_goods.CANCEL,
+    t_mp_hotel_goods.CANCEL_TIME,
+    t_mp_hotel_goods.CONFIRM_TIME
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from order_base_info where ID = #{orderId,jdbcType=VARCHAR}
+    </select>
+    
+    <select id="selectSuspOrder" parameterType="java.lang.String" resultMap="CustomResultMap">
+		SELECT torder.*,goods.ID,goods.GOODS_NAME  
+		FROM order_base_info AS torder , t_mp_hotel_goods AS goods 
+		<where>  1=1 AND torder.STATUS=1 AND torder.goods_id = goods.id
+			AND torder.SELLER_ID=#{shopId,jdbcType=VARCHAR} 
+			AND ((torder.ORDER_STATE =6 AND torder.PAY_STATE IN (2,4)) OR  torder.ORDER_STATE IN(101,201) OR  torder.PAY_STATE =4) 
+			ORDER BY torder.ORDER_TIME DESC 
+		</where>
+    </select>
+    
+    <select id="selectDailyByshopId" parameterType="java.util.Map" resultMap="DailyOrderResult">
+		SELECT 
+			SUM(CASE WHEN   ORDER_STATE=201 OR ORDER_STATE=301 OR ORDER_STATE=401 OR ORDER_STATE=402 THEN ORDER_MONEY ELSE 0 END) AS actualMoney,
+			(SUM(CASE WHEN   ORDER_STATE=201 OR ORDER_STATE=301 OR ORDER_STATE=401 OR ORDER_STATE=402 THEN ORDER_MONEY ELSE 0 END)-SUM(CASE WHEN   ORDER_STATE=201 OR ORDER_STATE=301 OR ORDER_STATE=401 OR ORDER_STATE=402 THEN COMMISSION ELSE 0 END)) AS basicMoney,
+			SUM(CASE WHEN 1=1 THEN 1 ELSE 0 END) AS dataCount,
+			SUM(CASE WHEN ORDER_STATE=302 OR ORDER_STATE=303 OR ORDER_STATE=304 OR ORDER_STATE=305 OR ORDER_STATE=306 OR ORDER_STATE=405 OR ORDER_STATE=406 THEN 1 ELSE 0 END) cancelCount
+		FROM order_base_info
+		<where> 1=1 AND STATUS=1 AND ORDER_TIME >= #{startTime,jdbcType=VARCHAR} AND ORDER_TIME &lt;= #{endTime,jdbcType=VARCHAR} 
+			AND SELLER_ID=#{shopId,jdbcType=VARCHAR} and order_type = 2
+		</where>
+		order by order_time desc
+    </select>
+    
+    <select id="selectByOrderNum" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from order_base_info where ORDER_NO = #{orderNum,jdbcType=VARCHAR}
+    </select>
+    <!-- 根据账单号查询 -->
+    <select id="selectByBillId" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+         od.ID,od.ORDER_NAME,od.SELLER_ID,od.GOODS_ID,od.BUYER_ID,
+         od.GOODS_NUM,od.ORDER_MONEY,od.ACTUAL_MONEY,od.COMMISSION,     
+         od.ORDER_TIME,od.ORDER_STATE,od.CREATE_TIME,od.COME_TIME,     
+         od.LEAVE_TIME,od.ORDER_NO,od.BILL_ID,cu.NICKNAME
+        from order_base_info od,line_user cu  where BILL_ID = #{billId,jdbcType=VARCHAR} AND od.BUYER_ID=cu.ID
+    </select>
+    
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from order_base_info where ID = #{orderId,jdbcType=VARCHAR}
+    </delete>
+    
+    <insert id="insert" parameterType="com.zzk.entity.OrderBaseInfo">
+        insert into order_base_info
+		(ID,ORDER_NO,ORDER_NAME,SELLER_ID,SELLER_NAME,BUYER_ID,BILL_ID,ORDER_MONEY,ACTUAL_MONEY,PAY_STATE,PAY_MODE,PAY_TIME,ORDER_STATE,ORDER_TIME,TRIP_TIME,CONTACT_PERSON,CONTACT_PHONE,CREATE_TIME,UPDATE_TIME,STATUS,OPENID,PAY_ORDER_ID,CURRENT_TIME_LONG,COMMISSION,
+		CHECKIN_PERSON,
+		REMARK,
+		COME_TIME,
+		LEAVE_TIME,
+		ARRIVE_TIME,
+		ORDER_TYPE,
+		GOODS_ID,
+		GOODS_NUM)
+		values
+		(#{id,jdbcType=VARCHAR},#{orderNo,jdbcType=VARCHAR},#{orderName,jdbcType=VARCHAR},#{sellerId,jdbcType=VARCHAR},#{sellerName,jdbcType=VARCHAR},#{buyerId,jdbcType=VARCHAR},#{billId,jdbcType=VARCHAR},#{orderMoney,jdbcType=DECIMAL},#{actualMoney,jdbcType=DECIMAL},#{payState,jdbcType=INTEGER},#{payMode,jdbcType=INTEGER},#{payTime,jdbcType=TIMESTAMP},#{orderState,jdbcType=INTEGER},#{orderTime,jdbcType=TIMESTAMP},#{tripTime,jdbcType=TIMESTAMP},#{contactPerson,jdbcType=VARCHAR},#{contactPhone,jdbcType=VARCHAR},#{createTime,jdbcType=TIMESTAMP},#{updateTime,jdbcType=TIMESTAMP},#{status,jdbcType=INTEGER},#{openid,jdbcType=VARCHAR},#{payOrderId,jdbcType=VARCHAR},#{currentTimeLong,jdbcType=VARCHAR},#{commission,jdbcType=DECIMAL},
+		#{checkinPerson,jdbcType=VARCHAR},#{remark,jdbcType=VARCHAR},
+		#{comeTime,jdbcType=TIMESTAMP},#{leaveTime,jdbcType=TIMESTAMP},
+		#{arriveTime,jdbcType=TIMESTAMP},#{orderType,jdbcType=INTEGER},
+		#{goodsId,jdbcType=VARCHAR},#{goodsNum,jdbcType=VARCHAR})
+	</insert>
+    <update id="updateByPrimaryKey" parameterType="com.zzk.entity.OrderBaseInfo">
+        update order_base_info
+        <set>
+            <if test="orderNo != null">ORDER_NO =#{orderNo,jdbcType=VARCHAR},</if>
+            <if test="orderName != null">ORDER_NAME =#{orderName,jdbcType=VARCHAR},</if>
+            <if test="sellerId != null">SELLER_ID =#{sellerId,jdbcType=VARCHAR},</if>
+            <if test="sellerName != null">SELLER_NAME =#{sellerName,jdbcType=VARCHAR},</if>
+            <if test="buyerId != null">BUYER_ID =#{buyerId,jdbcType=VARCHAR},</if>
+            <if test="billId != null">BILL_ID =#{billId,jdbcType=VARCHAR},</if>
+            <if test="orderMoney != null">ORDER_MONEY =#{orderMoney,jdbcType=DECIMAL},</if>
+            <if test="actualMoney != null">ACTUAL_MONEY =#{actualMoney,jdbcType=DECIMAL},</if>
+            <if test="payState != null">PAY_STATE =#{payState,jdbcType=INTEGER},</if>
+            <if test="payMode != null">PAY_MODE =#{payMode,jdbcType=INTEGER},</if>
+            <if test="payTime != null">PAY_TIME =#{payTime,jdbcType=TIMESTAMP},</if>
+            <if test="orderState != null">ORDER_STATE =#{orderState,jdbcType=INTEGER},</if>
+            <if test="orderTime != null">ORDER_TIME =#{orderTime,jdbcType=TIMESTAMP},</if>
+            <if test="tripTime != null">TRIP_TIME =#{tripTime,jdbcType=TIMESTAMP},</if>
+            <if test="contactPerson != null">CONTACT_PERSON =#{contactPerson,jdbcType=VARCHAR},</if>
+            <if test="contactPhone != null">CONTACT_PHONE =#{contactPhone,jdbcType=VARCHAR},</if>
+            <if test="createTime != null">CREATE_TIME =#{createTime,jdbcType=TIMESTAMP},</if>
+            <if test="updateTime != null">UPDATE_TIME =#{updateTime,jdbcType=TIMESTAMP},</if>
+            <if test="status != null">STATUS =#{status,jdbcType=INTEGER},</if>
+            <if test="openid != null">OPENID =#{openid,jdbcType=VARCHAR},</if>
+            <if test="payOrderId != null">PAY_ORDER_ID =#{payOrderId,jdbcType=VARCHAR},</if>
+            <if test="currentTimeLong != null">CURRENT_TIME_LONG =#{currentTimeLong,jdbcType=VARCHAR},</if>
+            <if test="commission != null">COMMISSION =#{commission,jdbcType=DECIMAL},</if>
+            
+            <if test="checkinPerson != null">CHECKIN_PERSON =#{checkinPerson,jdbcType=TIMESTAMP},</if>
+            <if test="remark != null">REMARK =#{remark,jdbcType=TIMESTAMP},</if>
+            <if test="comeTime != null">COME_TIME =#{comeTime,jdbcType=TIMESTAMP},</if>
+            <if test="leaveTime != null">LEAVE_TIME =#{leaveTime,jdbcType=TIMESTAMP},</if>
+            <if test="arriveTime != null">ARRIVE_TIME =#{arriveTime,jdbcType=TIMESTAMP},</if>
+            <if test="orderType != null">ORDER_TYPE =#{orderType,jdbcType=INTEGER},</if>
+            <if test="goodsId != null">GOODS_ID =#{goodsId,jdbcType=VARCHAR},</if>
+            <if test="goodsNum != null">GOODS_NUM =#{goodsNum,jdbcType=DECIMAL},</if>
+        </set>
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+    
+    <select id="selectOrderByPage" parameterType="java.util.Map"
+            resultMap="CustomResultMap" resultType="java.util.List">
+        SELECT <include refid="orderSql"/> FROM order_base_info 
+        INNER JOIN t_mp_hotel  ON order_base_info.SELLER_ID = t_mp_hotel.ID
+		INNER JOIN t_mp_hotel_goods  ON order_base_info.GOODS_ID = t_mp_hotel_goods.ID
+		INNER JOIN line_user  ON order_base_info.BUYER_ID = line_user.ID
+		INNER JOIN t_mp_roomtype  ON t_mp_hotel_goods.ROOMTYPE_ID = t_mp_roomtype.ID
+		<where>
+            1=1 and order_base_info.status = 1 
+            and order_type = 2
+            and order_base_info.SELLER_ID =#{shopId,jdbcType=VARCHAR}
+            <if test="orderNum !=null and orderNum !='' ">
+            	and ORDER_NO  LIKE CONCAT(CONCAT('%',#{orderNum,jdbcType=VARCHAR}),'%')
+            </if>
+            <if test="contactMobile !=null and contactMobile !='' ">
+            	and order_base_info.CONTACT_PHONE  LIKE CONCAT(CONCAT('%',#{contactMobile,jdbcType=VARCHAR}),'%')
+            </if>
+            <!-- <if test="handleMan !=null and handleMan !='' ">
+            	and HANDLE_MAN  LIKE CONCAT(CONCAT('%',#{handleMan,jdbcType=VARCHAR}),'%')
+            </if> -->
+            <if test="startTime !=null and startTime !='' ">
+            	and ORDER_TIME >= #{startTime,jdbcType=VARCHAR}
+            </if>
+            <if test="endTime !=null and endTime !='' ">
+            	and ORDER_TIME &lt;= #{endTime,jdbcType=VARCHAR}
+            </if>
+            <if test="orderState != null and orderState !='' ">
+            	and ORDER_STATE = #{orderState,jdbcType=VARCHAR}
+            </if>
+            <if test="checkinPerson != null and checkinPerson !='' ">    
+                and CHECKIN_PERSON LIKE CONCAT(CONCAT('%',#{checkinPerson,jdbcType=VARCHAR}),'%')            	
+            </if>
+            order by ORDER_TIME DESC
+            <if test="startRow !=null">
+                limit ${startRow},${pageSize}
+            </if>
+        </where>
+    </select>
+    
+    <select id="selectByOrderState" parameterType="java.util.Map"
+            resultMap="CustomResultMap" resultType="java.util.List">
+        SELECT <include refid="orderAndHotelGoodsSql"/> FROM order_base_info 
+        INNER JOIN t_mp_hotel_goods  ON order_base_info.GOODS_ID = t_mp_hotel_goods.ID
+		where order_base_info.order_state = 201
+    </select>
+    
+    
+     <select id="selectOrderDetail" parameterType="java.lang.String" resultMap="CustomResultMap">
+       SELECT <include refid="orderSql"/> FROM order_base_info  
+		LEFT JOIN t_mp_hotel  ON order_base_info.SELLER_ID = t_mp_hotel.ID
+		LEFT JOIN t_mp_hotel_goods  ON order_base_info.GOODS_ID = t_mp_hotel_goods.ID
+		LEFT JOIN line_user  ON order_base_info.BUYER_ID = line_user.ID
+		LEFT JOIN t_mp_roomtype  ON t_mp_hotel_goods.ROOMTYPE_ID = t_mp_roomtype.ID
+        where order_base_info.ID = #{orderId,jdbcType=VARCHAR}
+    </select>
+         
+    <select id="selectCount" parameterType="com.zzk.entity.Order"
+            resultType="int">
+        select count(*) from order_base_info
+        <where>
+           	1=1 and status = 1 
+            and BUYER_ID = #{buyerId,jdbcType=VARCHAR}
+            <if test="orderState != null and orderState !='' ">
+            	and ORDER_STATE = #{orderState,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
+    <select id="selectOrderInRange" parameterType="com.zzk.entity.OrderBaseInfo" 
+    		resultMap="BaseResultMap">
+    	select * from order_base_info t1 left join t_mp_hotel_goods t2 on t1.Goods_id= t2.id
+    	 where 
+    	 t1.status = 1 and t2.status = 1
+    	 and t2.roomType_id=(select RoomType_id from t_mp_hotel_goods where status=1 and id=#{goodsId,jdbcType=VARCHAR})
+    	 and LEAVE_TIME > #{comeTime,jdbcType=TIMESTAMP} 
+    	 and COME_TIME &lt; #{leaveTime,jdbcType=TIMESTAMP} 
+    	 and (t1.ORDER_STATE = 101 or t1.ORDER_STATE = 201 or t1.ORDER_STATE = 202 or t1.ORDER_STATE = 301 or t1.ORDER_STATE = 401)
+    </select>
+    
+    <select id="selectByRoomtypeList" parameterType="java.util.HashMap" 
+    		resultType="HashMap">
+    	select t1.*,t2.roomType_Id as roomtypeId from order_base_info t1 left join t_mp_hotel_goods t2 on t1.Goods_id= t2.id
+    	 where 
+    	 t1.status = 1 and t2.status = 1
+    	 and t2.roomType_id in 
+    	<foreach item="item" index="index" collection="list" open="("
+            separator="," close=")">
+            #{item}  
+       	</foreach>
+    	 and LEAVE_TIME > #{comeTime,jdbcType=TIMESTAMP} 
+    	 and COME_TIME &lt; #{leaveTime,jdbcType=TIMESTAMP} 
+    	 and (t1.ORDER_STATE = 101 or t1.ORDER_STATE = 201 or t1.ORDER_STATE = 202 or t1.ORDER_STATE = 301 or t1.ORDER_STATE = 401)
+    </select>
+    
+    <select id="selectOrderByHotelId" parameterType="com.zzk.entity.OrderBaseInfo" 
+    		resultType="HashMap">
+    	select t1.*,t2.roomType_Id as roomtypeId from order_base_info t1 left join t_mp_hotel_goods t2 on t1.Goods_id= t2.id
+    	 where 
+    	 t1.status = 1 
+    	 <!-- and t2.status = 1 -->
+    	 and t1.SELLER_ID=#{sellerId,jdbcType=VARCHAR}
+    	 and t1.LEAVE_TIME > #{comeTime,jdbcType=TIMESTAMP} 
+    	 and t1.COME_TIME &lt; #{leaveTime,jdbcType=TIMESTAMP}
+    	 and (t1.ORDER_STATE = 101 or t1.ORDER_STATE = 201 or t1.ORDER_STATE = 202 or t1.ORDER_STATE = 301 or t1.ORDER_STATE = 401) 
+    </select>
+    
+    
+     <select id="selectSaleNumMap" parameterType="java.lang.String" 
+    		resultMap="newMap" resultType="java.util.List">
+    	select count(t1.goods_num) as count,t2.roomType_Id as roomtypeId from order_base_info t1 left join t_mp_hotel_goods t2 on t1.Goods_id= t2.id
+    	 where 
+    	 t1.status = 1 and t2.status = 1
+    	 and t1.SELLER_ID=#{hotelId,jdbcType=VARCHAR}
+    	 and (t1.ORDER_STATE = 101 or t1.ORDER_STATE = 201 or t1.ORDER_STATE = 202 or t1.ORDER_STATE = 301 or t1.ORDER_STATE = 401) 
+    </select>
+    
+    
+    <select id="selectOrderByBuyerId" parameterType="java.util.Map"
+            resultMap="BaseResultMap" resultType="java.util.List">
+        select
+        <include refid="Base_Column_List"/>
+        from order_base_info
+        <where>
+            1=1 and status = 1
+             and order_type=2
+            and BUYER_ID = #{buyerId,jdbcType=VARCHAR}
+            <if test="orderState != null and orderState !='' ">
+            	and ORDER_STATE = #{orderState,jdbcType=VARCHAR}
+            </if>
+            order by ORDER_TIME desc
+            <if test="startRow !=null">
+                limit ${startRow},${pageSize}
+            </if>
+        </where>
+    </select>
+    
+    <select id="selectOrderByBuyerIdNew" parameterType="java.util.Map"
+            resultMap="BaseResultMap" resultType="java.util.List">
+        select
+        <include refid="Base_Column_List"/>
+        from order_base_info
+        <where>
+            1=1 and status = 1 
+            and order_type=2
+            and BUYER_ID = #{buyerId,jdbcType=VARCHAR}
+          	<if test="orderStateArr!=null">
+	            AND ORDER_STATE IN
+	            <foreach collection="orderStateArr" item="orderState" open="(" close=")"
+	                     separator=",">
+	                #{orderState}
+	            </foreach>
+	        </if>
+            <if test="payStateArr!=null">
+	            AND pay_State IN
+	            <foreach collection="payStateArr" item="payState" open="(" close=")"
+	                     separator=",">
+	                #{payState}
+	            </foreach>
+	        </if>
+            order by ORDER_TIME desc
+        </where>
+    </select>
+    <select id="selectAll" parameterType="java.util.Map"
+            resultMap="BaseResultMap" resultType="java.util.List">
+        select
+        <include refid="Base_Column_List"/>
+        from order_base_info
+    </select>
+    <select id="selectOrderByShopId" parameterType="java.util.Map"
+            resultMap="BaseResultMap" resultType="java.util.List">
+        select
+        <include refid="Base_Column_List"/>
+        from order_base_info
+        <where>
+            1=1 and status = 1 
+            and order_type=2
+            and SELLER_ID = #{shopId,jdbcType=VARCHAR}
+            <if test="search !=null and search !='' ">
+            	and CONCAT(ORDER_NAME,ORDER_NO) like CONCAT(CONCAT('%',#{search,jdbcType=VARCHAR}),'%')
+            </if>
+            <if test="contactMobile !=null and contactMobile !='' ">
+            	and CONTACT_MOBILE = #{contactMobile,jdbcType=VARCHAR}
+            </if>
+            <if test="checkinPerson !=null and checkinPerson !='' ">
+            	and CHECKIN_PERSON like CONCAT(CONCAT('%',#{checkinPerson,jdbcType=VARCHAR}),'%')
+            </if>
+            <!-- <if test="handleMan !=null and handleMan !='' ">
+            	and HANDLE_MAN = #{handleMan,jdbcType=VARCHAR}
+            </if> -->
+            <if test="startTime !=null and startTime !='' ">
+            	and ORDER_TIME >= #{startTime,jdbcType=VARCHAR}
+            </if>
+            <if test="endTime !=null and endTime !='' ">
+            	and ORDER_TIME &lt;= #{endTime,jdbcType=VARCHAR}
+            </if>
+            <if test="orderState != null and orderState !='' ">
+            	and ORDER_STATE = #{orderState,jdbcType=VARCHAR}
+            </if>
+            order by ORDER_TIME DESC
+            <if test="startRow !=null">
+                limit ${startRow},${pageSize}
+            </if>
+        </where>
+    </select>
+    <select id="selectCountByShopId" parameterType="java.util.Map"
+            resultType="int">
+        select count(*) from order_base_info
+        <where>
+           	1=1 and status = 1 
+           	and order_type=2
+            and SELLER_ID = #{shopId,jdbcType=VARCHAR}
+            <if test="search !=null and search !='' ">
+            	and CONCAT(ORDER_NAME,ORDER_NO) like CONCAT(CONCAT('%',#{search,jdbcType=VARCHAR}),'%')
+            </if>
+            <if test="contactMobile !=null and contactMobile !='' ">
+            	and CONTACT_MOBILE = #{contactMobile,jdbcType=VARCHAR}
+            </if>
+            <if test="checkinPerson !=null and checkinPerson !='' ">
+            	and CHECKIN_PERSON = #{checkinPerson,jdbcType=VARCHAR}
+            </if>
+            <!-- <if test="handleMan !=null and handleMan !='' ">
+            	and HANDLE_MAN = #{handleMan,jdbcType=VARCHAR}
+            </if> -->
+            <if test="startTime !=null and startTime !='' ">
+            	and ORDER_TIME >= #{startTime,jdbcType=VARCHAR}
+            </if>
+            <if test="endTime !=null and endTime !='' ">
+            	and ORDER_TIME &lt;= #{endTime,jdbcType=VARCHAR}
+            </if>
+            <if test="orderState != null and orderState !='' ">
+            	and ORDER_STATE = #{orderState,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
+    
+     <select id="selectDailyCountByShopId" parameterType="java.util.Map" resultType="java.util.HashMap">
+        select date_format(create_time,'%Y-%m-%d') as createDate,count(id) as orderAmount
+        from order_base_info
+            <where>	
+      		 1=1 
+      		 and order_type=2
+            <if test="shopId != null and shopId != ''">
+      		and SELLER_ID = #{shopId,jdbcType=VARCHAR}
+      		</if>
+      		<if test="orderState != null and orderState != ''">
+      		and order_state = 201
+      		</if>
+      		<if test="createTime != null">
+      		and date_format(create_time,'%Y-%m-%d')  between (select date_sub(date_format(#{createTime},'%Y-%m-%d'), interval 6 DAY))  and date_format(#{createTime},'%Y-%m-%d')
+      		</if>
+      		group by SELLER_ID,date_format(create_time,'%Y-%m-%d')     		
+      </where> 
+    </select>
+    
+    
+    <select id="selectRecentOrderByUserId" parameterType="java.lang.String"
+            resultMap="BaseResultMap" resultType="java.util.List">
+        select
+        <include refid="Base_Column_List"/>
+	      	from  order_base_info AS o WHERE 1=1 and STATUS=1 AND o.SELLER_ID=#{shopId,jdbcType=VARCHAR}
+			ORDER BY ORDER_TIME DESC LIMIT 0,1
+       
+    </select>
+    
+    <!-- 修改状态 -->
+    <update id="updateOrderNotPay" parameterType="java.util.Date">
+    	update order_base_info set order_State= 405,UPDATE_TIME = #{date,jdbcType=TIMESTAMP}
+    	where order_State=101 and status = 1 and
+		date_add(order_Time, interval 30 MINUTE)&lt; #{date,jdbcType=TIMESTAMP}
+    </update>
+     <update id="updateOrderDefaultEnd" parameterType="java.util.Date">
+    	update order_base_info set order_State= 402,UPDATE_TIME = #{date,jdbcType=TIMESTAMP}
+    	where order_State=301 and status = 1 and
+		date_add(LEAVE_TIME, interval 7 day)&lt;now()
+    </update>
+    
+    <update id="updateOrderCheckIn" parameterType="java.util.Date">
+    	update order_base_info set order_State= 301,UPDATE_TIME = now()
+    	where order_State=202 and status = 1 and
+		date_add(COME_TIME, interval +23 HOUR)&lt;now()
+    </update>
+    
+    <select id="selectByPayNum" parameterType="java.lang.String" resultMap="BaseResultMap">
+    	select * from order_base_info where CONCAT(ORDER_NO,'/',CURRENT_TIME_LONG) = #{payNum,jdbcType=VARCHAR}
+    </select>
+    
+    
+</mapper>

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzk.dao.QualificationInfoMapper">
+
+	<resultMap id="BaseResultMap" type="com.zzk.entity.QualificationInfo">
+		<id column="ID" jdbcType="VARCHAR" property="id" />
+		<id column="MERCHANT_ID" jdbcType="VARCHAR" property="merchantId" />
+		<id column="LEGAL_PERSON" jdbcType="VARCHAR" property="legalPerson" />
+		<id column="ID_CARD" jdbcType="VARCHAR" property="idCard" />
+		<id column="ID_CARD_IMG" jdbcType="VARCHAR" property="idCardImg" />
+		<id column="REGISTERED_TIME" jdbcType="TIMESTAMP" property="registeredTime" />
+		<id column="REGISTERED_CAPITEL" jdbcType="DECIMAL" property="registeredCapitel" />
+		<id column="CREDIT_CODE" jdbcType="VARCHAR" property="creditCode" />
+		<id column="STATUS" jdbcType="INTEGER" property="status" />
+		<id column="LICENSE" jdbcType="VARCHAR" property="license" />
+		<id column="LICENSE_IMG" jdbcType="VARCHAR" property="licenseImg" />
+		<id column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+		<id column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		ID,
+		MERCHANT_ID,
+		LEGAL_PERSON,
+		ID_CARD,
+		ID_CARD_IMG,
+		REGISTERED_TIME,
+		REGISTERED_CAPITEL,
+		CREDIT_CODE,
+		STATUS,
+		LICENSE,
+		LICENSE_IMG,
+		CREATE_TIME,
+		UPDATE_TIME
+	</sql>
+	
+	<select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" /> from qualification_info where ID = #{id,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="selectByMerchantId" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" /> from qualification_info where merchant_id = #{merchantId,jdbcType=VARCHAR}
+	</select>
+	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from qualification_info where ID = #{id,jdbcType=VARCHAR}
+	</delete>
+	
+	<insert id="insert" parameterType="com.zzk.entity.QualificationInfo">
+		insert into qualification_info
+		(ID,MERCHANT_ID,LEGAL_PERSON,ID_CARD,ID_CARD_IMG,REGISTERED_TIME,REGISTERED_CAPITEL,CREDIT_CODE,STATUS,LICENSE,LICENSE_IMG,CREATE_TIME,UPDATE_TIME)
+		values
+		(#{id,jdbcType=VARCHAR},#{merchantId,jdbcType=VARCHAR},#{legalPerson,jdbcType=VARCHAR},#{idCard,jdbcType=VARCHAR},#{idCardImg,jdbcType=VARCHAR},#{registeredTime,jdbcType=TIMESTAMP},#{registeredCapitel,jdbcType=DECIMAL},#{creditCode,jdbcType=VARCHAR},#{status,jdbcType=INTEGER},#{license,jdbcType=VARCHAR},#{licenseImg,jdbcType=VARCHAR},#{createTime,jdbcType=TIMESTAMP},#{updateTime,jdbcType=TIMESTAMP})
+	</insert>
+	
+	<insert id="insertSelective" parameterType="com.zzk.entity.QualificationInfo">
+		insert into qualification_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">ID,</if>
+			<if test="merchantId != null">MERCHANT_ID,</if>
+			<if test="legalPerson != null">LEGAL_PERSON,</if>
+			<if test="idCard != null">ID_CARD,</if>
+			<if test="idCardImg != null">ID_CARD_IMG,</if>
+			<if test="registeredTime != null">REGISTERED_TIME,</if>
+			<if test="registeredCapitel != null">REGISTERED_CAPITEL,</if>
+			<if test="creditCode != null">CREDIT_CODE,</if>
+			<if test="status != null">STATUS,</if>
+			<if test="license != null">LICENSE,</if>
+			<if test="licenseImg != null">LICENSE_IMG,</if>
+			<if test="createTime != null">CREATE_TIME,</if>
+			<if test="updateTime != null">UPDATE_TIME,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=VARCHAR},</if>
+			<if test="merchantId != null">#{merchantId,jdbcType=VARCHAR},</if>
+			<if test="legalPerson != null">#{legalPerson,jdbcType=VARCHAR},</if>
+			<if test="idCard != null">#{idCard,jdbcType=VARCHAR},</if>
+			<if test="idCardImg != null">#{idCardImg,jdbcType=VARCHAR},</if>
+			<if test="registeredTime != null">#{registeredTime,jdbcType=TIMESTAMP},</if>
+			<if test="registeredCapitel != null">#{registeredCapitel,jdbcType=DECIMAL},</if>
+			<if test="creditCode != null">#{creditCode,jdbcType=VARCHAR},</if>
+			<if test="status != null">#{status,jdbcType=INTEGER},</if>
+			<if test="license != null">#{license,jdbcType=VARCHAR},</if>
+			<if test="licenseImg != null">#{licenseImg,jdbcType=VARCHAR},</if>
+			<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+			<if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+		</trim>
+	</insert>
+	
+	<update id="updateByPrimaryKeySelective" parameterType="com.zzk.entity.QualificationInfo">
+		update qualification_info
+		<set>
+			<if test="merchantId != null">MERCHANT_ID =#{merchantId,jdbcType=VARCHAR},</if>
+			<if test="legalPerson != null">LEGAL_PERSON =#{legalPerson,jdbcType=VARCHAR},</if>
+			<if test="idCard != null">ID_CARD =#{idCard,jdbcType=VARCHAR},</if>
+			<if test="idCardImg != null">ID_CARD_IMG =#{idCardImg,jdbcType=VARCHAR},</if>
+			<if test="registeredTime != null">REGISTERED_TIME =#{registeredTime,jdbcType=TIMESTAMP},</if>
+			<if test="registeredCapitel != null">REGISTERED_CAPITEL =#{registeredCapitel,jdbcType=DECIMAL},</if>
+			<if test="creditCode != null">CREDIT_CODE =#{creditCode,jdbcType=VARCHAR},</if>
+			<if test="status != null">STATUS =#{status,jdbcType=INTEGER},</if>
+			<if test="license != null">LICENSE =#{license,jdbcType=VARCHAR},</if>
+			<if test="licenseImg != null">LICENSE_IMG =#{licenseImg,jdbcType=VARCHAR},</if>
+			<if test="createTime != null">CREATE_TIME =#{createTime,jdbcType=TIMESTAMP},</if>
+			<if test="updateTime != null">UPDATE_TIME =#{updateTime,jdbcType=TIMESTAMP},</if>
+		</set>
+		where ID = #{id,jdbcType=VARCHAR}
+	</update>
+	
+	<update id="updateByPrimaryKey" parameterType="com.zzk.entity.QualificationInfo">
+		update
+		qualification_info
+		set
+		
+		MERCHANT_ID = #{merchantId,jdbcType=VARCHAR},
+		LEGAL_PERSON = #{legalPerson,jdbcType=VARCHAR},
+		ID_CARD = #{idCard,jdbcType=VARCHAR},
+		ID_CARD_IMG = #{idCardImg,jdbcType=VARCHAR},
+		REGISTERED_TIME = #{registeredTime,jdbcType=TIMESTAMP},
+		REGISTERED_CAPITEL = #{registeredCapitel,jdbcType=DECIMAL},
+		CREDIT_CODE = #{creditCode,jdbcType=VARCHAR},
+		STATUS = #{status,jdbcType=INTEGER},
+		LICENSE = #{license,jdbcType=VARCHAR},
+		LICENSE_IMG = #{licenseImg,jdbcType=VARCHAR},
+		CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+		UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+		where ID = #{id,jdbcType=VARCHAR}
+	</update>
+	
+	<select id="selectByPage" parameterType="java.util.Map" resultMap="BaseResultMap" resultType="java.util.List">
+		select
+		<include refid="Base_Column_List" />
+		from qualification_info
+		<where>
+			1=1 and status = 1
+			<if test="search != null">
+			</if>
+			<if test="orderName != null and orderName !=''">
+				order by ${orderName} ${descAsc}
+			</if>
+			<if test="startRow !=null">
+				limit ${startRow},${pageSize}
+			</if>
+		</where>
+	</select>
+	
+	<select id="selectCount" parameterType="com.zzk.entity.QualificationInfo" resultType="int">
+		select count(1) from qualification_info
+		<where>
+			1=1 and status = 1
+			<if test="search != null">
+
+			</if>
+		</where>
+	</select>
+</mapper>

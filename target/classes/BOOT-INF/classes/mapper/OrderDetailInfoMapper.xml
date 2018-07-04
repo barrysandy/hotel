@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzk.dao.OrderDetailInfoMapper">
+	<resultMap id="BaseResultMap" type="com.zzk.entity.OrderDetailInfo">
+		<id column="ID" jdbcType="VARCHAR" property="id" />
+		<id column="ORDER_NO" jdbcType="VARCHAR" property="orderNo" />
+		<id column="SKU_ID" jdbcType="VARCHAR" property="skuId" />
+		<id column="SKU_NAME" jdbcType="VARCHAR" property="skuName" />
+		<id column="PRODUCT_ID" jdbcType="VARCHAR" property="productId" />
+		<id column="PRODUCT_NAME" jdbcType="VARCHAR" property="productName" />
+		<id column="PRODUCT_SUBTITLE" jdbcType="VARCHAR" property="productSubtitle" />
+		<id column="IMAGE" jdbcType="VARCHAR" property="image" />
+		<id column="CURRENT_ADULT_PRICE" jdbcType="DECIMAL" property="currentAdultPrice" />
+		<id column="CURRENT_CHILD_PRICE" jdbcType="DECIMAL" property="currentChildPrice" />
+		<id column="TOTAL_PRICE" jdbcType="DECIMAL" property="totalPrice" />
+		<id column="ADULT_NUMBER" jdbcType="INTEGER" property="adultNumber" />
+		<id column="CHILD_NUMBER" jdbcType="INTEGER" property="childNumber" />
+		<id column="STATUS" jdbcType="INTEGER" property="status" />
+		<id column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+		<id column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+		<id column="PRODUCT_STOCK_ID" jdbcType="VARCHAR" property="productStockId" />
+		<id column="CANCEL" jdbcType="INTEGER" property="cancel" />
+		<id column="CANCEL_TIME" jdbcType="VARCHAR" property="cancelTime" />
+	</resultMap>
+   
+
+    <sql id="Base_Column_List">
+		ID,
+		ORDER_NO,
+		SKU_ID,
+		SKU_NAME,
+		PRODUCT_ID,
+		PRODUCT_NAME,
+		PRODUCT_SUBTITLE,
+		IMAGE,
+		CURRENT_ADULT_PRICE,
+		CURRENT_CHILD_PRICE,
+		TOTAL_PRICE,
+		ADULT_NUMBER,
+		CHILD_NUMBER,
+		STATUS,
+		CREATE_TIME,
+		UPDATE_TIME,
+		PRODUCT_STOCK_ID,
+		CANCEL,
+		CANCEL_TIME
+	</sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from order_detail_info where ID = #{id,jdbcType=VARCHAR}
+    </select>
+    <select id="selectByOrderNo" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from order_detail_info where ORDER_NO = #{orderNo,jdbcType=VARCHAR}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from order_detail_info where ID = #{id,jdbcType=VARCHAR}
+	</delete>
+
+    <insert id="insert" parameterType="com.zzk.entity.OrderDetailInfo">
+		insert into order_detail_info
+		(ID,ORDER_NO,SKU_ID,SKU_NAME,PRODUCT_ID,PRODUCT_NAME,PRODUCT_SUBTITLE,IMAGE,CURRENT_ADULT_PRICE,CURRENT_CHILD_PRICE,TOTAL_PRICE,ADULT_NUMBER,CHILD_NUMBER,STATUS,CREATE_TIME,UPDATE_TIME,PRODUCT_STOCK_ID,CANCEL,CANCEL_TIME)
+		values
+		(#{id,jdbcType=VARCHAR},#{orderNo,jdbcType=VARCHAR},#{skuId,jdbcType=VARCHAR},#{skuName,jdbcType=VARCHAR},#{productId,jdbcType=VARCHAR},#{productName,jdbcType=VARCHAR},#{productSubtitle,jdbcType=VARCHAR},#{image,jdbcType=VARCHAR},#{currentAdultPrice,jdbcType=DECIMAL},#{currentChildPrice,jdbcType=DECIMAL},#{totalPrice,jdbcType=DECIMAL},#{adultNumber,jdbcType=INTEGER},#{childNumber,jdbcType=INTEGER},#{status,jdbcType=INTEGER},#{createTime,jdbcType=TIMESTAMP},#{updateTime,jdbcType=TIMESTAMP},#{productStockId,jdbcType=VARCHAR},
+		#{cancel,jdbcType=INTEGER},#{cancelTime,jdbcType=VARCHAR})
+	</insert>
+	
+	<insert id="insertSelective" parameterType="com.zzk.entity.OrderDetailInfo">
+		insert into order_detail_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">ID,</if>
+			<if test="orderNo != null">ORDER_NO,</if>
+			<if test="skuId != null">SKU_ID,</if>
+			<if test="skuName != null">SKU_NAME,</if>
+			<if test="productId != null">PRODUCT_ID,</if>
+			<if test="productName != null">PRODUCT_NAME,</if>
+			<if test="productSubtitle != null">PRODUCT_SUBTITLE,</if>
+			<if test="image != null">IMAGE,</if>
+			<if test="currentAdultPrice != null">CURRENT_ADULT_PRICE,</if>
+			<if test="currentChildPrice != null">CURRENT_CHILD_PRICE,</if>
+			<if test="totalPrice != null">TOTAL_PRICE,</if>
+			<if test="adultNumber != null">ADULT_NUMBER,</if>
+			<if test="childNumber != null">CHILD_NUMBER,</if>
+			<if test="status != null">STATUS,</if>
+			<if test="createTime != null">CREATE_TIME,</if>
+			<if test="updateTime != null">UPDATE_TIME,</if>
+			<if test="productStockId != null">PRODUCT_STOCK_ID,</if>
+			<if test="cancel != null">cancel,</if>
+			<if test="cancelTime != null">CANCEL_TIME,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=VARCHAR},</if>
+			<if test="orderNo != null">#{orderNo,jdbcType=VARCHAR},</if>
+			<if test="skuId != null">#{skuId,jdbcType=VARCHAR},</if>
+			<if test="skuName != null">#{skuName,jdbcType=VARCHAR},</if>
+			<if test="productId != null">#{productId,jdbcType=VARCHAR},</if>
+			<if test="productName != null">#{productName,jdbcType=VARCHAR},</if>
+			<if test="productSubtitle != null">#{productSubtitle,jdbcType=VARCHAR},</if>
+			<if test="image != null">#{image,jdbcType=VARCHAR},</if>
+			<if test="currentAdultPrice != null">#{currentAdultPrice,jdbcType=DECIMAL},</if>
+			<if test="currentChildPrice != null">#{currentChildPrice,jdbcType=DECIMAL},</if>
+			<if test="totalPrice != null">#{totalPrice,jdbcType=DECIMAL},</if>
+			<if test="adultNumber != null">#{adultNumber,jdbcType=INTEGER},</if>
+			<if test="childNumber != null">#{childNumber,jdbcType=INTEGER},</if>
+			<if test="status != null">#{status,jdbcType=INTEGER},</if>
+			<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+			<if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+			<if test="productStockId != null">#{productStockId,jdbcType=VARCHAR},</if>
+			<if test="cancel != null">#{cancel,jdbcType=INTEGER},</if>
+			<if test="cancelTime != null">#{cancelTime,jdbcType=VARCHAR},</if>
+		</trim>
+	</insert>
+	
+	<update id="updateByPrimaryKeySelective" parameterType="com.zzk.entity.OrderDetailInfo">
+		update order_detail_info
+		<set>
+			<if test="orderNo != null">ORDER_NO =#{orderNo,jdbcType=VARCHAR},</if>
+			<if test="skuId != null">SKU_ID =#{skuId,jdbcType=VARCHAR},</if>
+			<if test="skuName != null">SKU_NAME =#{skuName,jdbcType=VARCHAR},</if>
+			<if test="productId != null">PRODUCT_ID =#{productId,jdbcType=VARCHAR},</if>
+			<if test="productName != null">PRODUCT_NAME =#{productName,jdbcType=VARCHAR},</if>
+			<if test="productSubtitle != null">PRODUCT_SUBTITLE =#{productSubtitle,jdbcType=VARCHAR},</if>
+			<if test="image != null">IMAGE =#{image,jdbcType=VARCHAR},</if>
+			<if test="currentAdultPrice != null">CURRENT_ADULT_PRICE =#{currentAdultPrice,jdbcType=DECIMAL},</if>
+			<if test="currentChildPrice != null">CURRENT_CHILD_PRICE =#{currentChildPrice,jdbcType=DECIMAL},</if>
+			<if test="totalPrice != null">TOTAL_PRICE =#{totalPrice,jdbcType=DECIMAL},</if>
+			<if test="adultNumber != null">ADULT_NUMBER =#{adultNumber,jdbcType=INTEGER},</if>
+			<if test="childNumber != null">CHILD_NUMBER =#{childNumber,jdbcType=INTEGER},</if>
+			<if test="status != null">STATUS =#{status,jdbcType=INTEGER},</if>
+			<if test="createTime != null">CREATE_TIME =#{createTime,jdbcType=TIMESTAMP},</if>
+			<if test="updateTime != null">UPDATE_TIME =#{updateTime,jdbcType=TIMESTAMP},</if>
+			<if test="productStockId != null">PRODUCT_STOCK_ID =#{productStockId,jdbcType=VARCHAR},</if>
+			<if test="cancel != null">CANCEL =#{cancel,jdbcType=INTEGER},</if>
+			<if test="cancelTime != null">CANCEL_TIME =#{cancelTime,jdbcType=VARCHAR},</if>
+		</set>
+		where ID = #{id,jdbcType=VARCHAR}
+	</update>
+
+
+    
+
+    <update id="updateByPrimaryKey" parameterType="com.zzk.entity.OrderDetailInfo">
+		update
+		order_detail_info
+		set
+		
+		ORDER_NO = #{orderNo,jdbcType=VARCHAR},
+		SKU_ID = #{skuId,jdbcType=VARCHAR},
+		SKU_NAME = #{skuName,jdbcType=VARCHAR},
+		PRODUCT_ID = #{productId,jdbcType=VARCHAR},
+		PRODUCT_NAME = #{productName,jdbcType=VARCHAR},
+		PRODUCT_SUBTITLE = #{productSubtitle,jdbcType=VARCHAR},
+		IMAGE = #{image,jdbcType=VARCHAR},
+		CURRENT_ADULT_PRICE = #{currentAdultPrice,jdbcType=DECIMAL},
+		CURRENT_CHILD_PRICE = #{currentChildPrice,jdbcType=DECIMAL},
+		TOTAL_PRICE = #{totalPrice,jdbcType=DECIMAL},
+		ADULT_NUMBER = #{adultNumber,jdbcType=INTEGER},
+		CHILD_NUMBER = #{childNumber,jdbcType=INTEGER},
+		STATUS = #{status,jdbcType=INTEGER},
+		CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+		UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+		PRODUCT_STOCK_ID = #{productStockId,jdbcType=VARCHAR},
+		CANCEL =#{cancel,jdbcType=INTEGER},
+		CANCEL_TIME =#{cancelTime,jdbcType=VARCHAR}
+		where ID = #{id,jdbcType=VARCHAR}
+		
+	</update>
+
+    <select id="selectByPage" parameterType="java.util.Map"
+            resultMap="BaseResultMap" resultType="java.util.List">
+        select
+        <include refid="Base_Column_List"/>
+        from order_detail_info
+        <where>
+            1=1 and status = 1
+            <if test="search != null">
+            </if>
+            <if test="orderName != null and orderName !=''">
+                order by ${orderName} ${descAsc}
+            </if>
+            <if test="startRow !=null">
+                limit ${startRow},${pageSize}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectCount" parameterType="com.zzk.dao.OrderDetailInfoMapper"
+            resultType="int">
+        select count(1) from order_detail_info
+        <where>
+            1=1 and status = 1
+            <if test="search != null">
+
+            </if>
+        </where>
+    </select>
+
+    <select id="getOrderConfirmResponse" parameterType="java.lang.String" resultType="java.util.Map">
+        SELECT
+            t2.START_ADDRESS startAddress,
+            t2.DAYS days,
+            t3.value
+        VALUE
+
+        FROM
+            `order_detail_info` t1
+        INNER JOIN plan_info t2 ON t1.PRODUCT_ID = t2.PRODUCT_ID
+        AND t2.TYPE = 2
+        AND t2. STATUS = 1
+        INNER JOIN seller_choose_attribute_info t3 ON t3.PRODUCT_ID = t1.PRODUCT_ID
+        AND t3.ATTR_ID = '38e90929d41a43738aead9a795cedcc4'
+        AND t3. STATUS = 1
+        WHERE
+        t1.ORDER_NO = #{orderNo}
+    </select>
+
+    <select id="getProductIdByOrderNo" parameterType="java.lang.String" resultType="java.lang.String">
+        SELECT
+            t1.PRODUCT_ID
+        FROM
+            goods_sku_info t1
+        INNER JOIN order_detail_info t2 ON t1.id = t2.SKU_ID
+        AND t2.ORDER_NO = #{orderNo}
+    </select>
+</mapper>

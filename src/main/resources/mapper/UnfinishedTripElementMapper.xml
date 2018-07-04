@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzk.dao.UnfinishedTripElementMapper">
+
+	<resultMap id="BaseResultMap" type="com.zzk.entity.UnfinishedTripElement">
+		<id column="ID" jdbcType="VARCHAR" property="id" />
+		<id column="NAME" jdbcType="VARCHAR" property="name" />
+		<id column="SOURCE" jdbcType="VARCHAR" property="source" />
+		<id column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+		<id column="STATUS" jdbcType="INTEGER" property="status" />
+		<id column="TRIP_ELEMENT_ID" jdbcType="VARCHAR" property="tripElementId" />
+		<id column="FREQUENCY" jdbcType="INTEGER" property="frequency" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		ID,
+		NAME,
+		SOURCE,
+		CREATE_TIME,
+		STATUS,
+		TRIP_ELEMENT_ID,
+		FREQUENCY
+	</sql>
+	
+	<select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" /> from unfinished_trip_element where ID = #{id,jdbcType=VARCHAR}
+	</select>
+	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from unfinished_trip_element where ID = #{id,jdbcType=VARCHAR}
+	</delete>
+	
+	<insert id="insert" parameterType="com.zzk.entity.UnfinishedTripElement">
+		insert into unfinished_trip_element
+		(ID,NAME,SOURCE,CREATE_TIME,STATUS,TRIP_ELEMENT_ID,FREQUENCY)
+		values
+		(#{id,jdbcType=VARCHAR},#{name,jdbcType=VARCHAR},#{source,jdbcType=VARCHAR},#{createTime,jdbcType=TIMESTAMP},#{status,jdbcType=INTEGER},#{tripElementId,jdbcType=VARCHAR},#{frequency,jdbcType=INTEGER})
+	</insert>
+	
+	<insert id="insertSelective" parameterType="com.zzk.entity.UnfinishedTripElement">
+		insert into unfinished_trip_element
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">ID,</if>
+			<if test="name != null">NAME,</if>
+			<if test="source != null">SOURCE,</if>
+			<if test="createTime != null">CREATE_TIME,</if>
+			<if test="status != null">STATUS,</if>
+			<if test="tripElementId != null">TRIP_ELEMENT_ID,</if>
+			<if test="frequency != null">FREQUENCY,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=VARCHAR},</if>
+			<if test="name != null">#{name,jdbcType=VARCHAR},</if>
+			<if test="source != null">#{source,jdbcType=VARCHAR},</if>
+			<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+			<if test="status != null">#{status,jdbcType=INTEGER},</if>
+			<if test="tripElementId != null">#{tripElementId,jdbcType=VARCHAR},</if>
+			<if test="frequency != null">#{frequency,jdbcType=INTEGER},</if>
+		</trim>
+	</insert>
+	
+	<update id="updateByPrimaryKeySelective" parameterType="com.zzk.entity.UnfinishedTripElement">
+		update unfinished_trip_element
+		<set>
+			<if test="name != null">NAME =#{name,jdbcType=VARCHAR},</if>
+			<if test="source != null">SOURCE =#{source,jdbcType=VARCHAR},</if>
+			<if test="createTime != null">CREATE_TIME =#{createTime,jdbcType=TIMESTAMP},</if>
+			<if test="status != null">STATUS =#{status,jdbcType=INTEGER},</if>
+			<if test="tripElementId != null">TRIP_ELEMENT_ID =#{tripElementId,jdbcType=VARCHAR},</if>
+			<if test="frequency != null">FREQUENCY =#{frequency,jdbcType=INTEGER},</if>
+		</set>
+		where ID = #{id,jdbcType=VARCHAR}
+	</update>
+	
+	<update id="updateByPrimaryKey" parameterType="com.zzk.entity.UnfinishedTripElement">
+		update
+		unfinished_trip_element
+		set
+		
+		NAME = #{name,jdbcType=VARCHAR},
+		SOURCE = #{source,jdbcType=VARCHAR},
+		CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+		STATUS = #{status,jdbcType=INTEGER},
+		TRIP_ELEMENT_ID = #{tripElementId,jdbcType=VARCHAR},
+		FREQUENCY = #{frequency,jdbcType=INTEGER}
+		where ID = #{id,jdbcType=VARCHAR}
+	</update>
+	
+	
+	<select id="selectByPage" parameterType="java.util.Map" resultMap="BaseResultMap" resultType="java.util.List">
+		select
+		<include refid="Base_Column_List" />
+		from unfinished_trip_element
+		<where>
+			1=1 and status = 1
+			<if test="search != null">
+			</if>
+			<if test="orderName != null and orderName !=''">
+				order by ${orderName} ${descAsc}
+			</if>
+			<if test="startRow !=null">
+				limit ${startRow},${pageSize}
+			</if>
+		</where>
+	</select>
+	
+	<select id="selectCount" parameterType="com.zzk.entity.UnfinishedTripElement" resultType="int">
+		select count(1) from unfinished_trip_element
+		<where>
+			1=1 and status = 1
+			<if test="search != null">
+
+			</if>
+		</where>
+	</select>
+	
+	<select id="selectByStatus" parameterType="int" resultType="java.lang.String">
+		select name from unfinished_trip_element
+		<where>
+			1=1 and status = #{status,jdbcType=INTEGER}
+		</where>
+	</select>
+	<select id="selectObjByStatus" parameterType="int" resultType="com.zzk.entity.UnfinishedTripElement">
+		select 
+		<include refid="Base_Column_List" />
+		 from unfinished_trip_element
+		<where>
+			1=1 and status = #{status,jdbcType=INTEGER}
+		</where>
+	</select>
+	
+	<update id="batchUpdate" parameterType="java.util.List">
+		update
+		unfinished_trip_element
+		<trim prefix="set" suffixOverrides=",">
+             <trim prefix="source =case" suffix="end,">
+                 <foreach collection="list" item="i" index="index">
+                         <if test="i.source!=null">
+                          when id=#{i.id} then #{i.source}
+                         </if>
+                 </foreach>
+              </trim>
+              <trim prefix=" frequency =case" suffix="end,">
+                 <foreach collection="list" item="i" index="index">
+                         <if test="i.frequency!=null">
+                          when id=#{i.id} then #{i.frequency}
+                         </if>
+                 </foreach>
+              </trim>
+         </trim>
+         where
+         	id in
+            <foreach collection="list" item="i" index="index" separator="," open="(" close=")">
+              #{i.id}
+          </foreach>
+	</update>
+	
+	<insert id="batchInsert" parameterType="com.zzk.entity.UnfinishedTripElement">
+	insert into unfinished_trip_element 
+	(ID,NAME,SOURCE,CREATE_TIME,STATUS,TRIP_ELEMENT_ID,FREQUENCY) values
+	<foreach collection="list" index="index" item = "it" separator=",">
+	(#{it.id,jdbcType=VARCHAR},#{it.name,jdbcType=VARCHAR},#{it.source,jdbcType=VARCHAR},#{it.createTime,jdbcType=TIMESTAMP},#{it.status,jdbcType=INTEGER},#{it.tripElementId,jdbcType=VARCHAR},#{it.frequency,jdbcType=INTEGER})
+	</foreach>
+	</insert>
+</mapper>

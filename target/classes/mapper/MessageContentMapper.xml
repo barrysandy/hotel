@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zzk.dao.MessageContentMapper" >
+  <resultMap id="BaseResultMap" type="com.zzk.entity.MessageContent" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="SHOP_ID" property="shopId" jdbcType="VARCHAR" />
+    <result column="TITLE" property="title" jdbcType="VARCHAR" />
+    <result column="CONTENT" property="content" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="READ_TIME" property="readTime" jdbcType="TIMESTAMP" />
+    <result column="READ_STATUS" property="readStatus" jdbcType="INTEGER" />
+    <result column="MSG_TYPE" property="msgType" jdbcType="INTEGER" />
+    <result column="STATUS" property="status" jdbcType="INTEGER" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, SHOP_ID, TITLE, CONTENT, CREATE_TIME, READ_TIME, READ_STATUS, MSG_TYPE, STATUS, 
+    REMARK
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_mp_message_content
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+ 
+  <select id="selectByShopId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_mp_message_content
+    where SHOP_ID = #{shopId,jdbcType=VARCHAR} AND STATUS =1 AND READ_STATUS =1
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_mp_message_content
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zzk.entity.MessageContent" >
+    insert into t_mp_message_content (ID, SHOP_ID, TITLE, 
+      CONTENT, CREATE_TIME, READ_TIME, 
+      READ_STATUS, MSG_TYPE, STATUS, 
+      REMARK)
+    values (#{id,jdbcType=VARCHAR}, #{shopId,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
+      #{content,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{readTime,jdbcType=TIMESTAMP}, 
+      #{readStatus,jdbcType=INTEGER}, #{msgType,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zzk.entity.MessageContent" >
+    insert into t_mp_message_content
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="shopId != null" >
+        SHOP_ID,
+      </if>
+      <if test="title != null" >
+        TITLE,
+      </if>
+      <if test="content != null" >
+        CONTENT,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="readTime != null" >
+        READ_TIME,
+      </if>
+      <if test="readStatus != null" >
+        READ_STATUS,
+      </if>
+      <if test="msgType != null" >
+        MSG_TYPE,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="shopId != null" >
+        #{shopId,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="readTime != null" >
+        #{readTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="readStatus != null" >
+        #{readStatus,jdbcType=INTEGER},
+      </if>
+      <if test="msgType != null" >
+        #{msgType,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zzk.entity.MessageContent" >
+    update t_mp_message_content
+    <set >
+      <if test="shopId != null" >
+        SHOP_ID = #{shopId,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        TITLE = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        CONTENT = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="readTime != null" >
+        READ_TIME = #{readTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="readStatus != null" >
+        READ_STATUS = #{readStatus,jdbcType=INTEGER},
+      </if>
+      <if test="msgType != null" >
+        MSG_TYPE = #{msgType,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zzk.entity.MessageContent" >
+    update t_mp_message_content
+    set SHOP_ID = #{shopId,jdbcType=VARCHAR},
+      TITLE = #{title,jdbcType=VARCHAR},
+      CONTENT = #{content,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      READ_TIME = #{readTime,jdbcType=TIMESTAMP},
+      READ_STATUS = #{readStatus,jdbcType=INTEGER},
+      MSG_TYPE = #{msgType,jdbcType=INTEGER},
+      STATUS = #{status,jdbcType=INTEGER},
+      REMARK = #{remark,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  
+    <update id="updateByIds" >  
+        UPDATE t_mp_message_content SET  READ_STATUS=-1,READ_TIME=NOW() WHERE id IN  
+        <foreach collection="array" item="msgId" index="index"  
+            open="(" close=")" separator=",">  
+            #{msgId}  
+        </foreach>  
+    </update>  
+    <update id="updateByType" >  
+        UPDATE t_mp_message_content SET  READ_STATUS=-1,READ_TIME=NOW() WHERE 
+        SHOP_ID=#{shopId,jdbcType=VARCHAR} AND MSG_TYPE=#{type,jdbcType=INTEGER}
+ 
+    </update>  
+  
+</mapper>

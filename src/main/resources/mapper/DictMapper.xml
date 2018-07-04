@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzk.dao.DictMapper">
+
+	<resultMap id="BaseResultMap" type="com.zzk.entity.Dict">
+		<id column="id" jdbcType="VARCHAR" property="id" />
+		<id column="value" jdbcType="VARCHAR" property="value" />
+		<id column="label" jdbcType="VARCHAR" property="label" />
+		<id column="type" jdbcType="VARCHAR" property="type" />
+		<id column="description" jdbcType="VARCHAR" property="description" />
+		<id column="sort" jdbcType="DECIMAL" property="sort" />
+		<id column="parent_id" jdbcType="VARCHAR" property="parentId" />
+		<id column="create_by" jdbcType="VARCHAR" property="createBy" />
+		<id column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+		<id column="update_by" jdbcType="VARCHAR" property="updateBy" />
+		<id column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+		<id column="remarks" jdbcType="VARCHAR" property="remarks" />
+		<id column="status" jdbcType="INTEGER" property="status" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id,
+		value,
+		label,
+		type,
+		description,
+		sort,
+		parent_id,
+		create_by,
+		create_date,
+		update_by,
+		update_date,
+		remarks,
+		status
+	</sql>
+	
+	<select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" /> from sys_dict where ID = #{id,jdbcType=VARCHAR}
+	</select>
+	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from sys_dict where ID = #{id,jdbcType=VARCHAR}
+	</delete>
+	
+	<insert id="insert" parameterType="com.zzk.entity.Dict">
+		insert into sys_dict
+		(id,value,label,type,description,sort,parent_id,create_by,create_date,update_by,update_date,remarks,status)
+		values
+		(#{id,jdbcType=VARCHAR},#{value,jdbcType=VARCHAR},#{label,jdbcType=VARCHAR},#{type,jdbcType=VARCHAR},#{description,jdbcType=VARCHAR},#{sort,jdbcType=DECIMAL},#{parentId,jdbcType=VARCHAR},#{createBy,jdbcType=VARCHAR},#{createDate,jdbcType=TIMESTAMP},#{updateBy,jdbcType=VARCHAR},#{updateDate,jdbcType=TIMESTAMP},#{remarks,jdbcType=VARCHAR},#{status,jdbcType=INTEGER})
+	</insert>
+	
+	<insert id="insertSelective" parameterType="com.zzk.entity.Dict">
+		insert into sys_dict
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="value != null">value,</if>
+			<if test="label != null">label,</if>
+			<if test="type != null">type,</if>
+			<if test="description != null">description,</if>
+			<if test="sort != null">sort,</if>
+			<if test="parentId != null">parent_id,</if>
+			<if test="createBy != null">create_by,</if>
+			<if test="createDate != null">create_date,</if>
+			<if test="updateBy != null">update_by,</if>
+			<if test="updateDate != null">update_date,</if>
+			<if test="remarks != null">remarks,</if>
+			<if test="status != null">status,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=VARCHAR},</if>
+			<if test="value != null">#{value,jdbcType=VARCHAR},</if>
+			<if test="label != null">#{label,jdbcType=VARCHAR},</if>
+			<if test="type != null">#{type,jdbcType=VARCHAR},</if>
+			<if test="description != null">#{description,jdbcType=VARCHAR},</if>
+			<if test="sort != null">#{sort,jdbcType=DECIMAL},</if>
+			<if test="parentId != null">#{parentId,jdbcType=VARCHAR},</if>
+			<if test="createBy != null">#{createBy,jdbcType=VARCHAR},</if>
+			<if test="createDate != null">#{createDate,jdbcType=TIMESTAMP},</if>
+			<if test="updateBy != null">#{updateBy,jdbcType=VARCHAR},</if>
+			<if test="updateDate != null">#{updateDate,jdbcType=TIMESTAMP},</if>
+			<if test="remarks != null">#{remarks,jdbcType=VARCHAR},</if>
+			<if test="status != null">#{status,jdbcType=INTEGER},</if>
+		</trim>
+	</insert>
+	
+	<update id="updateByPrimaryKeySelective" parameterType="com.zzk.entity.Dict">
+		update sys_dict
+		<set>
+			<if test="value != null">value =#{value,jdbcType=VARCHAR},</if>
+			<if test="label != null">label =#{label,jdbcType=VARCHAR},</if>
+			<if test="type != null">type =#{type,jdbcType=VARCHAR},</if>
+			<if test="description != null">description =#{description,jdbcType=VARCHAR},</if>
+			<if test="sort != null">sort =#{sort,jdbcType=DECIMAL},</if>
+			<if test="parentId != null">parent_id =#{parentId,jdbcType=VARCHAR},</if>
+			<if test="createBy != null">create_by =#{createBy,jdbcType=VARCHAR},</if>
+			<if test="createDate != null">create_date =#{createDate,jdbcType=TIMESTAMP},</if>
+			<if test="updateBy != null">update_by =#{updateBy,jdbcType=VARCHAR},</if>
+			<if test="updateDate != null">update_date =#{updateDate,jdbcType=TIMESTAMP},</if>
+			<if test="remarks != null">remarks =#{remarks,jdbcType=VARCHAR},</if>
+			<if test="status != null">status =#{status,jdbcType=INTEGER},</if>
+		</set>
+		where ID = #{id,jdbcType=VARCHAR}
+	</update>
+	
+	<update id="updateByPrimaryKey" parameterType="com.zzk.entity.Dict">
+		update
+		sys_dict
+		set
+		
+		value = #{value,jdbcType=VARCHAR},
+		label = #{label,jdbcType=VARCHAR},
+		type = #{type,jdbcType=VARCHAR},
+		description = #{description,jdbcType=VARCHAR},
+		sort = #{sort,jdbcType=DECIMAL},
+		parent_id = #{parentId,jdbcType=VARCHAR},
+		create_by = #{createBy,jdbcType=VARCHAR},
+		create_date = #{createDate,jdbcType=TIMESTAMP},
+		update_by = #{updateBy,jdbcType=VARCHAR},
+		update_date = #{updateDate,jdbcType=TIMESTAMP},
+		remarks = #{remarks,jdbcType=VARCHAR},
+		status = #{status,jdbcType=INTEGER}
+		where ID = #{id,jdbcType=VARCHAR}
+	</update>
+	
+	<select id="selectByPage" parameterType="java.util.Map" resultMap="BaseResultMap" resultType="java.util.List">
+		select
+		<include refid="Base_Column_List" />
+		from sys_dict
+		<where>
+			1=1 and status = 1
+			<if test="search != null">
+			</if>
+			<if test="orderName != null and orderName !=''">
+				order by ${orderName} ${descAsc}
+			</if>
+			<if test="startRow !=null">
+				limit ${startRow},${pageSize}
+			</if>
+		</where>
+	</select>
+	<select id="findList" resultType="Dict">
+		SELECT 
+			<include refid="Base_Column_List" />
+		FROM sys_dict 
+		WHERE status = #{status} 
+		<if test="type != null and type != ''">
+			AND type = #{type}
+		</if>
+		<if test="description != null and description != ''">
+			AND description LIKE CONCAT('%', #{description}, '%')
+		</if>
+		ORDER BY type, sort, update_date DESC
+	</select>
+	
+	<select id="selectCount" parameterType="com.zzk.entity.Dict" resultType="int">
+		select count(1) from sys_dict
+		<where>
+			1=1 and status = 1
+			<if test="search != null">
+
+			</if>
+		</where>
+	</select>
+	
+	<select id="findAllDict" resultType="Dict">
+		SELECT 
+			<include refid="Base_Column_List" />
+		FROM sys_dict 
+		WHERE status = 1 
+		ORDER BY type, sort, update_date DESC
+	</select>
+</mapper>

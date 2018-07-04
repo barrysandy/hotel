@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzk.dao.ProductAttributeInfoMapper">
+
+    <resultMap id="BaseResultMap" type="com.zzk.entity.ProductAttributeInfo">
+        <id column="ID" jdbcType="VARCHAR" property="id"/>
+        <id column="CATEGORY_ID" jdbcType="VARCHAR" property="categoryId"/>
+        <id column="ATTR_ID" jdbcType="INTEGER" property="attrId"/>
+        <id column="NAME" jdbcType="VARCHAR" property="name"/>
+        <id column="TYPE" jdbcType="INTEGER" property="type"/>
+        <id column="CONTENT" jdbcType="VARCHAR" property="content"/>
+        <id column="CODE" jdbcType="VARCHAR" property="code"/>
+        <id column="SORT" jdbcType="INTEGER" property="sort"/>
+        <id column="STATUS" jdbcType="INTEGER" property="status"/>
+        <id column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
+        <id column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+		ID,
+		CATEGORY_ID,
+		ATTR_ID,
+		NAME,
+		TYPE,
+		CONTENT,
+		CODE,
+		SORT,
+		STATUS,
+		CREATE_TIME,
+		UPDATE_TIME
+	</sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from product_attribute_info where ID = #{id,jdbcType=VARCHAR}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from product_attribute_info where ID = #{id,jdbcType=VARCHAR}
+	</delete>
+
+    <insert id="insert" parameterType="com.zzk.entity.ProductAttributeInfo">
+		insert into product_attribute_info
+		(ID,CATEGORY_ID,ATTR_ID,NAME,TYPE,CONTENT,CODE,SORT,STATUS,CREATE_TIME,UPDATE_TIME)
+		values
+		(#{id,jdbcType=VARCHAR},#{categoryId,jdbcType=VARCHAR},#{attrId,jdbcType=INTEGER},#{name,jdbcType=VARCHAR},#{type,jdbcType=INTEGER},#{content,jdbcType=VARCHAR},#{code,jdbcType=VARCHAR},#{sort,jdbcType=INTEGER},#{status,jdbcType=INTEGER},#{createTime,jdbcType=TIMESTAMP},#{updateTime,jdbcType=TIMESTAMP})
+	</insert>
+
+    <insert id="insertSelective" parameterType="com.zzk.entity.ProductAttributeInfo">
+        insert into product_attribute_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">ID,</if>
+            <if test="categoryId != null">CATEGORY_ID,</if>
+            <if test="attrId != null">ATTR_ID,</if>
+            <if test="name != null">NAME,</if>
+            <if test="type != null">TYPE,</if>
+            <if test="content != null">CONTENT,</if>
+            <if test="code != null">CODE,</if>
+            <if test="sort != null">SORT,</if>
+            <if test="status != null">STATUS,</if>
+            <if test="createTime != null">CREATE_TIME,</if>
+            <if test="updateTime != null">UPDATE_TIME,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id,jdbcType=VARCHAR},</if>
+            <if test="categoryId != null">#{categoryId,jdbcType=VARCHAR},</if>
+            <if test="attrId != null">#{attrId,jdbcType=INTEGER},</if>
+            <if test="name != null">#{name,jdbcType=VARCHAR},</if>
+            <if test="type != null">#{type,jdbcType=INTEGER},</if>
+            <if test="content != null">#{content,jdbcType=VARCHAR},</if>
+            <if test="code != null">#{code,jdbcType=VARCHAR},</if>
+            <if test="sort != null">#{sort,jdbcType=INTEGER},</if>
+            <if test="status != null">#{status,jdbcType=INTEGER},</if>
+            <if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+            <if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.zzk.entity.ProductAttributeInfo">
+        update product_attribute_info
+        <set>
+            <if test="categoryId != null">CATEGORY_ID =#{categoryId,jdbcType=VARCHAR},</if>
+            <if test="attrId != null">ATTR_ID =#{attrId,jdbcType=INTEGER},</if>
+            <if test="name != null">NAME =#{name,jdbcType=VARCHAR},</if>
+            <if test="type != null">TYPE =#{type,jdbcType=INTEGER},</if>
+            <if test="content != null">CONTENT =#{content,jdbcType=VARCHAR},</if>
+            <if test="code != null">CODE =#{code,jdbcType=VARCHAR},</if>
+            <if test="sort != null">SORT =#{sort,jdbcType=INTEGER},</if>
+            <if test="status != null">STATUS =#{status,jdbcType=INTEGER},</if>
+            <if test="createTime != null">CREATE_TIME =#{createTime,jdbcType=TIMESTAMP},</if>
+            <if test="updateTime != null">UPDATE_TIME =#{updateTime,jdbcType=TIMESTAMP},</if>
+        </set>
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.zzk.entity.ProductAttributeInfo">
+		update
+		product_attribute_info
+		set
+
+		CATEGORY_ID = #{categoryId,jdbcType=VARCHAR},
+		ATTR_ID = #{attrId,jdbcType=INTEGER},
+		NAME = #{name,jdbcType=VARCHAR},
+		TYPE = #{type,jdbcType=INTEGER},
+		CONTENT = #{content,jdbcType=VARCHAR},
+		CODE = #{code,jdbcType=VARCHAR},
+		SORT = #{sort,jdbcType=INTEGER},
+		STATUS = #{status,jdbcType=INTEGER},
+		CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+		UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+		where ID = #{id,jdbcType=VARCHAR}
+	</update>
+
+    <select id="selectByPage" parameterType="java.util.Map" resultMap="BaseResultMap" resultType="java.util.List">
+        select
+        <include refid="Base_Column_List"/>
+        from product_attribute_info
+        <where>
+            1=1 and status = 1
+            <if test="search != null">
+            </if>
+            <if test="orderName != null and orderName !=''">
+                order by ${orderName} ${descAsc}
+            </if>
+            <if test="startRow !=null">
+                limit ${startRow},${pageSize}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectCount" parameterType="com.zzk.entity.ProductAttributeInfo" resultType="int">
+        select count(1) from product_attribute_info
+        <where>
+            1=1 and status = 1
+            <if test="search != null">
+
+            </if>
+        </where>
+    </select>
+
+    <select id="listProductAttrByCategoryId" parameterType="java.lang.String" resultType="java.util.Map">
+		SELECT
+		  *
+		from
+		  product_attribute_info
+        where
+		  CATEGORY_ID = #{categoryId,jdbcType=VARCHAR}
+		  AND status = 1
+		  ORDER BY SORT DESC
+	</select>
+
+    <select id="getThemeAttribute" parameterType="java.lang.String" resultType="java.lang.String">
+        select CONTENT from product_attribute_info where ID = '61ec899abbb44e498b16bb4e88ceb2eb';
+    </select>
+
+    <select id="getAttributeByName" parameterType="java.lang.String" resultType="java.util.Map">
+        select CONTENT from product_attribute_info where NAME = #{name};
+    </select>
+</mapper>

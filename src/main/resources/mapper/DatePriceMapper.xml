@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzk.dao.DatePriceMapper">
+    <resultMap id="BaseResultMap"
+               type="com.zzk.entity.DatePrice">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <id column="hotel_id" jdbcType="VARCHAR" property="hotelId"/>
+        <id column="execute_date" jdbcType="VARCHAR" property="executeDate"/>
+        <id column="price" jdbcType="DOUBLE" property="price"/>
+        <id column="status" jdbcType="INTEGER" property="status"/>
+        <id column="goods_id" jdbcType="VARCHAR" property="goodsId"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id,
+    hotel_id,
+    execute_date,
+    price,
+    goods_id,
+    status
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_mp_date_price where ID = #{id,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from t_mp_date_price where ID = #{id,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="com.zzk.entity.DatePrice">
+        insert into t_mp_date_price
+        (id,hotel_id,execute_date,price,status,goods_id)
+        values
+        (#{id,jdbcType=VARCHAR},#{hotelId,jdbcType=VARCHAR},#{executeDate,jdbcType=VARCHAR},#{minPrice,jdbcType=DOUBLE},#{maxPrice,jdbcType=DOUBLE},#{status,jdbcType=INTEGER}
+        )
+    </insert>
+    <delete id="deleteByHotelId" parameterType="java.lang.String">
+        delete from t_mp_date_price where hotel_id = #{hotelId,jdbcType=VARCHAR}
+    </delete>
+    
+     <insert id="batchInsert" >
+        insert into t_mp_date_price
+        (id,hotel_id,execute_date,price,status,goods_id)
+        values
+        <foreach collection="list" index="index" item = "it" separator=",">
+        (#{it.id,jdbcType=VARCHAR},#{hotelId,jdbcType=VARCHAR},#{it.executeDate,jdbcType=VARCHAR},#{it.price,jdbcType=DOUBLE},#{it.status,jdbcType=INTEGER},#{it.goodsId,jdbcType=VARCHAR}
+        )
+        </foreach>
+    </insert>
+    
+    <insert id="insertSelective" parameterType="com.zzk.entity.DatePrice">
+        insert into t_mp_date_price
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="hotelId != null">hotel_id,</if>
+            <if test="executeDate != null">execute_date,</if>
+            <if test="price != null">price,</if>
+            <if test="status != null">status,</if>
+            <if test="goodsId != null">goods_id,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id,jdbcType=VARCHAR},</if>
+            <if test="hotelId != null">#{hotelId,jdbcType=VARCHAR},</if>
+            <if test="executeDate != null">#{executeDate,jdbcType=VARCHAR},</if>
+            <if test="price != null">#{price,jdbcType=DOUBLE},</if>
+            <if test="status != null">#{status,jdbcType=INTEGER},</if>
+            <if test="goodsId != null">#{goodsId,jdbcType=VARCHAR},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.zzk.entity.DatePrice">
+        update t_mp_date_price
+        <set>
+                <if test="hotelId != null">hotel_id=#{hotelId,jdbcType=VARCHAR},
+                </if>
+                <if test="executeDate != null">execute_date=#{executeDate,jdbcType=VARCHAR},
+                </if>
+                <if test="price != null">price=#{price,jdbcType=DOUBLE},
+                </if>
+                <if test="status != null">status=#{status,jdbcType=INTEGER},
+                </if>
+                <if test="goodsId != null">goods_id=#{goodsId,jdbcType=VARCHAR},
+                </if>
+        </set>
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.zzk.entity.DatePrice">
+        update
+    t_mp_date_price
+        set
+        
+        hotel_id = #{hotelId,jdbcType=VARCHAR
+            },
+        execute_date = #{executeDate,jdbcType=VARCHAR
+            },
+        price = #{Price,jdbcType=DOUBLE
+            },
+        status = #{status,jdbcType=INTEGER
+            },
+        goods_id = #{goodsId,jdbcType=VARCHAR
+            }
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+    <select id="selectByPage" parameterType="java.util.Map"
+            resultMap="BaseResultMap" resultType="java.util.List">
+        select
+        <include refid="Base_Column_List"/>
+        from t_mp_date_price
+        <where>
+            1=1 and status = 1
+            <if test="search != null">
+                $(search)
+            </if>
+            <if test="orderName != null and orderName !=''">
+                order by ${orderName} ${descAsc}
+            </if>
+            <if test="startRow !=null">
+                limit ${startRow},${pageSize}
+            </if>
+        </where>
+    </select>
+    <select id="selectCount" parameterType="com.zzk.entity.DatePrice"
+            resultType="int">
+        select count(*) from t_mp_date_price
+        <where>
+            1=1
+            <if test="search != null">
+                $(search)
+            </if>
+        </where>
+    </select>
+</mapper>

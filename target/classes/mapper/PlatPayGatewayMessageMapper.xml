@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzk.dao.PlatPayGatewayMessageMapper">
+	<resultMap id="BaseResultMap"
+		type="com.zzk.entity.PlatPayGatewayMessage">
+		<id column="id" jdbcType="VARCHAR" property="id" />
+		<id column="GATEWAY_TYPE" jdbcType="INTEGER" property="gatewayType" />
+		<id column="ORDER_ID" jdbcType="VARCHAR" property="orderId" />
+		<id column="PAY_USER_ID" jdbcType="VARCHAR" property="payUserId" />
+		<id column="PAYEE_USER_ID" jdbcType="VARCHAR" property="payeeUserId" />
+		<id column="SHOP_ID" jdbcType="VARCHAR" property="shopId" />
+		<id column="MONEY" jdbcType="DECIMAL" property="money" />
+		<id column="ACT_MONEY" jdbcType="DECIMAL" property="actMoney" />
+		<id column="SEND_CONTENT" jdbcType="VARCHAR" property="sendContent" />
+		<id column="SEND_TIME" jdbcType="TIMESTAMP" property="sendTime" />
+		<id column="RECEIVE_CONTENT" jdbcType="VARCHAR" property="receiveContent" />
+		<id column="RECEIVE_TIME" jdbcType="TIMESTAMP" property="receiveTime" />
+		<id column="STATUS" jdbcType="INTEGER" property="status" />
+		<id column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
+		<id column="MODIFY_DATE" jdbcType="TIMESTAMP" property="modifyDate" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id,
+		GATEWAY_TYPE,
+		ORDER_ID,
+		PAY_USER_ID,
+		PAYEE_USER_ID,
+		SHOP_ID,
+		MONEY,
+		ACT_MONEY,
+		SEND_CONTENT,
+		SEND_TIME,
+		RECEIVE_CONTENT,
+		RECEIVE_TIME,
+		STATUS,
+		CREATE_DATE,
+		MODIFY_DATE
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" /> from pay_gateway_message where ID = #{id,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from pay_gateway_message where ID = #{id,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.zzk.entity.PlatPayGatewayMessage">
+		insert into pay_gateway_message
+		(id,GATEWAY_TYPE,ORDER_ID,PAY_USER_ID,PAYEE_USER_ID,SHOP_ID,MONEY,ACT_MONEY,SEND_CONTENT,SEND_TIME,RECEIVE_CONTENT,RECEIVE_TIME,STATUS,CREATE_DATE,MODIFY_DATE)
+		values
+		(#{id,jdbcType=VARCHAR},#{gatewayType,jdbcType=INTEGER},#{orderId,jdbcType=VARCHAR},#{payUserId,jdbcType=VARCHAR},#{payeeUserId,jdbcType=VARCHAR},#{shopId,jdbcType=VARCHAR},#{money,jdbcType=DECIMAL},#{actMoney,jdbcType=DECIMAL},#{sendContent,jdbcType=VARCHAR},#{sendTime,jdbcType=TIMESTAMP},#{receiveContent,jdbcType=VARCHAR},#{receiveTime,jdbcType=TIMESTAMP},#{status,jdbcType=INTEGER},#{createDate,jdbcType=TIMESTAMP},#{modifyDate,jdbcType=TIMESTAMP}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.zzk.entity.PlatPayGatewayMessage">
+		insert into pay_gateway_message
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="gatewayType != null">GATEWAY_TYPE,</if>
+			<if test="orderId != null">ORDER_ID,</if>
+			<if test="payUserId != null">PAY_USER_ID,</if>
+			<if test="payeeUserId != null">PAYEE_USER_ID,</if>
+			<if test="shopId != null">SHOP_ID,</if>
+			<if test="money != null">MONEY,</if>
+			<if test="actMoney != null">ACT_MONEY,</if>
+			<if test="sendContent != null">SEND_CONTENT,</if>
+			<if test="sendTime != null">SEND_TIME,</if>
+			<if test="receiveContent != null">RECEIVE_CONTENT,</if>
+			<if test="receiveTime != null">RECEIVE_TIME,</if>
+			<if test="status != null">STATUS,</if>
+			<if test="createDate != null">CREATE_DATE,</if>
+			<if test="modifyDate != null">MODIFY_DATE,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=VARCHAR},</if>
+			<if test="gatewayType != null">#{gatewayType,jdbcType=INTEGER},</if>
+			<if test="orderId != null">#{orderId,jdbcType=VARCHAR},</if>
+			<if test="payUserId != null">#{payUserId,jdbcType=VARCHAR},</if>
+			<if test="payeeUserId != null">#{payeeUserId,jdbcType=VARCHAR},</if>
+			<if test="shopId != null">#{shopId,jdbcType=VARCHAR},</if>
+			<if test="money != null">#{money,jdbcType=DECIMAL},</if>
+			<if test="actMoney != null">#{actMoney,jdbcType=DECIMAL},</if>
+			<if test="sendContent != null">#{sendContent,jdbcType=VARCHAR},</if>
+			<if test="sendTime != null">#{sendTime,jdbcType=TIMESTAMP},</if>
+			<if test="receiveContent != null">#{receiveContent,jdbcType=VARCHAR},</if>
+			<if test="receiveTime != null">#{receiveTime,jdbcType=TIMESTAMP},</if>
+			<if test="status != null">#{status,jdbcType=INTEGER},</if>
+			<if test="createDate != null">#{createDate,jdbcType=TIMESTAMP},</if>
+			<if test="modifyDate != null">#{modifyDate,jdbcType=TIMESTAMP},</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.zzk.entity.PlatPayGatewayMessage">
+		update pay_gateway_message
+		<set>
+			<if test="gatewayType != null">GATEWAY_TYPE =#{gatewayType,jdbcType=INTEGER},</if>
+			<if test="orderId != null">ORDER_ID =#{orderId,jdbcType=VARCHAR},</if>
+			<if test="payUserId != null">PAY_USER_ID =#{payUserId,jdbcType=VARCHAR},</if>
+			<if test="payeeUserId != null">PAYEE_USER_ID =#{payeeUserId,jdbcType=VARCHAR},</if>
+			<if test="shopId != null">SHOP_ID =#{shopId,jdbcType=VARCHAR},</if>
+			<if test="money != null">MONEY =#{money,jdbcType=DECIMAL},</if>
+			<if test="actMoney != null">ACT_MONEY =#{actMoney,jdbcType=DECIMAL},</if>
+			<if test="sendContent != null">SEND_CONTENT =#{sendContent,jdbcType=VARCHAR},</if>
+			<if test="sendTime != null">SEND_TIME =#{sendTime,jdbcType=TIMESTAMP},</if>
+			<if test="receiveContent != null">RECEIVE_CONTENT =#{receiveContent,jdbcType=VARCHAR},</if>
+			<if test="receiveTime != null">RECEIVE_TIME =#{receiveTime,jdbcType=TIMESTAMP},</if>
+			<if test="status != null">STATUS =#{status,jdbcType=INTEGER},</if>
+			<if test="createDate != null">CREATE_DATE =#{createDate,jdbcType=TIMESTAMP},</if>
+			<if test="modifyDate != null">MODIFY_DATE =#{modifyDate,jdbcType=TIMESTAMP},</if>
+		</set>
+		where ID = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.zzk.entity.PlatPayGatewayMessage">
+		update
+		pay_gateway_message
+		set
+		
+		GATEWAY_TYPE = #{gatewayType,jdbcType=INTEGER},
+		ORDER_ID = #{orderId,jdbcType=VARCHAR},
+		PAY_USER_ID = #{payUserId,jdbcType=VARCHAR},
+		PAYEE_USER_ID = #{payeeUserId,jdbcType=VARCHAR},
+		SHOP_ID = #{shopId,jdbcType=VARCHAR},
+		MONEY = #{money,jdbcType=DECIMAL},
+		ACT_MONEY = #{actMoney,jdbcType=DECIMAL},
+		SEND_CONTENT = #{sendContent,jdbcType=VARCHAR},
+		SEND_TIME = #{sendTime,jdbcType=TIMESTAMP},
+		RECEIVE_CONTENT = #{receiveContent,jdbcType=VARCHAR},
+		RECEIVE_TIME = #{receiveTime,jdbcType=TIMESTAMP},
+		STATUS = #{status,jdbcType=INTEGER},
+		CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+		MODIFY_DATE = #{modifyDate,jdbcType=TIMESTAMP}
+		where ID = #{id,jdbcType=VARCHAR}
+	</update>
+	<select id="selectByPage" parameterType="java.util.Map"
+		resultMap="BaseResultMap" resultType="java.util.List">
+		select
+		<include refid="Base_Column_List" />
+		from pay_gateway_message
+		<where>
+			1=1
+			<if test="orderId != null">
+				and ORDER_ID = #{orderId,jdbcType=INTEGER}
+			</if>
+			<if test="status != null">
+				and status = #{status,jdbcType=INTEGER}
+			</if>
+			<if test="search != null">
+			</if>
+			<if test="orderName != null and orderName !=''">
+				order by ${orderName} ${descAsc}
+			</if>
+			<if test="startRow !=null">
+				limit ${startRow},${pageSize}
+			</if>
+		</where>
+	</select>
+	<select id="selectCount" parameterType="com.zzk.entity.PlatPayGatewayMessage"
+		resultType="int">
+		select count(*) from pay_gateway_message
+		<where>
+			1=1
+			<if test="orderId != null">
+				and ORDER_ID = #{orderId,jdbcType=INTEGER}
+			</if>
+			<if test="status != null">
+				and status = #{status,jdbcType=INTEGER}
+			</if>
+			<if test="search != null">
+
+			</if>
+		</where>
+	</select>
+
+	<select id="selectByOrderId" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" /> from pay_gateway_message
+		where ORDER_ID = #{orderId,jdbcType=VARCHAR}
+	</select>
+</mapper>

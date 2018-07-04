@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzk.dao.SwitchRuleMapper">
+    <resultMap id="BaseResultMap"
+               type="com.zzk.entity.SwitchRule">
+        <id column="ID" jdbcType="VARCHAR" property="id"/>
+        <id column="ROOMTYPE_ID" jdbcType="VARCHAR" property="roomtypeId"/>
+        <id column="TYPE" jdbcType="INTEGER" property="type"/>
+        <id column="DESCRIPTION" jdbcType="VARCHAR" property="description"/>
+        <id column="is_open" jdbcType="INTEGER" property="isOpen"/>
+        <id column="START_TIME" jdbcType="TIMESTAMP" property="startTime"/>
+        <id column="END_TIME" jdbcType="TIMESTAMP" property="endTime"/>
+        <id column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
+        <id column="CREATOR" jdbcType="VARCHAR" property="creator"/>
+        <id column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime"/>
+        <id column="UPDATE_MAN" jdbcType="VARCHAR" property="updateMan"/>
+        <id column="STATUS" jdbcType="INTEGER" property="status"/>
+        <id column="WEEK_START" jdbcType="INTEGER" property="weekStart"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    ID,
+    ROOMTYPE_ID,
+    TYPE,
+    DESCRIPTION,
+    is_open,
+    START_TIME,
+    END_TIME,
+    CREATE_TIME,
+    CREATOR,
+    UPDATE_TIME,
+    UPDATE_MAN,
+    STATUS,
+    WEEK_START
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_mp_switch_rule where ID = #{id,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from t_mp_switch_rule where ID = #{id,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="com.zzk.entity.SwitchRule">
+        insert into t_mp_switch_rule
+        (ID,ROOMTYPE_ID,TYPE,DESCRIPTION,is_open,START_TIME,END_TIME,CREATE_TIME,CREATOR,UPDATE_TIME,UPDATE_MAN,STATUS,WEEK_START)
+        values
+        (#{id,jdbcType=VARCHAR},#{roomtypeId,jdbcType=VARCHAR},#{type,jdbcType=INTEGER},#{description,jdbcType=VARCHAR},#{isOpen,jdbcType=INTEGER},#{startTime,jdbcType=TIMESTAMP},#{endTime,jdbcType=TIMESTAMP},#{createTime,jdbcType=TIMESTAMP},#{creator,jdbcType=VARCHAR},#{updateTime,jdbcType=TIMESTAMP},#{updateMan,jdbcType=VARCHAR},#{status,jdbcType=INTEGER},#{weekStart,jdbcType=INTEGER}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="com.zzk.entity.SwitchRule">
+        insert into t_mp_switch_rule
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">ID,</if>
+            <if test="roomtypeId != null">ROOMTYPE_ID,</if>
+            <if test="type != null">TYPE,</if>
+            <if test="description != null">DESCRIPTION,</if>
+            <if test="isOpen != null">is_open,</if>
+            <if test="startTime != null">START_TIME,</if>
+            <if test="endTime != null">END_TIME,</if>
+            <if test="createTime != null">CREATE_TIME,</if>
+            <if test="creator != null">CREATOR,</if>
+            <if test="updateTime != null">UPDATE_TIME,</if>
+            <if test="updateMan != null">UPDATE_MAN,</if>
+            <if test="status != null">STATUS,</if>
+            <if test="weekStart != null">WEEK_START,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id,jdbcType=VARCHAR},</if>
+            <if test="roomtypeId != null">#{roomtypeId,jdbcType=VARCHAR},</if>
+            <if test="type != null">#{type,jdbcType=INTEGER},</if>
+            <if test="description != null">#{description,jdbcType=VARCHAR},</if>
+            <if test="isOpen != null">#{isOpen,jdbcType=INTEGER},</if>
+            <if test="startTime != null">#{startTime,jdbcType=TIMESTAMP},</if>
+            <if test="endTime != null">#{endTime,jdbcType=TIMESTAMP},</if>
+            <if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+            <if test="creator != null">#{creator,jdbcType=VARCHAR},</if>
+            <if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+            <if test="updateMan != null">#{updateMan,jdbcType=VARCHAR},</if>
+            <if test="status != null">#{status,jdbcType=INTEGER},</if>
+            <if test="weekStart != null">#{weekStart,jdbcType=INTEGER},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.zzk.entity.SwitchRule">
+        update t_mp_switch_rule
+        <set>
+                <if test="roomtypeId != null">ROOMTYPE_ID=#{roomtypeId,jdbcType=VARCHAR},
+                </if>
+                <if test="type != null">TYPE=#{type,jdbcType=INTEGER},
+                </if>
+                <if test="description != null">DESCRIPTION=#{description,jdbcType=VARCHAR},
+                </if>
+                <if test="isOpen != null">is_open=#{isOpen,jdbcType=INTEGER},
+                </if>
+                <if test="startTime != null">START_TIME=#{startTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="endTime != null">END_TIME=#{endTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="createTime != null">CREATE_TIME=#{createTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="creator != null">CREATOR=#{creator,jdbcType=VARCHAR},
+                </if>
+                <if test="updateTime != null">UPDATE_TIME=#{updateTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="updateMan != null">UPDATE_MAN=#{updateMan,jdbcType=VARCHAR},
+                </if>
+                <if test="status != null">STATUS=#{status,jdbcType=INTEGER},
+                </if>
+                <if test="weekStart != null">WEEK_START=#{weekStart,jdbcType=INTEGER},
+                </if>
+        </set>
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.zzk.entity.SwitchRule">
+        update
+    t_mp_switch_rule
+        set
+        
+        ROOMTYPE_ID = #{roomtypeId,jdbcType=VARCHAR
+            },
+        TYPE = #{type,jdbcType=INTEGER
+            },
+        DESCRIPTION = #{description,jdbcType=VARCHAR
+            },
+        is_open = #{isOpen,jdbcType=INTEGER
+            },
+        START_TIME = #{startTime,jdbcType=TIMESTAMP
+            },
+        END_TIME = #{endTime,jdbcType=TIMESTAMP
+            },
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP
+            },
+        CREATOR = #{creator,jdbcType=VARCHAR
+            },
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP
+            },
+        UPDATE_MAN = #{updateMan,jdbcType=VARCHAR
+            },
+        STATUS = #{status,jdbcType=INTEGER
+            },
+        WEEK_START = #{weekStart,jdbcType=INTEGER
+            }
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+    <select id="selectByPage" parameterType="java.util.Map"
+            resultMap="BaseResultMap" resultType="java.util.List">
+        select
+        <include refid="Base_Column_List"/>
+        from t_mp_switch_rule
+        <where>
+            1=1 and status = 1
+            <if test="search != null">
+                $(search)
+            </if>
+            <if test="orderName != null and orderName !=''">
+                order by ${orderName} ${descAsc}
+            </if>
+            <if test="startRow !=null">
+                limit ${startRow},${pageSize}
+            </if>
+        </where>
+    </select>
+    <select id="selectCount" parameterType="com.zzk.entity.SwitchRule"
+            resultType="int">
+        select count(*) from t_mp_switch_rule
+        <where>
+            1=1
+            <if test="search != null">
+                $(search)
+            </if>
+        </where>
+    </select>
+    
+    <select id="selectByHotelId" parameterType="java.lang.String"
+            resultMap="BaseResultMap">
+        select  
+        	t1.*,t2.hotel_id
+        from t_mp_switch_rule t1 left join t_mp_roomtype t2 on t1.roomtype_id=t2.id
+        <where>
+            1=1 and t1.status=1 and t2.status=1
+            and t1.END_TIME >= #{startTime,jdbcType=VARCHAR}
+            and t2.HOTEL_ID = #{hotelId,jdbcType=VARCHAR}
+           	order by t1.UPDATE_TIME DESC
+        </where>
+    </select>
+    <select id="selectByGoodsId" parameterType="java.lang.String"
+            resultMap="BaseResultMap">
+        select  
+        	<include refid="Base_Column_List"/>
+        from t_mp_switch_rule
+        <where>
+            1=1 and status=1
+            and END_TIME >= #{startTime,jdbcType=VARCHAR}
+            and ROOMTYPE_ID = (select ROOMTYPE_ID from t_mp_hotel_goods where status = 1 and ID = #{goodsId,jdbcType=VARCHAR})
+           	order by UPDATE_TIME DESC
+        </where>
+    </select>
+    
+    <select id="selectByHotelsId"  resultMap="BaseResultMap">
+        select  
+        	t1.*,t2.hotel_id
+        from t_mp_switch_rule t1 left join t_mp_roomtype t2 on t1.roomtype_id=t2.id
+        <where>
+            1=1 and t1.status=1 and t2.status=1
+            and t1.END_TIME >= #{startTime,jdbcType=VARCHAR}
+            and t1.START_TIME &lt;= #{endTime,jdbcType=VARCHAR}
+            <if test="null != idList and idList.size > 0">
+            
+            and t2.HOTEL_ID in (
+            <foreach collection="idList" index="index" item="it" separator=",">
+            	 #{it,jdbcType=VARCHAR}
+            </foreach>
+            )
+            </if>
+            order by t1.UPDATE_TIME DESC
+        </where>
+    </select>
+    
+</mapper>

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzk.dao.OperateLogMapper">
+    <resultMap id="BaseResultMap"
+               type="com.zzk.entity.OperateLog">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <id column="user" jdbcType="VARCHAR" property="user"/>
+        <id column="date" jdbcType="TIMESTAMP" property="date"/>
+        <id column="ip" jdbcType="VARCHAR" property="ip"/>
+        <id column="content" jdbcType="VARCHAR" property="content"/>
+        <id column="shop_id" jdbcType="VARCHAR" property="shopId"/>
+        <id column="status" jdbcType="INTEGER" property="status"/>
+        <id column="type" jdbcType="INTEGER" property="type"/>
+        <id column="obj_id" jdbcType="VARCHAR" property="objId"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id,
+    user,
+    date,
+    ip,
+    content,
+    shop_id,
+    status,
+    type,
+    obj_id
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from operate_log where ID = #{id,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from operate_log where ID = #{id,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="com.zzk.entity.OperateLog">
+        insert into operate_log
+        (id,user,date,ip,content,shop_id,status,type,obj_id)
+        values
+        (#{id,jdbcType=VARCHAR},#{user,jdbcType=VARCHAR},#{date,jdbcType=TIMESTAMP},#{ip,jdbcType=VARCHAR},#{content,jdbcType=VARCHAR},#{shopId,jdbcType=VARCHAR},#{status,jdbcType=INTEGER},#{type,jdbcType=INTEGER},#{objId,jdbcType=VARCHAR}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="com.zzk.entity.OperateLog">
+        insert into operate_log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="user != null">user,</if>
+            <if test="date != null">date,</if>
+            <if test="ip != null">ip,</if>
+            <if test="content != null">content,</if>
+            <if test="shopId != null">shop_id,</if>
+            <if test="status != null">status,</if>
+            <if test="type != null">type,</if>
+            <if test="objId != null">obj_id,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id,jdbcType=VARCHAR},</if>
+            <if test="user != null">#{user,jdbcType=VARCHAR},</if>
+            <if test="date != null">#{date,jdbcType=TIMESTAMP},</if>
+            <if test="ip != null">#{ip,jdbcType=VARCHAR},</if>
+            <if test="content != null">#{content,jdbcType=VARCHAR},</if>
+            <if test="shopId != null">#{shopId,jdbcType=VARCHAR},</if>
+            <if test="status != null">#{status,jdbcType=INTEGER},</if>
+            <if test="type != null">#{type,jdbcType=INTEGER},</if>
+            <if test="objId != null">#{objId,jdbcType=VARCHAR},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.zzk.entity.OperateLog">
+        update operate_log
+        <set>
+                <if test="user != null">user=#{user,jdbcType=VARCHAR},
+                </if>
+                <if test="date != null">date=#{date,jdbcType=TIMESTAMP},
+                </if>
+                <if test="ip != null">ip=#{ip,jdbcType=VARCHAR},
+                </if>
+                <if test="content != null">content=#{content,jdbcType=VARCHAR},
+                </if>
+                <if test="shopId != null">shop_id=#{shopId,jdbcType=VARCHAR},
+                </if>
+                <if test="status != null">status=#{status,jdbcType=INTEGER},
+                </if>
+                <if test="type != null">type=#{type,jdbcType=INTEGER},
+                </if>
+                <if test="objId != null">obj_id=#{objId,jdbcType=VARCHAR},
+                </if>
+        </set>
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.zzk.entity.OperateLog">
+        update
+    operate_log
+        set
+        
+        user = #{user,jdbcType=VARCHAR
+            },
+        date = #{date,jdbcType=TIMESTAMP
+            },
+        ip = #{ip,jdbcType=VARCHAR
+            },
+        content = #{content,jdbcType=VARCHAR
+            },
+        shop_id = #{shopId,jdbcType=VARCHAR
+            },
+        status = #{status,jdbcType=INTEGER
+            },
+        obj_id = #{objId,jdbcType=VARCHAR
+            },
+        type = #{type,jdbcType=INTEGER
+            }
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+    <select id="selectByPage" parameterType="java.util.Map" resultMap="BaseResultMap" resultType="java.util.List">
+        select
+        <include refid="Base_Column_List"/>
+        from operate_log
+        <where>
+            1=1 and shop_id = #{shopId,jdbcType=VARCHAR}
+            order By date DESC
+            limit #{startRow},#{pageSize}
+        </where>
+    </select>
+    <select id="selectCount" parameterType="com.zzk.entity.OperateLog"
+            resultType="int">
+        select count(*) from operate_log
+        <where>
+            1=1 and shop_id = #{shopId,jdbcType=VARCHAR}
+        </where>
+    </select>
+</mapper>

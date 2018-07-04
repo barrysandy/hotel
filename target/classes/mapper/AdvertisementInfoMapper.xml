@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzk.dao.AdvertisementInfoMapper">
+    <resultMap id="BaseResultMap"
+               type="com.zzk.entity.AdvertisementInfo">
+        <id column="ID" jdbcType="VARCHAR" property="id"/>
+        <id column="ADVERTISEMENT_POSITION_ID" jdbcType="VARCHAR" property="advertisementPositionId"/>
+        <id column="ADVERTISEMENT_POSITION_NAME" jdbcType="VARCHAR" property="advertisementPositionName"/>
+        <id column="CONTENT" jdbcType="VARCHAR" property="content"/>
+        <id column="TIME" jdbcType="INTEGER" property="time"/>
+        <id column="START_TIME" jdbcType="DATE" property="startTime"/>
+        <id column="END_TIME" jdbcType="DATE" property="endTime"/>
+        <id column="STATE" jdbcType="INTEGER" property="state"/>
+        <id column="SORT" jdbcType="INTEGER" property="sort"/>
+        <id column="COUNT" jdbcType="INTEGER" property="count"/>
+        <id column="REMARK" jdbcType="VARCHAR" property="remark"/>
+        <id column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
+        <id column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime"/>
+        <id column="STATUS" jdbcType="INTEGER" property="status"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    ID,
+    ADVERTISEMENT_POSITION_ID,
+    ADVERTISEMENT_POSITION_NAME,
+    CONTENT,
+    TIME,
+    START_TIME,
+    END_TIME,
+    STATE,
+    SORT,
+    COUNT,
+    REMARK,
+    CREATE_TIME,
+    UPDATE_TIME,
+    STATUS
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from advertisement_info where ID = #{id,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from advertisement_info where ID = #{id,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="com.zzk.entity.AdvertisementInfo">
+        insert into advertisement_info
+        (ID,ADVERTISEMENT_POSITION_ID,ADVERTISEMENT_POSITION_NAME,CONTENT,TIME,START_TIME,END_TIME,STATE,SORT,COUNT,REMARK,CREATE_TIME,UPDATE_TIME,STATUS)
+        values
+        (#{id,jdbcType=VARCHAR},#{advertisementPositionId,jdbcType=VARCHAR},#{advertisementPositionName,jdbcType=VARCHAR},#{content,jdbcType=VARCHAR},#{time,jdbcType=INTEGER},#{startTime,jdbcType=DATE},#{endTime,jdbcType=DATE},#{state,jdbcType=INTEGER},#{sort,jdbcType=INTEGER},#{count,jdbcType=INTEGER},#{remark,jdbcType=VARCHAR},#{createTime,jdbcType=TIMESTAMP},#{updateTime,jdbcType=TIMESTAMP},#{status,jdbcType=INTEGER}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="com.zzk.entity.AdvertisementInfo">
+        insert into advertisement_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">ID,</if>
+            <if test="advertisementPositionId != null">ADVERTISEMENT_POSITION_ID,</if>
+            <if test="advertisementPositionName != null">ADVERTISEMENT_POSITION_NAME,</if>
+            <if test="content != null">CONTENT,</if>
+            <if test="time != null">TIME,</if>
+            <if test="startTime != null">START_TIME,</if>
+            <if test="endTime != null">END_TIME,</if>
+            <if test="state != null">STATE,</if>
+            <if test="sort != null">SORT,</if>
+            <if test="count != null">COUNT,</if>
+            <if test="remark != null">REMARK,</if>
+            <if test="createTime != null">CREATE_TIME,</if>
+            <if test="updateTime != null">UPDATE_TIME,</if>
+            <if test="status != null">STATUS,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id,jdbcType=VARCHAR},</if>
+            <if test="advertisementPositionId != null">#{advertisementPositionId,jdbcType=VARCHAR},</if>
+            <if test="advertisementPositionName != null">#{advertisementPositionName,jdbcType=VARCHAR},</if>
+            <if test="content != null">#{content,jdbcType=VARCHAR},</if>
+            <if test="time != null">#{time,jdbcType=INTEGER},</if>
+            <if test="startTime != null">#{startTime,jdbcType=DATE},</if>
+            <if test="endTime != null">#{endTime,jdbcType=DATE},</if>
+            <if test="state != null">#{state,jdbcType=INTEGER},</if>
+            <if test="sort != null">#{sort,jdbcType=INTEGER},</if>
+            <if test="count != null">#{count,jdbcType=INTEGER},</if>
+            <if test="remark != null">#{remark,jdbcType=VARCHAR},</if>
+            <if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+            <if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+            <if test="status != null">#{status,jdbcType=INTEGER},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.zzk.entity.AdvertisementInfo">
+        update advertisement_info
+        <set>
+                <if test="advertisementPositionId != null">ADVERTISEMENT_POSITION_ID=#{advertisementPositionId,jdbcType=VARCHAR},
+                </if>
+                <if test="advertisementPositionName != null">ADVERTISEMENT_POSITION_NAME=#{advertisementPositionName,jdbcType=VARCHAR},
+                </if>
+                <if test="content != null">CONTENT=#{content,jdbcType=VARCHAR},
+                </if>
+                <if test="time != null">TIME=#{time,jdbcType=INTEGER},
+                </if>
+                <if test="startTime != null">START_TIME=#{startTime,jdbcType=DATE},
+                </if>
+                <if test="endTime != null">END_TIME=#{endTime,jdbcType=DATE},
+                </if>
+                <if test="state != null">STATE=#{state,jdbcType=INTEGER},
+                </if>
+                <if test="sort != null">SORT=#{sort,jdbcType=INTEGER},
+                </if>
+                <if test="count != null">COUNT=#{count,jdbcType=INTEGER},
+                </if>
+                <if test="remark != null">REMARK=#{remark,jdbcType=VARCHAR},
+                </if>
+                <if test="createTime != null">CREATE_TIME=#{createTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="updateTime != null">UPDATE_TIME=#{updateTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="status != null">STATUS=#{status,jdbcType=INTEGER},
+                </if>
+        </set>
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.zzk.entity.AdvertisementInfo">
+        update
+    advertisement_info
+        set
+        
+        ADVERTISEMENT_POSITION_ID = #{advertisementPositionId,jdbcType=VARCHAR
+            },
+        ADVERTISEMENT_POSITION_NAME = #{advertisementPositionName,jdbcType=VARCHAR
+            },
+        CONTENT = #{content,jdbcType=VARCHAR
+            },
+        TIME = #{time,jdbcType=INTEGER
+            },
+        START_TIME = #{startTime,jdbcType=DATE
+            },
+        END_TIME = #{endTime,jdbcType=DATE
+            },
+        STATE = #{state,jdbcType=INTEGER
+            },
+        SORT = #{sort,jdbcType=INTEGER
+            },
+        COUNT = #{count,jdbcType=INTEGER
+            },
+        REMARK = #{remark,jdbcType=VARCHAR
+            },
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP
+            },
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP
+            },
+        STATUS = #{status,jdbcType=INTEGER
+            }
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+    <select id="selectByPage" parameterType="java.util.Map"
+            resultMap="BaseResultMap" resultType="java.util.List">
+        select
+        <include refid="Base_Column_List"/>
+        from advertisement_info
+        <where>
+            1=1 and status = 1
+            <if test="search != null">
+                $(search)
+            </if>
+            <if test="orderName != null and orderName !=''">
+                order by ${orderName} ${descAsc}
+            </if>
+            <if test="startRow !=null">
+                limit ${startRow},${pageSize}
+            </if>
+        </where>
+    </select>
+    <select id="selectCount" parameterType="com.zzk.entity.AdvertisementInfo"
+            resultType="int">
+        select count(*) from advertisement_info
+        <where>
+            1=1
+            <if test="search != null">
+                $(search)
+            </if>
+        </where>
+    </select>
+</mapper>

@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzk.dao.BusinessInfoMapper">
+
+	<resultMap id="BaseResultMap" type="com.zzk.entity.BusinessInfo">
+		<id column="ID" jdbcType="VARCHAR" property="id" />
+		<id column="USER_ID" jdbcType="VARCHAR" property="userId" />
+		<id column="TYPE" jdbcType="INTEGER" property="type" />
+		<id column="BUSIN_NAME" jdbcType="VARCHAR" property="businName" />
+		<id column="SIMPLE_NAME" jdbcType="VARCHAR" property="simpleName" />
+		<id column="BUSIN_MAIN" jdbcType="VARCHAR" property="businMain" />
+		<id column="PERSON_NAME" jdbcType="VARCHAR" property="personName" />
+		<id column="PHONE" jdbcType="VARCHAR" property="phone" />
+		<id column="EMAIL" jdbcType="VARCHAR" property="email" />
+		<id column="TEL" jdbcType="VARCHAR" property="tel" />
+		<id column="CITY_ID" jdbcType="VARCHAR" property="cityId" />
+		<id column="AREA_ID" jdbcType="VARCHAR" property="areaId" />
+		<id column="ADDRESS" jdbcType="VARCHAR" property="address" />
+		<id column="LAT" jdbcType="DOUBLE" property="lat" />
+		<id column="LON" jdbcType="DOUBLE" property="lon" />
+		<id column="COVER_IMG" jdbcType="VARCHAR" property="coverImg" />
+		<id column="ALBUM" jdbcType="VARCHAR" property="album" />
+		<id column="DESCRIPTION" jdbcType="VARCHAR" property="description" />
+		<id column="COMM_SCORE" jdbcType="DOUBLE" property="commScore" />
+		<id column="IMG_DETAIL" jdbcType="VARCHAR" property="imgDetail" />
+		<id column="COMM_NUM" jdbcType="INTEGER" property="commNum" />
+		<id column="STATUS" jdbcType="INTEGER" property="status" />
+		<id column="BUSIN_STATUS" jdbcType="INTEGER" property="businStatus" />
+		<id column="LINE_COUNT" jdbcType="INTEGER" property="lineCount" />
+		<id column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+		<id column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+	</resultMap>
+	
+	<resultMap id="AllInfoResultMap" type="com.zzk.vo.BusinessAllInfoVo">
+		<id column="ID" jdbcType="VARCHAR" property="id" />
+		<id column="USER_ID" jdbcType="VARCHAR" property="userId" />
+		<id column="TYPE" jdbcType="INTEGER" property="type" />
+		<id column="BUSIN_NAME" jdbcType="VARCHAR" property="businName" />
+		<id column="SIMPLE_NAME" jdbcType="VARCHAR" property="simpleName" />
+		<id column="BUSIN_MAIN" jdbcType="VARCHAR" property="businMain" />
+		<id column="PERSON_NAME" jdbcType="VARCHAR" property="personName" />
+		<id column="PHONE" jdbcType="VARCHAR" property="phone" />
+		<id column="EMAIL" jdbcType="VARCHAR" property="email" />
+		<id column="TEL" jdbcType="VARCHAR" property="tel" />
+		<id column="CITY_ID" jdbcType="VARCHAR" property="cityId" />
+		<id column="AREA_ID" jdbcType="VARCHAR" property="areaId" />
+		<id column="ADDRESS" jdbcType="VARCHAR" property="address" />
+		<id column="LAT" jdbcType="DOUBLE" property="lat" />
+		<id column="LON" jdbcType="DOUBLE" property="lon" />
+		<id column="COVER_IMG" jdbcType="VARCHAR" property="coverImg" />
+		<id column="ALBUM" jdbcType="VARCHAR" property="album" />
+		<id column="DESCRIPTION" jdbcType="VARCHAR" property="description" />
+		<id column="COMM_SCORE" jdbcType="DOUBLE" property="commScore" />
+		<id column="IMG_DETAIL" jdbcType="VARCHAR" property="imgDetail" />
+		<id column="COMM_NUM" jdbcType="INTEGER" property="commNum" />
+		<id column="STATUS" jdbcType="INTEGER" property="status" />
+		<id column="BUSIN_STATUS" jdbcType="INTEGER" property="businStatus" />
+		<id column="LINE_COUNT" jdbcType="INTEGER" property="lineCount" />
+		<id column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+		<id column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+		<!-- 资质信息 -->
+		<id column="LEGAL_PERSON" jdbcType="VARCHAR" property="legalPerson" />
+		<id column="ID_CARD" jdbcType="VARCHAR" property="idCard" />
+		<id column="ID_CARD_IMG" jdbcType="VARCHAR" property="idCardImg" />
+		<id column="REGISTERED_TIME" jdbcType="TIMESTAMP" property="registeredTime" />
+		<id column="REGISTERED_CAPITEL" jdbcType="DECIMAL" property="registeredCapitel" />
+		<id column="CREDIT_CODE" jdbcType="VARCHAR" property="creditCode" />
+		<id column="LICENSE" jdbcType="VARCHAR" property="license" />
+		<id column="LICENSE_IMG" jdbcType="VARCHAR" property="licenseImg" />
+		<!-- 合作信息 -->
+		<id column="COMM_MODE" jdbcType="INTEGER" property="commMode" />
+		<id column="COMM_RATE" jdbcType="DOUBLE" property="commRate" />
+		<id column="CON_PERSON" jdbcType="VARCHAR" property="conPerson" />
+		<id column="CON_PHONE" jdbcType="VARCHAR" property="conPhone" />
+		<id column="REMARK" jdbcType="VARCHAR" property="remark" />
+	</resultMap>
+	<resultMap id="ProvinceResultMap" type="java.util.Map">
+    	<id column="province_id" jdbcType="VARCHAR" property="provinceId"/>
+        <id column="province_name" jdbcType="VARCHAR" property="provinceName"/>
+    </resultMap>
+    <resultMap id="CityResultMap" type="java.util.Map">
+    	<id column="city_id" jdbcType="VARCHAR" property="cityId"/>
+        <id column="city_name" jdbcType="VARCHAR" property="cityName"/>
+    </resultMap>
+    <resultMap id="AreaResultMap" type="java.util.Map">
+    	<id column="area_id" jdbcType="VARCHAR" property="areaId"/>
+        <id column="area_name" jdbcType="VARCHAR" property="areaName"/>
+    </resultMap>
+
+	<sql id="Base_Column_List">
+		ID,
+		USER_ID,
+		TYPE,
+		BUSIN_NAME,
+		SIMPLE_NAME,
+		BUSIN_MAIN,
+		PERSON_NAME,
+		PHONE,
+		EMAIL,
+		TEL,
+		CITY_ID,
+		AREA_ID,
+		ADDRESS,
+		LAT,
+		LON,
+		COVER_IMG,
+		ALBUM,
+		DESCRIPTION,
+		COMM_SCORE,
+		IMG_DETAIL,
+		COMM_NUM,
+		STATUS,
+		BUSIN_STATUS,
+		LINE_COUNT,
+		CREATE_TIME,
+		UPDATE_TIME
+	</sql>
+	<sql id="All_Info_Column_List">
+		t1.ID,
+		t1.USER_ID,
+		t1.TYPE,
+		t1.BUSIN_NAME,
+		t1.SIMPLE_NAME,
+		t1.BUSIN_MAIN,
+		t1.PERSON_NAME,
+		t1.PHONE,
+		t1.EMAIL,
+		t1.TEL,
+		t1.CITY_ID,
+		t1.AREA_ID,
+		t1.ADDRESS,
+		t1.LAT,
+		t1.LON,
+		t1.COVER_IMG,
+		t1.ALBUM,
+		t1.DESCRIPTION,
+		t1.COMM_SCORE,
+		t1.IMG_DETAIL,
+		t1.COMM_NUM,
+		t1.STATUS,
+		t1.BUSIN_STATUS,
+		t1.LINE_COUNT,
+		
+		t2.LEGAL_PERSON,
+		t2.ID_CARD,
+		t2.ID_CARD_IMG,
+		t2.REGISTERED_TIME,
+		t2.REGISTERED_CAPITEL,
+		t2.CREDIT_CODE,
+		t2.LICENSE,
+		t2.LICENSE_IMG,
+		
+		t3.COMM_MODE,
+		t3.COMM_RATE,
+		t3.CON_PERSON,
+		t3.CON_PHONE,
+		t3.REMARK
+	</sql>
+	
+	<select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" /> from business_info where ID = #{id,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="selectAllInfoByPrimaryKey" parameterType="java.lang.String" resultMap="AllInfoResultMap">
+		select <include refid="All_Info_Column_List" /> from business_info t1 left join qualification_info t2 on t2.merchant_id = t1.id  left join cooperation_info t3 on t3.businness_id = t1.id  where t1.id = #{id,jdbcType=VARCHAR} and t1.status = 1
+	</select>
+	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from business_info where ID = #{id,jdbcType=VARCHAR}
+	</delete>
+	
+	<insert id="insert" parameterType="com.zzk.entity.BusinessInfo">
+		insert into business_info
+		(ID,USER_ID,TYPE,BUSIN_NAME,SIMPLE_NAME,BUSIN_MAIN,PERSON_NAME,PHONE,EMAIL,TEL,CITY_ID,AREA_ID,ADDRESS,LAT,LON,COVER_IMG,ALBUM,DESCRIPTION,COMM_SCORE,IMG_DETAIL,COMM_NUM,STATUS,BUSIN_STATUS,LINE_COUNT,CREATE_TIME,UPDATE_TIME)
+		values
+		(#{id,jdbcType=VARCHAR},#{userId,jdbcType=VARCHAR},#{type,jdbcType=INTEGER},#{businName,jdbcType=VARCHAR},#{simpleName,jdbcType=VARCHAR},#{businMain,jdbcType=VARCHAR},#{personName,jdbcType=VARCHAR},#{phone,jdbcType=VARCHAR},#{email,jdbcType=VARCHAR},#{tel,jdbcType=VARCHAR},#{cityId,jdbcType=VARCHAR},#{areaId,jdbcType=VARCHAR},#{address,jdbcType=VARCHAR},#{lat,jdbcType=DOUBLE},#{lon,jdbcType=DOUBLE},#{coverImg,jdbcType=VARCHAR},#{album,jdbcType=VARCHAR},#{description,jdbcType=VARCHAR},#{commScore,jdbcType=DOUBLE},#{imgDetail,jdbcType=VARCHAR},#{commNum,jdbcType=INTEGER},#{status,jdbcType=INTEGER},#{businStatus,jdbcType=INTEGER},#{lineCount,jdbcType=INTEGER},#{createTime,jdbcType=TIMESTAMP},#{updateTime,jdbcType=TIMESTAMP})
+	</insert>
+	
+	<insert id="insertSelective" parameterType="com.zzk.entity.BusinessInfo">
+		insert into business_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">ID,</if>
+			<if test="userId != null">USER_ID,</if>
+			<if test="type != null">TYPE,</if>
+			<if test="businName != null">BUSIN_NAME,</if>
+			<if test="simpleName != null">SIMPLE_NAME,</if>
+			<if test="businMain != null">BUSIN_MAIN,</if>
+			<if test="personName != null">PERSON_NAME,</if>
+			<if test="phone != null">PHONE,</if>
+			<if test="email != null">EMAIL,</if>
+			<if test="tel != null">TEL,</if>
+			<if test="cityId != null">CITY_ID,</if>
+			<if test="areaId != null">AREA_ID,</if>
+			<if test="address != null">ADDRESS,</if>
+			<if test="lat != null">LAT,</if>
+			<if test="lon != null">LON,</if>
+			<if test="coverImg != null">COVER_IMG,</if>
+			<if test="album != null">ALBUM,</if>
+			<if test="description != null">DESCRIPTION,</if>
+			<if test="commScore != null">COMM_SCORE,</if>
+			<if test="imgDetail != null">IMG_DETAIL,</if>
+			<if test="commNum != null">COMM_NUM,</if>
+			<if test="status != null">STATUS,</if>
+			<if test="businStatus != null">BUSIN_STATUS,</if>
+			<if test="lineCount != null">LINE_COUNT,</if>
+			<if test="createTime != null">CREATE_TIME,</if>
+			<if test="updateTime != null">UPDATE_TIME,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=VARCHAR},</if>
+			<if test="userId != null">#{userId,jdbcType=VARCHAR},</if>
+			<if test="type != null">#{type,jdbcType=INTEGER},</if>
+			<if test="businName != null">#{businName,jdbcType=VARCHAR},</if>
+			<if test="simpleName != null">#{simpleName,jdbcType=VARCHAR},</if>
+			<if test="businMain != null">#{businMain,jdbcType=VARCHAR},</if>
+			<if test="personName != null">#{personName,jdbcType=VARCHAR},</if>
+			<if test="phone != null">#{phone,jdbcType=VARCHAR},</if>
+			<if test="email != null">#{email,jdbcType=VARCHAR},</if>
+			<if test="tel != null">#{tel,jdbcType=VARCHAR},</if>
+			<if test="cityId != null">#{cityId,jdbcType=VARCHAR},</if>
+			<if test="areaId != null">#{areaId,jdbcType=VARCHAR},</if>
+			<if test="address != null">#{address,jdbcType=VARCHAR},</if>
+			<if test="lat != null">#{lat,jdbcType=DOUBLE},</if>
+			<if test="lon != null">#{lon,jdbcType=DOUBLE},</if>
+			<if test="coverImg != null">#{coverImg,jdbcType=VARCHAR},</if>
+			<if test="album != null">#{album,jdbcType=VARCHAR},</if>
+			<if test="description != null">#{description,jdbcType=VARCHAR},</if>
+			<if test="commScore != null">#{commScore,jdbcType=DOUBLE},</if>
+			<if test="imgDetail != null">#{imgDetail,jdbcType=VARCHAR},</if>
+			<if test="commNum != null">#{commNum,jdbcType=INTEGER},</if>
+			<if test="status != null">#{status,jdbcType=INTEGER},</if>
+			<if test="businStatus != null">#{businStatus,jdbcType=INTEGER},</if>
+			<if test="lineCount != null">#{lineCount,jdbcType=INTEGER},</if>
+			<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+			<if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+		</trim>
+	</insert>
+	
+	<update id="updateByPrimaryKeySelective" parameterType="com.zzk.entity.BusinessInfo">
+		update business_info
+		<set>
+			<if test="userId != null">USER_ID =#{userId,jdbcType=VARCHAR},</if>
+			<if test="type != null">TYPE =#{type,jdbcType=INTEGER},</if>
+			<if test="businName != null">BUSIN_NAME =#{businName,jdbcType=VARCHAR},</if>
+			<if test="simpleName != null">SIMPLE_NAME =#{simpleName,jdbcType=VARCHAR},</if>
+			<if test="businMain != null">BUSIN_MAIN =#{businMain,jdbcType=VARCHAR},</if>
+			<if test="personName != null">PERSON_NAME =#{personName,jdbcType=VARCHAR},</if>
+			<if test="phone != null">PHONE =#{phone,jdbcType=VARCHAR},</if>
+			<if test="email != null">EMAIL =#{email,jdbcType=VARCHAR},</if>
+			<if test="tel != null">TEL =#{tel,jdbcType=VARCHAR},</if>
+			<if test="cityId != null">CITY_ID =#{cityId,jdbcType=VARCHAR},</if>
+			<if test="areaId != null">AREA_ID =#{areaId,jdbcType=VARCHAR},</if>
+			<if test="address != null">ADDRESS =#{address,jdbcType=VARCHAR},</if>
+			<if test="lat != null">LAT =#{lat,jdbcType=DOUBLE},</if>
+			<if test="lon != null">LON =#{lon,jdbcType=DOUBLE},</if>
+			<if test="coverImg != null">COVER_IMG =#{coverImg,jdbcType=VARCHAR},</if>
+			<if test="album != null">ALBUM =#{album,jdbcType=VARCHAR},</if>
+			<if test="description != null">DESCRIPTION =#{description,jdbcType=VARCHAR},</if>
+			<if test="commScore != null">COMM_SCORE =#{commScore,jdbcType=DOUBLE},</if>
+			<if test="imgDetail != null">IMG_DETAIL =#{imgDetail,jdbcType=VARCHAR},</if>
+			<if test="commNum != null">COMM_NUM =#{commNum,jdbcType=INTEGER},</if>
+			<if test="status != null">STATUS =#{status,jdbcType=INTEGER},</if>
+			<if test="businStatus != null">BUSIN_STATUS =#{businStatus,jdbcType=INTEGER},</if>
+			<if test="lineCount != null">LINE_COUNT =#{lineCount,jdbcType=INTEGER},</if>
+			<if test="createTime != null">CREATE_TIME =#{createTime,jdbcType=TIMESTAMP},</if>
+			<if test="updateTime != null">UPDATE_TIME =#{updateTime,jdbcType=TIMESTAMP},</if>
+		</set>
+		where ID = #{id,jdbcType=VARCHAR}
+	</update>
+	
+	<update id="updateByPrimaryKey" parameterType="com.zzk.entity.BusinessInfo">
+		update
+		business_info
+		set
+		
+		USER_ID = #{userId,jdbcType=VARCHAR},
+		TYPE = #{type,jdbcType=INTEGER},
+		BUSIN_NAME = #{businName,jdbcType=VARCHAR},
+		SIMPLE_NAME = #{simpleName,jdbcType=VARCHAR},
+		BUSIN_MAIN = #{businMain,jdbcType=VARCHAR},
+		PERSON_NAME = #{personName,jdbcType=VARCHAR},
+		PHONE = #{phone,jdbcType=VARCHAR},
+		EMAIL = #{email,jdbcType=VARCHAR},
+		TEL = #{tel,jdbcType=VARCHAR},
+		CITY_ID = #{cityId,jdbcType=VARCHAR},
+		AREA_ID = #{areaId,jdbcType=VARCHAR},
+		ADDRESS = #{address,jdbcType=VARCHAR},
+		LAT = #{lat,jdbcType=DOUBLE},
+		LON = #{lon,jdbcType=DOUBLE},
+		COVER_IMG = #{coverImg,jdbcType=VARCHAR},
+		ALBUM = #{album,jdbcType=VARCHAR},
+		DESCRIPTION = #{description,jdbcType=VARCHAR},
+		COMM_SCORE = #{commScore,jdbcType=DOUBLE},
+		IMG_DETAIL = #{imgDetail,jdbcType=VARCHAR},
+		COMM_NUM = #{commNum,jdbcType=INTEGER},
+		STATUS = #{status,jdbcType=INTEGER},
+		BUSIN_STATUS = #{businStatus,jdbcType=INTEGER},
+		LINE_COUNT = #{lineCount,jdbcType=INTEGER},
+		CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+		UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+		where ID = #{id,jdbcType=VARCHAR}
+	</update>
+	
+	<select id="selectByPage" parameterType="java.util.Map" resultMap="BaseResultMap" resultType="java.util.List">
+		select
+		<include refid="Base_Column_List" />
+		from business_info
+		<where>
+			1=1 and status = 1
+			<if test="search != null">
+			</if>
+			<if test="orderName != null and orderName !=''">
+				order by ${orderName} ${descAsc}
+			</if>
+			<if test="startRow !=null">
+				limit ${startRow},${pageSize}
+			</if>
+		</where>
+	</select>
+	
+	<select id="selectCount" parameterType="com.zzk.entity.BusinessInfo" resultType="int">
+		select count(1) from business_info
+		<where>
+			1=1 and status = 1
+			<if test="search != null">
+
+			</if>
+		</where>
+	</select>
+	<select id="getProvinceList"  resultMap="ProvinceResultMap">
+    	select province_id,province_name from province
+    </select>
+    <select id="getCityList" parameterType="java.lang.String" resultMap="CityResultMap">
+    	select city_id,city_name from city where province_id = #{ provinceId,jdbcType=VARCHAR}
+    </select>
+    <select id="getAreaList" parameterType="java.lang.String" resultMap="AreaResultMap">
+    	select area_id,area_name from area where city_id = #{ cityId,jdbcType=VARCHAR}
+    </select>
+    <select id="selectCity" parameterType="java.lang.String" resultType="java.lang.String" >
+    	select city_name from city where city_id = #{ cityId,jdbcType=VARCHAR}
+    </select>
+    <select id="selectArea" parameterType="java.lang.String" resultType="java.lang.String" >
+    	select area_name from area where area_id = #{ areaId,jdbcType=VARCHAR}
+    </select>
+    <select id="selectProvince" parameterType="java.lang.String" resultType="java.lang.String" >
+    	select province_name from province where province_id_short = #{ provinceId,jdbcType=VARCHAR}
+    </select>
+    <select id="selectAllBusinessId" resultType="java.lang.String">
+    	select business_info.id from business_info; 
+    </select>
+</mapper>

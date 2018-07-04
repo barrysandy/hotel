@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zzk.dao.EvaluateMapper" >
+  <resultMap id="BaseResultMap" type="com.zzk.entity.Evaluate" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="roomtype_id" property="roomtypeId" jdbcType="VARCHAR" />
+    <result column="score" property="score" jdbcType="DOUBLE" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="shop_id" property="shopId" jdbcType="VARCHAR" />
+    <result column="goods_id" property="goodsId" jdbcType="VARCHAR" />
+    <result column="creater_id" property="createrId" jdbcType="VARCHAR" />
+    <result column="health_score" property="healthScore" jdbcType="INTEGER" />
+    <result column="evn_score" property="evnScore" jdbcType="INTEGER" />
+    <result column="service_score" property="serviceScore" jdbcType="INTEGER" />
+    <result column="facility_score" property="facilityScore" jdbcType="INTEGER" />
+    <result column="parent_id" property="parentId" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="order_id" property="orderId" jdbcType="VARCHAR" />
+    <result column="reply_status" property="replyStatus" jdbcType="INTEGER" />
+    <result column="update_id" property="updateId" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.zzk.entity.Evaluate" extends="BaseResultMap" >
+    <result column="imgs" property="imgs" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <resultMap id="Custom_colum_list" type="com.zzk.entity.EvaluateCustom" extends="ResultMapWithBLOBs">
+  	<result column="nick_name" property="nickName" jdbcType="VARCHAR" />
+  	<result column="head_img" property="headIMG" jdbcType="VARCHAR" />
+  	<result column="come_time" property="comeTime" jdbcType="TIMESTAMP" />
+  	<result column="leave_time" property="leaveTime" jdbcType="TIMESTAMP" />
+  	<result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+  	
+  	<result column="alldata" property="alldata" jdbcType="VARCHAR" />
+  	<result column="noreply" property="noreply" jdbcType="VARCHAR" />
+  	<result column="noimg" property="noimg" jdbcType="VARCHAR" />
+  	<result column="goodcount" property="goodcount" jdbcType="VARCHAR" />
+  	<result column="midcount" property="midcount" jdbcType="VARCHAR" />
+  	<result column="badcount" property="badcount" jdbcType="VARCHAR" />
+  	<result column="avghealth" property="avghealth" jdbcType="VARCHAR" />
+  	<result column="avgevn" property="avgevn" jdbcType="VARCHAR" />
+  	<result column="avgservice" property="avgservice" jdbcType="VARCHAR" />
+  	<result column="avgfacility" property="avgfacility" jdbcType="VARCHAR" />
+  	 	
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, roomtype_id, score, content, create_time, status, shop_id, goods_id, creater_id, 
+    health_score, evn_score, service_score, facility_score, parent_id, type, order_id, 
+    reply_status, update_id, update_time
+  </sql>
+  <sql id="Blob_Column_List" >
+    imgs
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_mp_evaluate
+    where id = #{id,jdbcType=VARCHAR} and status = 1
+  </select>
+   <select id="selectCountByshopId" resultMap="Custom_colum_list" parameterType="java.lang.String" >
+	     SELECT SUM(CASE WHEN   p.STATUS =1 THEN 1 ELSE 0 END) AS alldata,
+		SUM(CASE WHEN  p.replay_state = 0  THEN 1 ELSE 0 END) AS noreply,
+		SUM(CASE WHEN  p.IMAGES IS NOT NULL THEN 1 ELSE 0 END) AS noimg,
+		SUM(CASE WHEN  p.EVALUATE_TYPE='好评'  THEN 1 ELSE 0 END) AS goodcount,
+		SUM(CASE WHEN  p.EVALUATE_TYPE='中评'  THEN 1 ELSE 0 END) AS midcount,
+		SUM(CASE WHEN   p.EVALUATE_TYPE='差评'  THEN 1 ELSE 0 END) AS badcount,
+		SUM(CASE WHEN   p.TYPE=2  THEN health_score ELSE 0 END)/SUM(CASE WHEN TYPE=2  THEN 1 ELSE 0 END) AS avghealth,
+		SUM(CASE WHEN   p.TYPE=2  THEN security_score ELSE 0 END)/SUM(CASE WHEN  TYPE=2  THEN 1 ELSE 0 END) AS avgevn,
+		SUM(CASE WHEN   p.TYPE=2  THEN service_score ELSE 0 END)/SUM(CASE WHEN  TYPE=2  THEN 1 ELSE 0 END) AS avgservice,
+		SUM(CASE WHEN  p.TYPE=2  THEN features_score ELSE 0 END)/SUM(CASE WHEN TYPE=2  THEN 1 ELSE 0 END) AS avgFacility	
+	  	FROM product_evaluate p inner join order_base_info o on o.order_no = p.order_no 
+	  	where p.status=1 and o.seller_id = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByPage" resultType="java.util.Map" parameterType="java.util.Map" >
+	SELECT
+            t1.ID id,
+            t1.USER_ID userId,
+            t4.NICKNAME nickName,
+            t4.HEAD_IMG headIMG,
+            t1.ORDER_NO orderNum,
+            t1.CONTENT content,
+            t1.SCORE score,
+            t1.IMAGES imgs,
+            t1.FEATURES_SCORE facilityScore,
+            t1.SERVICE_SCORE serviceScore,
+            t1.SECURITY_SCORE evnScore,
+            t1.HEALTH_SCORE healthScore,
+            t1.EVALUATE_TYPE ,
+            t1.REPLAY_CONTENT replayContent,
+            t1.REPLAY_STATE replayState,
+            t1.TYPE type,
+            DATE_FORMAT(t1.REPLAY_TIME,'%Y-%m-%d %H:%i:%s') replayTime,
+            DATE_FORMAT(t1.CREATE_TIME,'%Y-%m-%d %H:%i:%s') createTime,
+            DATE_FORMAT(t2.COME_TIME,'%Y-%m-%d %H:%i:%s') comeTime,
+            DATE_FORMAT(t2.LEAVE_TIME,'%Y-%m-%d %H:%i:%s') leaveTime,
+            DATE_FORMAT(t2.TRIP_TIME,'%Y-%m-%d %H:%i:%s') tripTime,
+            t3.SKU_NAME goodsName
+        FROM
+            product_evaluate t1
+        INNER JOIN order_base_info t2 ON t1.ORDER_NO = t2.ORDER_NO and t1.status = 1
+        INNER JOIN order_detail_info t3 ON t2.ORDER_NO = t3.ORDER_NO
+        LEFT JOIN line_user t4 ON t4.ID = t1.USER_ID
+        WHERE 1=1
+        AND t2.SELLER_ID = #{sellerId,jdbcType=VARCHAR}
+        and t1.status = 1
+        <if test="evaluateType != null and evaluateType != '' ">
+            AND t1.EVALUATE_TYPE = #{evaluateType}
+        </if>
+        <if test="haveImg != null">
+            AND t1.IMAGES IS NOT NULL AND t1.IMAGES != ''
+        </if>
+        <if test="noReply != null">
+            AND t1.REPLAY_STATE = 0
+        </if>
+        ORDER BY t1.CREATE_TIME DESC
+  </select>
+  
+   <select id="selectByPageReply" resultMap="Custom_colum_list" parameterType="java.util.Map" >
+			SELECT eva.* ,cu.HEAD_IMG,cu.NICKNAME
+			FROM t_mp_evaluate AS eva 
+		    INNER JOIN t_mp_hotel AS hotel ON  eva.shop_id = hotel.ID
+		    INNER JOIN line_user AS cu ON  cu.ID = hotel.OWNER_ID 	  
+      <where>	
+      		1=1 and eva.status = 1 and eva.type=2  
+      		and eva.SHOP_ID=#{shopId,jdbcType=VARCHAR}
+            order by create_time desc	 
+      </where> 
+  </select>
+   <select id="selectByParentId" resultMap="Custom_colum_list" parameterType="java.lang.String" >
+			SELECT eva.* ,cu.HEAD_IMG,cu.NICKNAME
+			FROM t_mp_evaluate AS eva 
+		    INNER JOIN t_mp_hotel AS hotel ON  eva.shop_id = hotel.ID
+		    INNER JOIN line_user AS cu ON  cu.ID = hotel.OWNER_ID 	  
+      <where>	
+      		1=1 and eva.status = 1 and eva.type=2  
+      		and eva.PARENT_ID=#{parentId,jdbcType=VARCHAR}
+            order by create_time desc	 
+      </where> 
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_mp_evaluate
+    where id = #{id,jdbcType=VARCHAR}
+    </delete>
+
+  
+  <insert id="insert" parameterType="com.zzk.entity.Evaluate" >
+    insert into t_mp_evaluate (id, roomtype_id, score, 
+      content, create_time, status, 
+      shop_id, goods_id, creater_id, 
+      health_score, evn_score, service_score, 
+      facility_score, parent_id, type, 
+      order_id, reply_status, update_id, 
+      update_time, imgs)
+    values (#{id,jdbcType=VARCHAR}, #{roomtypeId,jdbcType=VARCHAR}, #{score,jdbcType=DOUBLE}, 
+      #{content,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}, 
+      #{shopId,jdbcType=VARCHAR}, #{goodsId,jdbcType=VARCHAR}, #{createrId,jdbcType=VARCHAR}, 
+      #{healthScore,jdbcType=INTEGER}, #{evnScore,jdbcType=INTEGER}, #{serviceScore,jdbcType=INTEGER}, 
+      #{facilityScore,jdbcType=INTEGER}, #{parentId,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
+      #{orderId,jdbcType=VARCHAR}, #{replyStatus,jdbcType=INTEGER}, #{updateId,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{imgs,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zzk.entity.Evaluate" >
+    insert into t_mp_evaluate
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="roomtypeId != null" >
+        roomtype_id,
+      </if>
+      <if test="score != null" >
+        score,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="shopId != null" >
+        shop_id,
+      </if>
+      <if test="goodsId != null" >
+        goods_id,
+      </if>
+      <if test="createrId != null" >
+        creater_id,
+      </if>
+      <if test="healthScore != null" >
+        health_score,
+      </if>
+      <if test="evnScore != null" >
+        evn_score,
+      </if>
+      <if test="serviceScore != null" >
+        service_score,
+      </if>
+      <if test="facilityScore != null" >
+        facility_score,
+      </if>
+      <if test="parentId != null" >
+        parent_id,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="replyStatus != null" >
+        reply_status,
+      </if>
+      <if test="updateId != null" >
+        update_id,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="imgs != null" >
+        imgs,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="roomtypeId != null" >
+        #{roomtypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=DOUBLE},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="shopId != null" >
+        #{shopId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="createrId != null" >
+        #{createrId,jdbcType=VARCHAR},
+      </if>
+      <if test="healthScore != null" >
+        #{healthScore,jdbcType=INTEGER},
+      </if>
+      <if test="evnScore != null" >
+        #{evnScore,jdbcType=INTEGER},
+      </if>
+      <if test="serviceScore != null" >
+        #{serviceScore,jdbcType=INTEGER},
+      </if>
+      <if test="facilityScore != null" >
+        #{facilityScore,jdbcType=INTEGER},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="replyStatus != null" >
+        #{replyStatus,jdbcType=INTEGER},
+      </if>
+      <if test="updateId != null" >
+        #{updateId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="imgs != null" >
+        #{imgs,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zzk.entity.Evaluate" >
+    update t_mp_evaluate
+    <set >
+      <if test="roomtypeId != null" >
+        roomtype_id = #{roomtypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null" >
+        score = #{score,jdbcType=DOUBLE},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="shopId != null" >
+        shop_id = #{shopId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsId != null" >
+        goods_id = #{goodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="createrId != null" >
+        creater_id = #{createrId,jdbcType=VARCHAR},
+      </if>
+      <if test="healthScore != null" >
+        health_score = #{healthScore,jdbcType=INTEGER},
+      </if>
+      <if test="evnScore != null" >
+        evn_score = #{evnScore,jdbcType=INTEGER},
+      </if>
+      <if test="serviceScore != null" >
+        service_score = #{serviceScore,jdbcType=INTEGER},
+      </if>
+      <if test="facilityScore != null" >
+        facility_score = #{facilityScore,jdbcType=INTEGER},
+      </if>
+      <if test="parentId != null" >
+        parent_id = #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="replyStatus != null" >
+        reply_status = #{replyStatus,jdbcType=INTEGER},
+      </if>
+      <if test="updateId != null" >
+        update_id = #{updateId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="imgs != null" >
+        imgs = #{imgs,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zzk.entity.Evaluate" >
+    update t_mp_evaluate
+    set roomtype_id = #{roomtypeId,jdbcType=VARCHAR},
+      score = #{score,jdbcType=DOUBLE},
+      content = #{content,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER},
+      shop_id = #{shopId,jdbcType=VARCHAR},
+      goods_id = #{goodsId,jdbcType=VARCHAR},
+      creater_id = #{createrId,jdbcType=VARCHAR},
+      health_score = #{healthScore,jdbcType=INTEGER},
+      evn_score = #{evnScore,jdbcType=INTEGER},
+      service_score = #{serviceScore,jdbcType=INTEGER},
+      facility_score = #{facilityScore,jdbcType=INTEGER},
+      parent_id = #{parentId,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      order_id = #{orderId,jdbcType=VARCHAR},
+      reply_status = #{replyStatus,jdbcType=INTEGER},
+      update_id = #{updateId,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      imgs = #{imgs,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zzk.entity.Evaluate" >
+    update t_mp_evaluate
+    set roomtype_id = #{roomtypeId,jdbcType=VARCHAR},
+      score = #{score,jdbcType=DOUBLE},
+      content = #{content,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER},
+      shop_id = #{shopId,jdbcType=VARCHAR},
+      goods_id = #{goodsId,jdbcType=VARCHAR},
+      creater_id = #{createrId,jdbcType=VARCHAR},
+      health_score = #{healthScore,jdbcType=INTEGER},
+      evn_score = #{evnScore,jdbcType=INTEGER},
+      service_score = #{serviceScore,jdbcType=INTEGER},
+      facility_score = #{facilityScore,jdbcType=INTEGER},
+      parent_id = #{parentId,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      order_id = #{orderId,jdbcType=VARCHAR},
+      reply_status = #{replyStatus,jdbcType=INTEGER},
+      update_id = #{updateId,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByParentId" parameterType="java.lang.String" >
+    update t_mp_evaluate
+    set 
+      status = -1
+      where parent_id = #{parentId,jdbcType=VARCHAR}
+  </update>
+ 
+  
+  
+  
+</mapper>

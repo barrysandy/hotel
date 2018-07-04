@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzk.dao.PriceRuleMapper">
+    <resultMap id="BaseResultMap"
+               type="com.zzk.entity.PriceRule">
+        <id column="ID" jdbcType="VARCHAR" property="id"/>
+        <id column="ROOMTYPE_ID" jdbcType="VARCHAR" property="roomtypeId"/>
+        <id column="GOOD_ID" jdbcType="VARCHAR" property="goodId"/>
+        <id column="TYPE" jdbcType="INTEGER" property="type"/>
+        <id column="BASIC_PRICE" jdbcType="VARCHAR" property="basicPrice"/>
+        <id column="PRICE" jdbcType="VARCHAR" property="price"/>
+        <id column="START_TIME" jdbcType="TIMESTAMP" property="startTime"/>
+        <id column="END_TIME" jdbcType="TIMESTAMP" property="endTime"/>
+        <id column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
+        <id column="CREATOR" jdbcType="VARCHAR" property="creator"/>
+        <id column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime"/>
+        <id column="UPDATE_MAN" jdbcType="VARCHAR" property="updateMan"/>
+        <id column="STATUS" jdbcType="INTEGER" property="status"/>
+        <id column="WEEK_START" jdbcType="INTEGER" property="weekStart"/>
+        <id column="WEEK_END" jdbcType="INTEGER" property="weekEnd"/>
+    </resultMap>
+     <resultMap id="BaseResultMap1"
+               type="com.zzk.entity.PriceRule">
+        <id column="ID" jdbcType="VARCHAR" property="id"/>
+        <id column="ROOMTYPE_ID" jdbcType="VARCHAR" property="roomtypeId"/>
+        <id column="GOOD_ID" jdbcType="VARCHAR" property="goodId"/>
+        <id column="TYPE" jdbcType="INTEGER" property="type"/>
+        <id column="BASIC_PRICE" jdbcType="VARCHAR" property="basicPrice"/>
+        <id column="PRICE" jdbcType="VARCHAR" property="price"/>
+        <id column="START_TIME" jdbcType="TIMESTAMP" property="startTime"/>
+        <id column="END_TIME" jdbcType="TIMESTAMP" property="endTime"/>
+        <id column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
+        <id column="CREATOR" jdbcType="VARCHAR" property="creator"/>
+        <id column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime"/>
+        <id column="UPDATE_MAN" jdbcType="VARCHAR" property="updateMan"/>
+        <id column="STATUS" jdbcType="INTEGER" property="status"/>
+        <id column="WEEK_START" jdbcType="INTEGER" property="weekStart"/>
+        <id column="WEEK_END" jdbcType="INTEGER" property="weekEnd"/>
+        <id column="HOTEL_ID" jdbcType="VARCHAR" property="hotelId"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    ID,
+    ROOMTYPE_ID,
+    GOOD_ID,
+    TYPE,
+    BASIC_PRICE,
+    PRICE,
+    START_TIME,
+    END_TIME,
+    CREATE_TIME,
+    CREATOR,
+    UPDATE_TIME,
+    UPDATE_MAN,
+    STATUS,
+    WEEK_START,
+    WEEK_END
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_mp_price_rule where ID = #{id,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from t_mp_price_rule where ID = #{id,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="com.zzk.entity.PriceRule">
+        insert into t_mp_price_rule
+        (ID,ROOMTYPE_ID,GOOD_ID,TYPE,BASIC_PRICE,PRICE,START_TIME,END_TIME,CREATE_TIME,CREATOR,UPDATE_TIME,UPDATE_MAN,STATUS,WEEK_START,WEEK_END)
+        values
+        (#{id,jdbcType=VARCHAR},#{roomtypeId,jdbcType=VARCHAR},#{goodId,jdbcType=VARCHAR},#{type,jdbcType=INTEGER},#{basicPrice,jdbcType=VARCHAR},#{price,jdbcType=VARCHAR},#{startTime,jdbcType=TIMESTAMP},#{endTime,jdbcType=TIMESTAMP},#{createTime,jdbcType=TIMESTAMP},#{creator,jdbcType=VARCHAR},#{updateTime,jdbcType=TIMESTAMP},#{updateMan,jdbcType=VARCHAR},#{status,jdbcType=INTEGER},#{weekStart,jdbcType=INTEGER},#{weekEnd,jdbcType=INTEGER}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="com.zzk.entity.PriceRule">
+        insert into t_mp_price_rule
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">ID,</if>
+            <if test="roomtypeId != null">ROOMTYPE_ID,</if>
+            <if test="goodId != null">GOOD_ID,</if>
+            <if test="type != null">TYPE,</if>
+            <if test="basicPrice != null">BASIC_PRICE,</if>
+            <if test="price != null">PRICE,</if>
+            <if test="startTime != null">START_TIME,</if>
+            <if test="endTime != null">END_TIME,</if>
+            <if test="createTime != null">CREATE_TIME,</if>
+            <if test="creator != null">CREATOR,</if>
+            <if test="updateTime != null">UPDATE_TIME,</if>
+            <if test="updateMan != null">UPDATE_MAN,</if>
+            <if test="status != null">STATUS,</if>
+            <if test="weekStart != null">WEEK_START,</if>
+            <if test="weekEnd != null">WEEK_END,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id,jdbcType=VARCHAR},</if>
+            <if test="roomtypeId != null">#{roomtypeId,jdbcType=VARCHAR},</if>
+            <if test="goodId != null">#{goodId,jdbcType=VARCHAR},</if>
+            <if test="type != null">#{type,jdbcType=INTEGER},</if>
+            <if test="basicPrice != null">#{basicPrice,jdbcType=VARCHAR},</if>
+            <if test="price != null">#{price,jdbcType=VARCHAR},</if>
+            <if test="startTime != null">#{startTime,jdbcType=TIMESTAMP},</if>
+            <if test="endTime != null">#{endTime,jdbcType=TIMESTAMP},</if>
+            <if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+            <if test="creator != null">#{creator,jdbcType=VARCHAR},</if>
+            <if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+            <if test="updateMan != null">#{updateMan,jdbcType=VARCHAR},</if>
+            <if test="status != null">#{status,jdbcType=INTEGER},</if>
+            <if test="weekStart != null">#{weekStart,jdbcType=INTEGER},</if>
+            <if test="weekEnd != null">#{weekEnd,jdbcType=INTEGER},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.zzk.entity.PriceRule">
+        update t_mp_price_rule
+        <set>
+                <if test="roomtypeId != null">ROOMTYPE_ID=#{roomtypeId,jdbcType=VARCHAR},
+                </if>
+                <if test="goodId != null">GOOD_ID=#{goodId,jdbcType=VARCHAR},
+                </if>
+                <if test="type != null">TYPE=#{type,jdbcType=INTEGER},
+                </if>
+                <if test="basicPrice != null">BASIC_PRICE=#{basicPrice,jdbcType=VARCHAR},
+                </if>
+                <if test="price != null">PRICE=#{price,jdbcType=VARCHAR},
+                </if>
+                <if test="startTime != null">START_TIME=#{startTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="endTime != null">END_TIME=#{endTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="createTime != null">CREATE_TIME=#{createTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="creator != null">CREATOR=#{creator,jdbcType=VARCHAR},
+                </if>
+                <if test="updateTime != null">UPDATE_TIME=#{updateTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="updateMan != null">UPDATE_MAN=#{updateMan,jdbcType=VARCHAR},
+                </if>
+                <if test="status != null">STATUS=#{status,jdbcType=INTEGER},
+                </if>
+                <if test="weekStart != null">WEEK_START=#{weekStart,jdbcType=INTEGER},
+                </if>
+                <if test="weekEnd != null">WEEK_END=#{weekEnd,jdbcType=INTEGER},
+                </if>
+        </set>
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.zzk.entity.PriceRule">
+        update
+    t_mp_price_rule
+        set
+        
+        ROOMTYPE_ID = #{roomtypeId,jdbcType=VARCHAR
+            },
+        GOOD_ID = #{goodId,jdbcType=VARCHAR
+            },
+        TYPE = #{type,jdbcType=INTEGER
+            },
+        BASIC_PRICE = #{basicPrice,jdbcType=VARCHAR
+            },
+        PRICE = #{price,jdbcType=VARCHAR
+            },
+        START_TIME = #{startTime,jdbcType=TIMESTAMP
+            },
+        END_TIME = #{endTime,jdbcType=TIMESTAMP
+            },
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP
+            },
+        CREATOR = #{creator,jdbcType=VARCHAR
+            },
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP
+            },
+        UPDATE_MAN = #{updateMan,jdbcType=VARCHAR
+            },
+        STATUS = #{status,jdbcType=INTEGER
+            },
+        WEEK_START = #{weekStart,jdbcType=INTEGER
+            },
+        WEEK_END = #{weekEnd,jdbcType=INTEGER
+            }
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+    <select id="selectByPage" parameterType="java.util.Map"
+            resultMap="BaseResultMap" resultType="java.util.List">
+        select
+        <include refid="Base_Column_List"/>
+        from t_mp_price_rule
+        <where>
+            1=1 and status = 1
+            <if test="search != null">
+                $(search)
+            </if>
+            <if test="orderName != null and orderName !=''">
+                order by ${orderName} ${descAsc}
+            </if>
+            <if test="startRow !=null">
+                limit ${startRow},${pageSize}
+            </if>
+        </where>
+    </select>
+    <select id="selectCount" parameterType="com.zzk.entity.PriceRule"
+            resultType="int">
+        select count(*) from t_mp_price_rule
+        <where>
+            1=1
+            <if test="search != null">
+                $(search)
+            </if>
+        </where>
+    </select>
+    <select id="selectByGoodsId" parameterType="java.lang.String"
+            resultMap="BaseResultMap">
+        select  
+        	<include refid="Base_Column_List"/>
+        from t_mp_price_rule
+        <where>
+            1=1 and status=1 
+            and END_TIME >= #{startTime,jdbcType=VARCHAR}	 
+            and GOOD_ID = #{goodId,jdbcType=VARCHAR}
+           	order by UPDATE_TIME DESC
+        </where>
+    </select>
+    <select id="selectByHotelId" parameterType="java.lang.String"
+            resultMap="BaseResultMap">
+        select  
+        	t1.*
+        from t_mp_price_rule t1 right join (select t3.id as goods_ID,t2.id as roomType_id from t_mp_roomtype t2 left join t_mp_hotel_goods t3 on t2.id=t3.roomType_id where
+         t2.hotel_id=#{hotelId,jdbcType=VARCHAR} and t2.status=1 and t3.status=1 ) t4
+       	on t4.goods_ID=t1.good_ID
+        where 
+             t1.status=1 
+              and t1.END_TIME >= #{startTime,jdbcType=VARCHAR}	 
+           	order by t1.UPDATE_TIME DESC  
+        
+    </select>
+    <select id="selectRuleByHotelList" parameterType="java.util.Map"
+            resultMap="BaseResultMap1" resultType="java.util.List">
+    	select t1.*,t2.hotel_id from t_mp_price_rule t1 left join t_mp_roomtype t2 on t2.id = t1.roomtype_id where t2.hotel_id in
+    	<foreach collection="hotelIdList" index="index" item="hotelIdList" open="(" separator="," close=")">  
+            #{hotelIdList}  
+        </foreach>
+    </select> 
+    
+    
+    <select id="selectRuleByGoodsList" parameterType="java.util.List"
+            resultMap="BaseResultMap1" resultType="java.util.List">
+    	SELECT *from t_mp_price_rule where GOOD_ID in 
+    	 <foreach item="item" index="index" collection="list" open="("
+            separator="," close=")">
+            #{item}  
+       </foreach>
+    </select> 
+</mapper>

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzk.dao.RefundInfoMapper">
+
+	<resultMap id="BaseResultMap" type="com.zzk.entity.RefundInfo">
+		<id column="ID" jdbcType="VARCHAR" property="id" />
+		<id column="REFUND_ORDER_ID" jdbcType="VARCHAR" property="refundOrderId" />
+		<id column="MCH_REFUND_NO" jdbcType="VARCHAR" property="mchRefundNo" />
+		<id column="REFUND_STATUS" jdbcType="INTEGER" property="refundStatus" />
+		<id column="REFUND_SUCCESS_TIME" jdbcType="TIMESTAMP" property="refundSuccessTime" />
+		<id column="PAY_MODE" jdbcType="INTEGER" property="payMode" />
+		<id column="REFUND_AMOUNT" jdbcType="DECIMAL" property="refundAmount" />
+		<id column="STATUS" jdbcType="INTEGER" property="status" />
+		<id column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+		<id column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+		<id column="REMARK" jdbcType="VARCHAR" property="remark" />
+		<id column="REFUND_REASON" jdbcType="VARCHAR" property="refundReason" />
+		<id column="PROCESS_RESULT" jdbcType="INTEGER" property="processResult" />
+		<id column="REFUND_FEEDBACK" jdbcType="VARCHAR" property="refundFeedback" />
+		<id column="REFUND_DATA" jdbcType="VARCHAR" property="refundData" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		ID,
+		REFUND_ORDER_ID,
+		MCH_REFUND_NO,
+		REFUND_STATUS,
+		REFUND_SUCCESS_TIME,
+		PAY_MODE,
+		REFUND_AMOUNT,
+		STATUS,
+		CREATE_TIME,
+		UPDATE_TIME,
+		REMARK,
+		REFUND_REASON,
+		PROCESS_RESULT,
+		REFUND_FEEDBACK,
+		REFUND_DATA
+	</sql>
+	
+	<select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" /> from refund_info where ID = #{id,jdbcType=VARCHAR}
+	</select>
+	<select id="selectByOrderNo" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" /> from refund_info where MCH_REFUND_NO = #{orderNo,jdbcType=VARCHAR}
+	</select>
+	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from refund_info where ID = #{id,jdbcType=VARCHAR}
+	</delete>
+	
+	<insert id="insert" parameterType="com.zzk.entity.RefundInfo">
+		insert into refund_info
+		(ID,REFUND_ORDER_ID,MCH_REFUND_NO,REFUND_STATUS,REFUND_SUCCESS_TIME,PAY_MODE,REFUND_AMOUNT,STATUS,CREATE_TIME,UPDATE_TIME,REMARK,REFUND_REASON,PROCESS_RESULT,REFUND_FEEDBACK,REFUND_DATA)
+		values
+		(#{id,jdbcType=VARCHAR},#{refundOrderId,jdbcType=VARCHAR},#{mchRefundNo,jdbcType=VARCHAR},#{refundStatus,jdbcType=INTEGER},#{refundSuccessTime,jdbcType=TIMESTAMP},#{payMode,jdbcType=INTEGER},#{refundAmount,jdbcType=DECIMAL},#{status,jdbcType=INTEGER},#{createTime,jdbcType=TIMESTAMP},#{updateTime,jdbcType=TIMESTAMP},#{remark,jdbcType=VARCHAR},#{refundReason,jdbcType=VARCHAR},#{processResult,jdbcType=INTEGER},#{refundFeedback,jdbcType=VARCHAR},#{refundData,jdbcType=VARCHAR})
+	</insert>
+	
+	<insert id="insertSelective" parameterType="com.zzk.entity.RefundInfo">
+		insert into refund_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">ID,</if>
+			<if test="refundOrderId != null">REFUND_ORDER_ID,</if>
+			<if test="mchRefundNo != null">MCH_REFUND_NO,</if>
+			<if test="refundStatus != null">REFUND_STATUS,</if>
+			<if test="refundSuccessTime != null">REFUND_SUCCESS_TIME,</if>
+			<if test="payMode != null">PAY_MODE,</if>
+			<if test="refundAmount != null">REFUND_AMOUNT,</if>
+			<if test="status != null">STATUS,</if>
+			<if test="createTime != null">CREATE_TIME,</if>
+			<if test="updateTime != null">UPDATE_TIME,</if>
+			<if test="remark != null">REMARK,</if>
+			<if test="refundReason != null">REFUND_REASON,</if>
+			<if test="processResult != null">PROCESS_RESULT,</if>
+			<if test="refundFeedback != null">REFUND_FEEDBACK,</if>
+			<if test="refundData != null">REFUND_DATA,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=VARCHAR},</if>
+			<if test="refundOrderId != null">#{refundOrderId,jdbcType=VARCHAR},</if>
+			<if test="mchRefundNo != null">#{mchRefundNo,jdbcType=VARCHAR},</if>
+			<if test="refundStatus != null">#{refundStatus,jdbcType=INTEGER},</if>
+			<if test="refundSuccessTime != null">#{refundSuccessTime,jdbcType=TIMESTAMP},</if>
+			<if test="payMode != null">#{payMode,jdbcType=INTEGER},</if>
+			<if test="refundAmount != null">#{refundAmount,jdbcType=DECIMAL},</if>
+			<if test="status != null">#{status,jdbcType=INTEGER},</if>
+			<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+			<if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+			<if test="remark != null">#{remark,jdbcType=VARCHAR},</if>
+			<if test="refundReason != null">#{refundReason,jdbcType=VARCHAR},</if>
+			<if test="processResult != null">#{processResult,jdbcType=INTEGER},</if>
+			<if test="refundFeedback != null">#{refundFeedback,jdbcType=VARCHAR},</if>
+			<if test="refundData != null">#{refundData,jdbcType=VARCHAR},</if>
+		</trim>
+	</insert>
+	
+	<update id="updateByPrimaryKeySelective" parameterType="com.zzk.entity.RefundInfo">
+		update refund_info
+		<set>
+			<if test="refundOrderId != null">REFUND_ORDER_ID =#{refundOrderId,jdbcType=VARCHAR},</if>
+			<if test="mchRefundNo != null">MCH_REFUND_NO =#{mchRefundNo,jdbcType=VARCHAR},</if>
+			<if test="refundStatus != null">REFUND_STATUS =#{refundStatus,jdbcType=INTEGER},</if>
+			<if test="refundSuccessTime != null">REFUND_SUCCESS_TIME =#{refundSuccessTime,jdbcType=TIMESTAMP},</if>
+			<if test="payMode != null">PAY_MODE =#{payMode,jdbcType=INTEGER},</if>
+			<if test="refundAmount != null">REFUND_AMOUNT =#{refundAmount,jdbcType=DECIMAL},</if>
+			<if test="status != null">STATUS =#{status,jdbcType=INTEGER},</if>
+			<if test="createTime != null">CREATE_TIME =#{createTime,jdbcType=TIMESTAMP},</if>
+			<if test="updateTime != null">UPDATE_TIME =#{updateTime,jdbcType=TIMESTAMP},</if>
+			<if test="remark != null">REMARK =#{remark,jdbcType=VARCHAR},</if>
+			<if test="refundReason != null">REFUND_REASON =#{refundReason,jdbcType=VARCHAR},</if>
+			<if test="processResult != null">PROCESS_RESULT =#{processResult,jdbcType=INTEGER},</if>
+			<if test="refundFeedback != null">REFUND_FEEDBACK =#{refundFeedback,jdbcType=VARCHAR},</if>
+			<if test="refundData != null">REFUND_DATA =#{refundData,jdbcType=VARCHAR},</if>
+		</set>
+		where ID = #{id,jdbcType=VARCHAR}
+	</update>
+	
+	<update id="updateByPrimaryKey" parameterType="com.zzk.entity.RefundInfo">
+		update
+		refund_info
+		set
+		
+		REFUND_ORDER_ID = #{refundOrderId,jdbcType=VARCHAR},
+		MCH_REFUND_NO = #{mchRefundNo,jdbcType=VARCHAR},
+		REFUND_STATUS = #{refundStatus,jdbcType=INTEGER},
+		REFUND_SUCCESS_TIME = #{refundSuccessTime,jdbcType=TIMESTAMP},
+		PAY_MODE = #{payMode,jdbcType=INTEGER},
+		REFUND_AMOUNT = #{refundAmount,jdbcType=DECIMAL},
+		STATUS = #{status,jdbcType=INTEGER},
+		CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+		UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+		REMARK = #{remark,jdbcType=VARCHAR},
+		REFUND_REASON = #{refundReason,jdbcType=VARCHAR},
+		PROCESS_RESULT = #{processResult,jdbcType=INTEGER},
+		REFUND_FEEDBACK = #{refundFeedback,jdbcType=VARCHAR},
+		REFUND_DATA = #{refundData,jdbcType=VARCHAR}
+		where ID = #{id,jdbcType=VARCHAR}
+	</update>
+	
+	<select id="selectByPage" parameterType="java.util.Map" resultMap="BaseResultMap" resultType="java.util.List">
+		select
+		<include refid="Base_Column_List" />
+		from refund_info
+		<where>
+			1=1 and status = 1
+			<if test="search != null">
+			</if>
+			<if test="orderName != null and orderName !=''">
+				order by ${orderName} ${descAsc}
+			</if>
+			<if test="startRow !=null">
+				limit ${startRow},${pageSize}
+			</if>
+		</where>
+	</select>
+	
+	<select id="selectCount" parameterType="com.zzk.entity.RefundInfo" resultType="int">
+		select count(1) from refund_info
+		<where>
+			1=1 and status = 1
+			<if test="search != null">
+
+			</if>
+		</where>
+	</select>
+</mapper>

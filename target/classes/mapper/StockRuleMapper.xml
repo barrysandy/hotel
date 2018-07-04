@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzk.dao.StockRuleMapper">
+    <resultMap id="BaseResultMap"
+               type="com.zzk.entity.StockRule">
+        <id column="ID" jdbcType="VARCHAR" property="id"/>
+        <id column="ROOMTYPE_ID" jdbcType="VARCHAR" property="roomtypeId"/>
+        <id column="GOOD_ID" jdbcType="VARCHAR" property="goodId"/>
+        <id column="TYPE" jdbcType="INTEGER" property="type"/>
+        <id column="DESCRIPTION" jdbcType="VARCHAR" property="description"/>
+        <id column="STOCK" jdbcType="VARCHAR" property="stock"/>
+        <id column="START_TIME" jdbcType="TIMESTAMP" property="startTime"/>
+        <id column="END_TIME" jdbcType="TIMESTAMP" property="endTime"/>
+        <id column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
+        <id column="CREATOR" jdbcType="VARCHAR" property="creator"/>
+        <id column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime"/>
+        <id column="UPDATE_MAN" jdbcType="VARCHAR" property="updateMan"/>
+        <id column="STATUS" jdbcType="INTEGER" property="status"/>
+        <id column="WEEK_START" jdbcType="INTEGER" property="weekStart"/>
+        <id column="WEEK_END" jdbcType="INTEGER" property="weekEnd"/>
+        <id column="is_init" jdbcType="INTEGER" property="isInit"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    ID,
+    ROOMTYPE_ID,
+    GOOD_ID,
+    TYPE,
+    DESCRIPTION,
+    STOCK,
+    START_TIME,
+    END_TIME,
+    CREATE_TIME,
+    CREATOR,
+    UPDATE_TIME,
+    UPDATE_MAN,
+    STATUS,
+    WEEK_START,
+    WEEK_END,
+    is_init
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_mp_stock_rule where ID = #{id,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from t_mp_stock_rule where ID = #{id,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="com.zzk.entity.StockRule">
+        insert into t_mp_stock_rule
+        (ID,ROOMTYPE_ID,GOOD_ID,TYPE,DESCRIPTION,STOCK,START_TIME,END_TIME,CREATE_TIME,CREATOR,UPDATE_TIME,UPDATE_MAN,STATUS,WEEK_START,WEEK_END,is_init)
+        values
+        (#{id,jdbcType=VARCHAR},#{roomtypeId,jdbcType=VARCHAR},#{goodId,jdbcType=VARCHAR},#{type,jdbcType=INTEGER},#{description,jdbcType=VARCHAR},#{stock,jdbcType=VARCHAR},#{startTime,jdbcType=TIMESTAMP},#{endTime,jdbcType=TIMESTAMP},#{createTime,jdbcType=TIMESTAMP},#{creator,jdbcType=VARCHAR},#{updateTime,jdbcType=TIMESTAMP},#{updateMan,jdbcType=VARCHAR},#{status,jdbcType=INTEGER},#{weekStart,jdbcType=INTEGER},#{weekEnd,jdbcType=INTEGER},#{isInit,jdbcType=INTEGER}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="com.zzk.entity.StockRule">
+        insert into t_mp_stock_rule
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">ID,</if>
+            <if test="roomtypeId != null">ROOMTYPE_ID,</if>
+            <if test="goodId != null">GOOD_ID,</if>
+            <if test="type != null">TYPE,</if>
+            <if test="description != null">DESCRIPTION,</if>
+            <if test="stock != null">STOCK,</if>
+            <if test="startTime != null">START_TIME,</if>
+            <if test="endTime != null">END_TIME,</if>
+            <if test="createTime != null">CREATE_TIME,</if>
+            <if test="creator != null">CREATOR,</if>
+            <if test="updateTime != null">UPDATE_TIME,</if>
+            <if test="updateMan != null">UPDATE_MAN,</if>
+            <if test="status != null">STATUS,</if>
+            <if test="weekStart != null">WEEK_START,</if>
+            <if test="weekEnd != null">WEEK_END,</if>
+            <if test="isInit != null">is_init,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id,jdbcType=VARCHAR},</if>
+            <if test="roomtypeId != null">#{roomtypeId,jdbcType=VARCHAR},</if>
+            <if test="goodId != null">#{goodId,jdbcType=VARCHAR},</if>
+            <if test="type != null">#{type,jdbcType=INTEGER},</if>
+            <if test="description != null">#{description,jdbcType=VARCHAR},</if>
+            <if test="stock != null">#{stock,jdbcType=VARCHAR},</if>
+            <if test="startTime != null">#{startTime,jdbcType=TIMESTAMP},</if>
+            <if test="endTime != null">#{endTime,jdbcType=TIMESTAMP},</if>
+            <if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+            <if test="creator != null">#{creator,jdbcType=VARCHAR},</if>
+            <if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+            <if test="updateMan != null">#{updateMan,jdbcType=VARCHAR},</if>
+            <if test="status != null">#{status,jdbcType=INTEGER},</if>
+            <if test="weekStart != null">#{weekStart,jdbcType=INTEGER},</if>
+            <if test="weekEnd != null">#{weekEnd,jdbcType=INTEGER},</if>
+            <if test="isInit != null">#{isInit,jdbcType=INTEGER},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.zzk.entity.StockRule">
+        update t_mp_stock_rule
+        <set>
+                <if test="roomtypeId != null">ROOMTYPE_ID=#{roomtypeId,jdbcType=VARCHAR},
+                </if>
+                <if test="goodId != null">GOOD_ID=#{goodId,jdbcType=VARCHAR},
+                </if>
+                <if test="type != null">TYPE=#{type,jdbcType=INTEGER},
+                </if>
+                <if test="description != null">DESCRIPTION=#{description,jdbcType=VARCHAR},
+                </if>
+                <if test="stock != null">STOCK=#{stock,jdbcType=VARCHAR},
+                </if>
+                <if test="startTime != null">START_TIME=#{startTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="endTime != null">END_TIME=#{endTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="createTime != null">CREATE_TIME=#{createTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="creator != null">CREATOR=#{creator,jdbcType=VARCHAR},
+                </if>
+                <if test="updateTime != null">UPDATE_TIME=#{updateTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="updateMan != null">UPDATE_MAN=#{updateMan,jdbcType=VARCHAR},
+                </if>
+                <if test="status != null">STATUS=#{status,jdbcType=INTEGER},
+                </if>
+                <if test="weekStart != null">WEEK_START=#{weekStart,jdbcType=INTEGER},
+                </if>
+                <if test="weekEnd != null">WEEK_END=#{weekEnd,jdbcType=INTEGER},
+                </if>
+                <if test="isInit != null">is_init=#{isInit,jdbcType=INTEGER},
+                </if>
+        </set>
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.zzk.entity.StockRule">
+        update
+    t_mp_stock_rule
+        set
+        
+        ROOMTYPE_ID = #{roomtypeId,jdbcType=VARCHAR
+            },
+        GOOD_ID = #{goodId,jdbcType=VARCHAR
+            },
+        TYPE = #{type,jdbcType=INTEGER
+            },
+        DESCRIPTION = #{description,jdbcType=VARCHAR
+            },
+        STOCK = #{stock,jdbcType=VARCHAR
+            },
+        START_TIME = #{startTime,jdbcType=TIMESTAMP
+            },
+        END_TIME = #{endTime,jdbcType=TIMESTAMP
+            },
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP
+            },
+        CREATOR = #{creator,jdbcType=VARCHAR
+            },
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP
+            },
+        UPDATE_MAN = #{updateMan,jdbcType=VARCHAR
+            },
+        STATUS = #{status,jdbcType=INTEGER
+            },
+        WEEK_START = #{weekStart,jdbcType=INTEGER
+            },
+        WEEK_END = #{weekEnd,jdbcType=INTEGER
+            },
+        is_init = #{isInit,jdbcType=INTEGER
+            }
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+    <select id="selectByPage" parameterType="java.util.Map"
+            resultMap="BaseResultMap" resultType="java.util.List">
+        select
+        <include refid="Base_Column_List"/>
+        from t_mp_stock_rule
+        <where>
+            1=1 and status = 1
+            <if test="search != null">
+                $(search)
+            </if>
+            <if test="orderName != null and orderName !=''">
+                order by ${orderName} ${descAsc}
+            </if>
+            <if test="startRow !=null">
+                limit ${startRow},${pageSize}
+            </if>
+        </where>
+    </select>
+    <select id="selectCount" parameterType="com.zzk.entity.StockRule"
+            resultType="int">
+        select count(*) from t_mp_stock_rule
+        <where>
+            1=1
+            <if test="search != null">
+                $(search)
+            </if>
+        </where>
+    </select>
+    <select id="selectByRoomtypeId" parameterType="java.lang.String"
+            resultMap="BaseResultMap">
+        select  
+        	<include refid="Base_Column_List"/>
+        from t_mp_stock_rule
+        <where>
+            1=1 and status=1
+            and END_TIME >= #{startTime,jdbcType=VARCHAR}
+            and ROOMTYPE_ID = #{roomtypeId,jdbcType=VARCHAR}
+           	order by UPDATE_TIME DESC
+        </where>
+    </select>
+    
+    <select id="selectByRoomtypeList" parameterType="java.util.Map"
+            resultMap="BaseResultMap">
+        select  
+        	<include refid="Base_Column_List"/>
+        from t_mp_stock_rule
+        <where>
+            1=1 and status=1
+            and END_TIME >= #{startTime,jdbcType=VARCHAR}
+            and ROOMTYPE_ID in
+            <foreach item="item" index="index" collection="list" open="("
+            separator="," close=")">
+            	#{item,jdbcType=VARCHAR}
+            </foreach>
+           	order by UPDATE_TIME DESC
+        </where>
+    </select>
+    
+    <select id="selectByHotelId" parameterType="java.lang.String"
+            resultMap="BaseResultMap">
+        select  
+        	t1.*,t2.hotel_id
+        from t_mp_stock_rule t1 left join t_mp_roomtype t2 on t1.roomtype_id=t2.id
+        <where>
+            1=1 and t1.status=1 and t2.status
+            and t1.END_TIME >= #{startTime,jdbcType=VARCHAR}
+            and t2.HOTEL_ID = #{hotelId,jdbcType=VARCHAR}
+           	order by t1.UPDATE_TIME DESC
+        </where>
+    </select>
+    
+    <select id="selectByGoodsId" parameterType="java.lang.String"
+            resultMap="BaseResultMap">
+        select  
+        	<include refid="Base_Column_List"/>
+        from t_mp_stock_rule
+        <where>
+            1=1 and status=1
+            and END_TIME >= #{startTime,jdbcType=VARCHAR}
+            and ROOMTYPE_ID = (select ROOMTYPE_ID from t_mp_hotel_goods where status = 1 and ID = #{goodsId,jdbcType=VARCHAR})
+           	order by UPDATE_TIME DESC
+        </where>
+    </select>
+    <select id="selectByUserId" parameterType="java.util.Map"
+            resultMap="BaseResultMap" resultType="java.util.List">
+            SELECT s.STOCK , s.WEEK_START FROM t_mp_stock_rule AS s 
+            <where>1=1 and s.STATUS =1 AND
+             s.ROOMTYPE_ID IN (SELECT t.ID FROM t_mp_roomtype AS t WHERE t.HOTEL_ID=
+            (SELECT ID FROM t_mp_hotel AS u WHERE u.owner_id=#{userId,jdbcType=VARCHAR}))
+            AND START_TIME &lt;= #{nowTime,jdbcType=VARCHAR} AND END_TIME >= #{nowTime,jdbcType=VARCHAR}
+           </where>
+    </select>
+</mapper>

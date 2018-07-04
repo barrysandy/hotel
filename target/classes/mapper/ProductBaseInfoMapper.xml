@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzk.dao.ProductBaseInfoMapper">
+
+    <resultMap id="BaseResultMap" type="com.zzk.entity.ProductBaseInfo">
+		<id column="ID" jdbcType="VARCHAR" property="id" />
+		<id column="PRODUCT_NAME" jdbcType="VARCHAR" property="productName" />
+		<id column="PRODUCT_SUBTITLE" jdbcType="VARCHAR" property="productSubtitle" />
+		<id column="DESCRIPTION" jdbcType="VARCHAR" property="description" />
+		<id column="SELLER_ID" jdbcType="VARCHAR" property="sellerId" />
+		<id column="CATEGORY_ID" jdbcType="VARCHAR" property="categoryId" />
+		<id column="SHELF_STATE" jdbcType="INTEGER" property="shelfState" />
+		<id column="STATUS" jdbcType="INTEGER" property="status" />
+		<id column="AUDIT_STATE" jdbcType="INTEGER" property="auditState" />
+		<id column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+		<id column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+		<id column="LABEL" jdbcType="VARCHAR" property="label" />
+		<id column="SORT" jdbcType="INTEGER" property="sort" />
+		<id column="RECOMMENDED" jdbcType="INTEGER" property="recommended" />
+		<id column="SHELVE_UP_TIME" jdbcType="TIMESTAMP" property="shelveUpTime" />
+		<id column="SHELVE_DOWN_TIME" jdbcType="TIMESTAMP" property="shelveDownTime" />
+		<id column="PURCHASES_NUMBER" jdbcType="INTEGER" property="purchasesNumber" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		ID,
+		PRODUCT_NAME,
+		PRODUCT_SUBTITLE,
+		DESCRIPTION,
+		SELLER_ID,
+		CATEGORY_ID,
+		SHELF_STATE,
+		STATUS,
+		AUDIT_STATE,
+		CREATE_TIME,
+		UPDATE_TIME,
+		LABEL,
+		SORT,
+		RECOMMENDED,
+		SHELVE_UP_TIME,
+		SHELVE_DOWN_TIME,
+		PURCHASES_NUMBER
+	</sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" /> from product_base_info where ID = #{id,jdbcType=VARCHAR}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from product_base_info where ID = #{id,jdbcType=VARCHAR}
+    </delete>
+
+    <insert id="insert" parameterType="com.zzk.entity.ProductBaseInfo">
+		insert into product_base_info
+		(ID,PRODUCT_NAME,PRODUCT_SUBTITLE,DESCRIPTION,SELLER_ID,CATEGORY_ID,SHELF_STATE,STATUS,AUDIT_STATE,CREATE_TIME,UPDATE_TIME,LABEL,SORT,RECOMMENDED,SHELVE_UP_TIME,SHELVE_DOWN_TIME,PURCHASES_NUMBER)
+		values
+		(#{id,jdbcType=VARCHAR},#{productName,jdbcType=VARCHAR},#{productSubtitle,jdbcType=VARCHAR},#{description,jdbcType=VARCHAR},#{sellerId,jdbcType=VARCHAR},#{categoryId,jdbcType=VARCHAR},#{shelfState,jdbcType=INTEGER},#{status,jdbcType=INTEGER},#{auditState,jdbcType=INTEGER},#{createTime,jdbcType=TIMESTAMP},#{updateTime,jdbcType=TIMESTAMP},#{label,jdbcType=VARCHAR},#{sort,jdbcType=INTEGER},#{recommended,jdbcType=INTEGER},#{shelveUpTime,jdbcType=TIMESTAMP},#{shelveDownTime,jdbcType=TIMESTAMP},#{purchasesNumber,jdbcType=INTEGER})
+	</insert>
+	
+	<insert id="insertSelective" parameterType="com.zzk.entity.ProductBaseInfo">
+		insert into product_base_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">ID,</if>
+			<if test="productName != null">PRODUCT_NAME,</if>
+			<if test="productSubtitle != null">PRODUCT_SUBTITLE,</if>
+			<if test="description != null">DESCRIPTION,</if>
+			<if test="sellerId != null">SELLER_ID,</if>
+			<if test="categoryId != null">CATEGORY_ID,</if>
+			<if test="shelfState != null">SHELF_STATE,</if>
+			<if test="status != null">STATUS,</if>
+			<if test="auditState != null">AUDIT_STATE,</if>
+			<if test="createTime != null">CREATE_TIME,</if>
+			<if test="updateTime != null">UPDATE_TIME,</if>
+			<if test="label != null">LABEL,</if>
+			<if test="sort != null">SORT,</if>
+			<if test="recommended != null">RECOMMENDED,</if>
+			<if test="shelveUpTime != null">SHELVE_UP_TIME,</if>
+			<if test="shelveDownTime != null">SHELVE_DOWN_TIME,</if>
+			<if test="purchasesNumber != null">PURCHASES_NUMBER,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=VARCHAR},</if>
+			<if test="productName != null">#{productName,jdbcType=VARCHAR},</if>
+			<if test="productSubtitle != null">#{productSubtitle,jdbcType=VARCHAR},</if>
+			<if test="description != null">#{description,jdbcType=VARCHAR},</if>
+			<if test="sellerId != null">#{sellerId,jdbcType=VARCHAR},</if>
+			<if test="categoryId != null">#{categoryId,jdbcType=VARCHAR},</if>
+			<if test="shelfState != null">#{shelfState,jdbcType=INTEGER},</if>
+			<if test="status != null">#{status,jdbcType=INTEGER},</if>
+			<if test="auditState != null">#{auditState,jdbcType=INTEGER},</if>
+			<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+			<if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+			<if test="label != null">#{label,jdbcType=VARCHAR},</if>
+			<if test="sort != null">#{sort,jdbcType=INTEGER},</if>
+			<if test="recommended != null">#{recommended,jdbcType=INTEGER},</if>
+			<if test="shelveUpTime != null">#{shelveUpTime,jdbcType=TIMESTAMP},</if>
+			<if test="shelveDownTime != null">#{shelveDownTime,jdbcType=TIMESTAMP},</if>
+			<if test="purchasesNumber != null">#{purchasesNumber,jdbcType=INTEGER},</if>
+		</trim>
+	</insert>
+	
+	<update id="updateByPrimaryKeySelective" parameterType="com.zzk.entity.ProductBaseInfo">
+		update product_base_info
+		<set>
+			<if test="productName != null">PRODUCT_NAME =#{productName,jdbcType=VARCHAR},</if>
+			<if test="productSubtitle != null">PRODUCT_SUBTITLE =#{productSubtitle,jdbcType=VARCHAR},</if>
+			<if test="description != null">DESCRIPTION =#{description,jdbcType=VARCHAR},</if>
+			<if test="sellerId != null">SELLER_ID =#{sellerId,jdbcType=VARCHAR},</if>
+			<if test="categoryId != null">CATEGORY_ID =#{categoryId,jdbcType=VARCHAR},</if>
+			<if test="shelfState != null">SHELF_STATE =#{shelfState,jdbcType=INTEGER},</if>
+			<if test="status != null">STATUS =#{status,jdbcType=INTEGER},</if>
+			<if test="auditState != null">AUDIT_STATE =#{auditState,jdbcType=INTEGER},</if>
+			<if test="createTime != null">CREATE_TIME =#{createTime,jdbcType=TIMESTAMP},</if>
+			<if test="updateTime != null">UPDATE_TIME =#{updateTime,jdbcType=TIMESTAMP},</if>
+			<if test="label != null">LABEL =#{label,jdbcType=VARCHAR},</if>
+			<if test="sort != null">SORT =#{sort,jdbcType=INTEGER},</if>
+			<if test="recommended != null">RECOMMENDED =#{recommended,jdbcType=INTEGER},</if>
+			<if test="shelveUpTime != null">SHELVE_UP_TIME =#{shelveUpTime,jdbcType=TIMESTAMP},</if>
+			<if test="shelveDownTime != null">SHELVE_DOWN_TIME =#{shelveDownTime,jdbcType=TIMESTAMP},</if>
+			<if test="purchasesNumber != null">PURCHASES_NUMBER =#{purchasesNumber,jdbcType=INTEGER},</if>
+		</set>
+		where ID = #{id,jdbcType=VARCHAR}
+	</update>
+	
+	<update id="updateByPrimaryKey" parameterType="com.zzk.entity.ProductBaseInfo">
+		update
+		product_base_info
+		set
+		
+		PRODUCT_NAME = #{productName,jdbcType=VARCHAR},
+		PRODUCT_SUBTITLE = #{productSubtitle,jdbcType=VARCHAR},
+		DESCRIPTION = #{description,jdbcType=VARCHAR},
+		SELLER_ID = #{sellerId,jdbcType=VARCHAR},
+		CATEGORY_ID = #{categoryId,jdbcType=VARCHAR},
+		SHELF_STATE = #{shelfState,jdbcType=INTEGER},
+		STATUS = #{status,jdbcType=INTEGER},
+		AUDIT_STATE = #{auditState,jdbcType=INTEGER},
+		CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+		UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+		LABEL = #{label,jdbcType=VARCHAR},
+		SORT = #{sort,jdbcType=INTEGER},
+		RECOMMENDED = #{recommended,jdbcType=INTEGER},
+		SHELVE_UP_TIME = #{shelveUpTime,jdbcType=TIMESTAMP},
+		SHELVE_DOWN_TIME = #{shelveDownTime,jdbcType=TIMESTAMP},
+		PURCHASES_NUMBER = #{purchasesNumber,jdbcType=INTEGER}
+		where ID = #{id,jdbcType=VARCHAR}
+	</update>
+
+    <select id="selectCount" parameterType="com.zzk.entity.ProductBaseInfo" resultType="int">
+        select count(1) from product_base_info
+        <where>
+            1=1 and status = 1
+            <if test="search != null">
+
+            </if>
+        </where>
+    </select>
+
+    <select id="getProductNameImg" parameterType="java.lang.String" resultType="java.util.Map">
+		SELECT t1.PRODUCT_NAME,t2.SKU_NAME,t3.URL FROM product_base_info t1 INNER JOIN goods_sku_info t2 ON t1.ID = t2.PRODUCT_ID AND t1.STATUS = 1 AND t2.STATUS = 1 LEFT JOIN
+		product_images t3 ON t1.ID= t3.ID AND t1.STATUS=1 AND t3.STATUS = 1 WHERE t2.ID=#{skuId} 
+	</select>
+
+    <select id="listProductForUser" parameterType="java.util.Map" resultType="java.util.Map">
+        SELECT
+            t1.ID PRODUCT_ID,
+            t1.PRODUCT_NAME,
+            MIN(t3.ADULT_SELL_PRICE) MIN_PRICE,
+            t4.URL IMAGE,
+            t5.DAYS,
+            t5.START_ADDRESS
+        FROM
+            `product_base_info` t1
+        INNER JOIN goods_sku_info t2 ON t1.ID = t2.PRODUCT_ID AND t2. STATUS = 1 AND t2.state = 1
+        INNER JOIN product_stock_info t3 ON t3.SKU_ID = t2.ID AND t3. STATUS = 1 AND t3.ADULT_NUMBER-t3.ADULT_SALED_NUMBER-t3.ADULT_PREEMPTED_NUMBER > 0
+        LEFT JOIN product_images t4 ON t4.PRODUCT_ID = t1.ID AND t4.TYPE = 2
+        INNER JOIN plan_info t5 ON t5.PRODUCT_ID = t1.ID AND t5. STATUS = 1
+        <if test="type != null and type != ''">
+            INNER JOIN product_type_info t6 on t6.PRODUCT_ID = t1.ID AND t6.PARENT_ID = #{type}
+        </if>
+        <if test="theme != null and theme != ''">
+            INNER JOIN seller_choose_attribute_info t7 on t7.PRODUCT_ID = t1.ID AND t7.name = '主题' AND t7.CONTENT LIKE '${theme}'
+        </if>
+        <if test="comments != null">
+            LEFT JOIN product_evaluate evaluate ON evaluate.PRODUCT_ID = t1.ID AND evaluate. STATUS = 1
+        </if>
+        where 1=1 AND  t1.status = 1 AND t1.SHELF_STATE = 1 AND t1.AUDIT_STATE = 1
+        <if test="days != null">
+            ${days}
+        </if>
+        GROUP BY t1.ID
+        <if test="orderBy != null and orderBy != ''">
+            ORDER BY ${orderBy} ${orderDesc}
+        </if>
+    </select>
+
+    <select id="getProductDetail" parameterType="java.lang.String" resultType="java.util.Map">
+        SELECT
+            t1.PRODUCT_NAME productName,
+            MIN(t3.ADULT_SELL_PRICE) minSellPrice,
+            t1.LABEL label,
+            t4.BUSIN_NAME sellerName,
+            t4.ID sellerId
+        FROM
+            product_base_info t1
+        INNER JOIN goods_sku_info t2 ON t2.PRODUCT_ID = t1.ID
+        AND t1. STATUS = 1
+        AND t2. STATUS = 1
+        AND t1.SHELF_STATE = 1
+        AND t2.state = 1
+        INNER JOIN product_stock_info t3 ON t3.SKU_ID = t2.ID
+        LEFT JOIN business_info t4 ON t4.ID = t1.SELLER_ID
+        AND t4.`STATUS` = 1
+        WHERE
+            t1.ID = #{productId}
+    </select>
+
+    <select id="listDeleteProduct" parameterType="java.lang.String" resultType="java.util.Map">
+        SELECT
+            t1.ID PRODUCT_ID,
+            t1.PRODUCT_NAME,
+            t2.URL IMAGE_URL,
+            t3. USER DELETE_USER,
+            MAX(t3.date) DELETE_DATE
+        FROM
+            product_base_info t1
+        LEFT JOIN product_images t2 ON t1.ID = t2.PRODUCT_ID
+        AND t2. STATUS = 1
+        AND t2.TYPE = 2
+        LEFT JOIN operate_log t3 ON t3.obj_id = t1.ID
+        WHERE t1.SELLER_ID = #{sellerId} AND t1. STATUS = - 1
+        GROUP BY t1.id
+        ORDER BY t3.date DESC
+    </select>
+
+    <select id="listProductForSeller" parameterType="java.util.Map" resultType="java.util.Map">
+        SELECT
+            t1.ID PRODUCT_ID,
+            t1.PRODUCT_NAME,
+            MIN(t3.ADULT_SELL_PRICE) MIN_PRICE,
+            MAX(t3.ADULT_SELL_PRICE) MAX_PRICE,
+            t1.SHELF_STATE,
+            t1.AUDIT_STATE,
+            DATE_FORMAT(t1.SHELVE_UP_TIME,'%Y-%m-%d %H:%i:%s') SHELVE_UP_TIME,
+            DATE_FORMAT(t1.SHELVE_DOWN_TIME,'%Y-%m-%d %H:%i:%s') SHELVE_DOWN_TIME,
+            t4.URL IMAGE_URL,
+            t5.DAYS,
+            t5.START_ADDRESS,
+            DATE_FORMAT(t1.UPDATE_TIME,'%Y-%m-%d %H:%i:%s') UPDATE_TIME,
+            t8.AUDIT_CONTENT
+        FROM
+            `product_base_info` t1
+        LEFT JOIN goods_sku_info t2 ON t1.ID = t2.PRODUCT_ID
+        AND t2. STATUS = 1
+        LEFT JOIN product_stock_info t3 ON t3.SKU_ID = t2.ID
+        AND t3. STATUS = 1
+        LEFT JOIN product_images t4 ON t4.PRODUCT_ID = t1.ID
+        AND t4.TYPE = 2
+        INNER JOIN plan_info t5 ON t5.PRODUCT_ID = t1.ID
+        AND t5. STATUS = 1
+        LEFT JOIN audit_info t8 on t8.OBJECT_ID = t1.ID AND t8.status = 1
+        <if test="type != null and type != ''">
+            INNER JOIN product_type_info t6 on t6.PRODUCT_ID = t1.ID AND t6.PARENT_ID = #{type}
+        </if>
+        <if test="theme != null and theme != ''">
+            INNER JOIN seller_choose_attribute_info t7 on t7.PRODUCT_ID = t1.ID AND t7.name = '主题' AND t7.CONTENT LIKE '${theme}'
+        </if>
+        where 1=1 AND  t1.status = 1 AND t1.SELLER_ID = '${sellerId}'
+        <if test="days != null">
+            ${days}
+        </if>
+        <if test="shelfState != null">
+            AND t1.SHELF_STATE = ${shelfState} AND t1.AUDIT_STATE != 0
+        </if>
+        <if test="auditState != null">
+            AND t1.AUDIT_STATE = ${auditState}
+        </if>
+        GROUP BY t1.ID
+        ORDER BY t1.UPDATE_TIME DESC
+    </select>
+
+    <delete id="physicalDeleteProduct" parameterType="java.lang.String" >
+        DELETE FROM product_base_info WHERE ID = #{productId}
+    </delete>
+
+    <select id="listProductBySellerId" parameterType="java.lang.String" resultType="java.util.Map">
+        SELECT ID PRODUCT_ID,PRODUCT_NAME FROM product_base_info WHERE SELLER_ID = #{sellerId} AND status = 1
+    </select>
+
+    <select id="getSellerPhone" parameterType="java.lang.String" resultType="java.lang.String">
+        SELECT
+            PHONE
+        FROM
+            business_info
+        WHERE
+            ID = #{sellerId}
+    </select>
+
+    <select id="getRemainingNumber" parameterType="java.lang.String" resultType="java.lang.Integer">
+        SELECT
+            max(
+                t1.ADULT_NUMBER - (
+                    CASE
+                    WHEN t1.ADULT_SALED_NUMBER IS NULL THEN
+                        0
+                    ELSE
+                        t1.ADULT_SALED_NUMBER
+                    END
+                ) - (
+                    CASE
+                    WHEN t1.ADULT_PREEMPTED_NUMBER IS NULL THEN
+                        0
+                    ELSE
+                        t1.ADULT_PREEMPTED_NUMBER
+                    END
+                )
+            ) maxNumber
+        FROM
+            product_stock_info t1
+        INNER JOIN goods_sku_info t2 ON t1.SKU_ID = t2.ID
+        AND t2.PRODUCT_ID = #{productId}
+        AND t1. STATUS = 1
+        AND t2. STATUS = 1
+        AND t1.START_TIME > NOW()
+    </select>
+</mapper>

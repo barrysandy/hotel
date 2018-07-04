@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzk.dao.FinanceInfoMapper">
+
+		<resultMap id="BaseResultMap" type="com.zzk.entity.FinanceInfo">
+		<id column="ID" jdbcType="VARCHAR" property="id" />
+		<id column="SELLER_ID" jdbcType="VARCHAR" property="sellerId" />
+		<id column="BILL_NO" jdbcType="VARCHAR" property="billNo" />
+		<id column="START_TIME" jdbcType="DATE" property="startTime" />
+		<id column="END_TIME" jdbcType="DATE" property="endTime" />
+		<id column="ORDER_COUNT" jdbcType="INTEGER" property="orderCount" />
+		<id column="ORDER_MONEY" jdbcType="DECIMAL" property="orderMoney" />
+		<id column="COMM_MONEY" jdbcType="DECIMAL" property="commMoney" />
+		<id column="ACTUAL_MONEY" jdbcType="DECIMAL" property="actualMoney" />
+		<id column="ELEC_RECEIPT" jdbcType="VARCHAR" property="elecReceipt" />
+		<id column="PLAT" jdbcType="INTEGER" property="plat" />
+		<id column="BILL_STATUS" jdbcType="INTEGER" property="billStatus" />
+		<id column="STATUS" jdbcType="INTEGER" property="status" />
+		<id column="INV_STATUS" jdbcType="INTEGER" property="invStatus" />
+		<id column="INV_MONEY" jdbcType="DECIMAL" property="invMoney" />
+		<id column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+		<id column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+		<id column="PAYMODE" jdbcType="INTEGER" property="payMode" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		ID,
+		SELLER_ID,
+		BILL_NO,
+		START_TIME,
+		END_TIME,
+		ORDER_COUNT,
+		ORDER_MONEY,
+		COMM_MONEY,
+		ACTUAL_MONEY,
+		ELEC_RECEIPT,
+		PLAT,
+		BILL_STATUS,
+		STATUS,
+		INV_STATUS,
+		INV_MONEY,
+		CREATE_TIME,
+		UPDATE_TIME,
+		PAY_MODE
+	</sql>
+	
+	<select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" /> from finance_info where ID = #{id,jdbcType=VARCHAR}
+	</select>
+	<select id="selectNotGeneratedBySellerId" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" /> from finance_info where SELLER_ID = #{sellerId,jdbcType=VARCHAR} and BILL_STATUS =1
+	</select>
+
+	<select id="selectByBillNo" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" /> from finance_info where  BILL_NO = #{billNo,jdbcType=VARCHAR} and SELLER_ID = #{sellerId,jdbcType=VARCHAR}
+	</select>
+	<select id="selectNobillCount" >
+		select count(*) from finance_info where status =1 and bill_status =1
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from finance_info where ID = #{id,jdbcType=VARCHAR}
+	</delete>
+	
+	<insert id="insert" parameterType="com.zzk.entity.FinanceInfo">
+		insert into finance_info
+		(ID,SELLER_ID,BILL_NO,START_TIME,END_TIME,ORDER_COUNT,ORDER_MONEY,COMM_MONEY,ACTUAL_MONEY,ELEC_RECEIPT,PLAT,BILL_STATUS,STATUS,INV_STATUS,INV_MONEY,CREATE_TIME,UPDATE_TIME,PAY_MODE)
+		values
+		(#{id,jdbcType=VARCHAR},#{sellerId,jdbcType=VARCHAR},#{billNo,jdbcType=VARCHAR},#{startTime,jdbcType=DATE},#{endTime,jdbcType=DATE},#{orderCount,jdbcType=INTEGER},#{orderMoney,jdbcType=DECIMAL},#{commMoney,jdbcType=DECIMAL},#{actualMoney,jdbcType=DECIMAL},#{elecReceipt,jdbcType=VARCHAR},#{plat,jdbcType=INTEGER},#{billStatus,jdbcType=INTEGER},#{status,jdbcType=INTEGER},#{invStatus,jdbcType=INTEGER},#{invMoney,jdbcType=DECIMAL},#{createTime,jdbcType=TIMESTAMP},#{updateTime,jdbcType=TIMESTAMP},#{payMode,jdbcType=INTEGER})
+	</insert>
+	
+	<insert id="insertSelective" parameterType="com.zzk.entity.FinanceInfo">
+		insert into finance_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">ID,</if>
+			<if test="sellerId != null">SELLER_ID,</if>
+			<if test="billNo != null">BILL_NO,</if>
+			<if test="startTime != null">START_TIME,</if>
+			<if test="endTime != null">END_TIME,</if>
+			<if test="orderCount != null">ORDER_COUNT,</if>
+			<if test="orderMoney != null">ORDER_MONEY,</if>
+			<if test="commMoney != null">COMM_MONEY,</if>
+			<if test="actualMoney != null">ACTUAL_MONEY,</if>
+			<if test="elecReceipt != null">ELEC_RECEIPT,</if>
+			<if test="plat != null">PLAT,</if>
+			<if test="billStatus != null">BILL_STATUS,</if>
+			<if test="status != null">STATUS,</if>
+			<if test="invStatus != null">INV_STATUS,</if>
+			<if test="invMoney != null">INV_MONEY,</if>
+			<if test="createTime != null">CREATE_TIME,</if>
+			<if test="updateTime != null">UPDATE_TIME,</if>
+			<if test="payMode != null">PAY_MODE,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=VARCHAR},</if>
+			<if test="sellerId != null">#{sellerId,jdbcType=VARCHAR},</if>
+			<if test="billNo != null">#{billNo,jdbcType=VARCHAR},</if>
+			<if test="startTime != null">#{startTime,jdbcType=DATE},</if>
+			<if test="endTime != null">#{endTime,jdbcType=DATE},</if>
+			<if test="orderCount != null">#{orderCount,jdbcType=INTEGER},</if>
+			<if test="orderMoney != null">#{orderMoney,jdbcType=DECIMAL},</if>
+			<if test="commMoney != null">#{commMoney,jdbcType=DECIMAL},</if>
+			<if test="actualMoney != null">#{actualMoney,jdbcType=DECIMAL},</if>
+			<if test="elecReceipt != null">#{elecReceipt,jdbcType=VARCHAR},</if>
+			<if test="plat != null">#{plat,jdbcType=INTEGER},</if>
+			<if test="billStatus != null">#{billStatus,jdbcType=INTEGER},</if>
+			<if test="status != null">#{status,jdbcType=INTEGER},</if>
+			<if test="invStatus != null">#{invStatus,jdbcType=INTEGER},</if>
+			<if test="invMoney != null">#{invMoney,jdbcType=DECIMAL},</if>
+			<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+			<if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+			<if test="payMode != null">#{payMode,jdbcType=INTEGER},</if>
+		</trim>
+	</insert>
+	
+	<update id="updateByPrimaryKeySelective" parameterType="com.zzk.entity.FinanceInfo">
+		update finance_info
+		<set>
+			<if test="sellerId != null">SELLER_ID =#{sellerId,jdbcType=VARCHAR},</if>
+			<if test="billNo != null">BILL_NO =#{billNo,jdbcType=VARCHAR},</if>
+			<if test="startTime != null">START_TIME =#{startTime,jdbcType=DATE},</if>
+			<if test="endTime != null">END_TIME =#{endTime,jdbcType=DATE},</if>
+			<if test="orderCount != null">ORDER_COUNT =#{orderCount,jdbcType=INTEGER},</if>
+			<if test="orderMoney != null">ORDER_MONEY =#{orderMoney,jdbcType=DECIMAL},</if>
+			<if test="commMoney != null">COMM_MONEY =#{commMoney,jdbcType=DECIMAL},</if>
+			<if test="actualMoney != null">ACTUAL_MONEY =#{actualMoney,jdbcType=DECIMAL},</if>
+			<if test="elecReceipt != null">ELEC_RECEIPT =#{elecReceipt,jdbcType=VARCHAR},</if>
+			<if test="plat != null">PLAT =#{plat,jdbcType=INTEGER},</if>
+			<if test="billStatus != null">BILL_STATUS =#{billStatus,jdbcType=INTEGER},</if>
+			<if test="status != null">STATUS =#{status,jdbcType=INTEGER},</if>
+			<if test="invStatus != null">INV_STATUS =#{invStatus,jdbcType=INTEGER},</if>
+			<if test="invMoney != null">INV_MONEY =#{invMoney,jdbcType=DECIMAL},</if>
+			<if test="createTime != null">CREATE_TIME =#{createTime,jdbcType=TIMESTAMP},</if>
+			<if test="updateTime != null">UPDATE_TIME =#{updateTime,jdbcType=TIMESTAMP},</if>
+			<if test="payMode != null">PAY_MODE =#{payMode,jdbcType=INTEGER},</if>
+		</set>
+		where ID = #{id,jdbcType=VARCHAR}
+	</update>
+	
+	<update id="updateByPrimaryKey" parameterType="com.zzk.entity.FinanceInfo">
+		update
+		finance_info
+		set
+		
+		SELLER_ID = #{sellerId,jdbcType=VARCHAR},
+		BILL_NO = #{billNo,jdbcType=VARCHAR},
+		START_TIME = #{startTime,jdbcType=DATE},
+		END_TIME = #{endTime,jdbcType=DATE},
+		ORDER_COUNT = #{orderCount,jdbcType=INTEGER},
+		ORDER_MONEY = #{orderMoney,jdbcType=DECIMAL},
+		COMM_MONEY = #{commMoney,jdbcType=DECIMAL},
+		ACTUAL_MONEY = #{actualMoney,jdbcType=DECIMAL},
+		ELEC_RECEIPT = #{elecReceipt,jdbcType=VARCHAR},
+		PLAT = #{plat,jdbcType=INTEGER},
+		BILL_STATUS = #{billStatus,jdbcType=INTEGER},
+		STATUS = #{status,jdbcType=INTEGER},
+		INV_STATUS = #{invStatus,jdbcType=INTEGER},
+		INV_MONEY = #{invMoney,jdbcType=DECIMAL},
+		CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+		UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+		PAY_MODE = #{payMode,jdbcType=INTEGER}
+		
+		where ID = #{id,jdbcType=VARCHAR}
+	</update>
+	
+	
+	<select id="selectByPage" parameterType="java.util.Map" resultMap="BaseResultMap" resultType="java.util.List">
+		select
+		<include refid="Base_Column_List" />
+		from finance_info
+		<where>
+			1=1 and status = 1
+			<if test="search != null">
+			</if>
+			<if test="orderName != null and orderName !=''">
+				order by ${orderName} ${descAsc}
+			</if>
+			<if test="startRow !=null">
+				limit ${startRow},${pageSize}
+			</if>
+		</where>
+	</select>
+	<select id="selectByMap" parameterType="java.util.Map" resultMap="BaseResultMap" resultType="java.util.List">
+		select
+		<include refid="Base_Column_List" />
+		from finance_info
+		<where>
+			 1=1 and status = 1
+			 and SELLER_ID = #{sellerId,jdbcType=VARCHAR}
+			<if test="billStatus != null and billStatus != 0">
+			 and BILL_STATUS = #{billStatus,jdbcType=INTEGER}
+			</if>
+			<if test="startTime != null and startTime != ''">
+      			and START_TIME >= #{startTime,jdbcType=VARCHAR}
+    		</if>
+    		<if test="endTime != null and endTime != ''">
+    			and END_TIME &lt; #{endTime,jdbcType=VARCHAR}
+    		</if>
+    		<if test="billNo != null and billNo != ''" >
+       			 and BILL_NO like CONCAT('%',#{billNo},'%')
+      		</if>
+      	</where>
+	</select>
+	
+	<select id="selectCount" parameterType="com.zzk.entity.FinanceInfo" resultType="int">
+		select count(1) from finance_info
+		<where>
+			1=1 and status = 1
+			<if test="search != null">
+
+			</if>
+		</where>
+	</select>
+	<select id="selectDisPosableValue" parameterType="java.lang.String" resultType="map">
+		select 
+			IFNULL(SUM(CASE WHEN   BILL_STATUS=1 THEN ACTUAL_MONEY ELSE 0.00 END),0.00) AS actualMoney,
+			IFNULL(SUM(CASE WHEN   INV_STATUS=1 THEN INV_MONEY ELSE 0.00 END),0.00) AS invMoney
+		from finance_info
+		<where>
+			1=1 and status = 1
+			and SELLER_ID = #{sellerId}
+		</where>
+	</select>
+	
+	<insert id="batchInsert" parameterType="java.util.List">
+	      insert into finance_info 
+	      (ID,SELLER_ID,BILL_NO,START_TIME,END_TIME,ORDER_COUNT,ORDER_MONEY,COMM_MONEY,ELEC_RECEIPT,PLAT,BILL_STATUS,STATUS,INV_STATUS,INV_MONEY,CREATE_TIME,UPDATE_TIME,PAY_MODE)
+		values
+	    <foreach collection="list" index="index" item="item" separator=",">
+	      (#{item.id,jdbcType=VARCHAR},#{item.sellerId,jdbcType=VARCHAR},#{item.billNo,jdbcType=VARCHAR},#{item.startTime,jdbcType=TIMESTAMP},#{item.endTime,jdbcType=TIMESTAMP},#{item.orderCount,jdbcType=INTEGER},#{item.orderMoney,jdbcType=DECIMAL},#{item.commMoney,jdbcType=DECIMAL},#{item.elecReceipt,jdbcType=VARCHAR},#{item.plat,jdbcType=INTEGER},#{item.billStatus,jdbcType=INTEGER},#{item.status,jdbcType=INTEGER},#{item.invStatus,jdbcType=INTEGER},#{item.invMoney,jdbcType=DECIMAL},#{item.createTime,jdbcType=TIMESTAMP},#{item.updateTime,jdbcType=TIMESTAMP},#{item.payMode,jdbcType=INTEGER})
+	    </foreach>
+	 </insert>	
+	<update id="updateStatusToWaitCash">
+			update
+			finance_info
+			set
+			BILL_STATUS = 2,
+			UPDATE_TIME = now()
+			WHERE BILL_STATUS =1 AND STATUS = 1
+	</update>
+	
+	
+</mapper>

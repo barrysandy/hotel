@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzk.dao.HotelGoodsMapper">
+    <resultMap id="BaseResultMap"
+               type="com.zzk.entity.HotelGoods">
+        <id column="ID" jdbcType="VARCHAR" property="id"/>
+        <id column="ROOMTYPE_ID" jdbcType="VARCHAR" property="roomtypeId"/>
+        <id column="LABEL" jdbcType="VARCHAR" property="label"/>
+        <id column="GOODS_NAME" jdbcType="VARCHAR" property="goodsName"/>
+        <id column="STATUS" jdbcType="INTEGER" property="status"/>
+        <id column="STATE" jdbcType="INTEGER" property="state"/>
+        <id column="PRICE" jdbcType="VARCHAR" property="price"/>
+        <id column="DESCRIPTION" jdbcType="VARCHAR" property="description"/>
+        <id column="BREAKFAST" jdbcType="INTEGER" property="breakfast"/>
+        <id column="IS_WINDOW" jdbcType="INTEGER" property="isWindow"/>
+        <id column="CANCEl" jdbcType="INTEGER" property="cancel"/>
+        <id column="CONFIRM" jdbcType="INTEGER" property="confirm"/>
+        <id column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
+        <id column="CREATOR" jdbcType="VARCHAR" property="creator"/>
+        <id column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime"/>
+        <id column="UPDATE_MAN" jdbcType="VARCHAR" property="updateMan"/>
+        <id column="CANCEL_TIME" jdbcType="VARCHAR" property="cancelTime"/>
+        <id column="CONFIRM_TIME" jdbcType="VARCHAR" property="confirmTime"/>
+        <id column="HOTEL_ID" jdbcType="VARCHAR" property="hotelId"/>
+    </resultMap>
+    <resultMap id="BaseResultMap1"
+               type="com.zzk.entity.HotelGoods">
+        <id column="ID" jdbcType="VARCHAR" property="id"/>
+        <id column="ROOMTYPE_ID" jdbcType="VARCHAR" property="roomtypeId"/>
+        <id column="LABEL" jdbcType="VARCHAR" property="label"/>
+        <id column="GOODS_NAME" jdbcType="VARCHAR" property="goodsName"/>
+        <id column="STATUS" jdbcType="INTEGER" property="status"/>
+        <id column="STATE" jdbcType="INTEGER" property="state"/>
+        <id column="PRICE" jdbcType="VARCHAR" property="price"/>
+        <id column="DESCRIPTION" jdbcType="VARCHAR" property="description"/>
+        <id column="BREAKFAST" jdbcType="INTEGER" property="breakfast"/>
+        <id column="IS_WINDOW" jdbcType="INTEGER" property="isWindow"/>
+        <id column="CANCEl" jdbcType="INTEGER" property="cancel"/>
+        <id column="CONFIRM" jdbcType="INTEGER" property="confirm"/>
+        <id column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
+        <id column="CREATOR" jdbcType="VARCHAR" property="creator"/>
+        <id column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime"/>
+        <id column="UPDATE_MAN" jdbcType="VARCHAR" property="updateMan"/>
+        <id column="CANCEL_TIME" jdbcType="VARCHAR" property="cancelTime"/>
+        <id column="CONFIRM_TIME" jdbcType="VARCHAR" property="confirmTime"/>
+        <id column="BED" jdbcType="VARCHAR" property="bed"/>
+        <id column="PEOPLE" jdbcType="VARCHAR" property="people"/>
+        <id column="AREA" jdbcType="VARCHAR" property="area"/>
+        <id column="ADD_BED" jdbcType="VARCHAR" property="addBed"/>
+        <id column="BED_FEE" jdbcType="VARCHAR" property="bedFee"/>
+        <id column="BED_TYPE" jdbcType="VARCHAR" property="bedType"/>
+        <id column="FLOOR" jdbcType="VARCHAR" property="floor"/>
+        <id column="COVER_IMG" jdbcType="VARCHAR" property="coverImg"/>
+        <id column="SMOKE" jdbcType="VARCHAR" property="smoke"/>
+        <id column="FREE_WIFI" jdbcType="VARCHAR" property="freeWifi"/>
+        <id column="HOTEL_ID" jdbcType="VARCHAR" property="hotelId"/>
+        <id column="APARTMENT_NAME" jdbcType="VARCHAR" property="apartmentName"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    ID,
+    ROOMTYPE_ID,
+    LABEL,
+    GOODS_NAME,
+    STATUS,
+    STATE,
+    PRICE,
+    DESCRIPTION,
+    BREAKFAST,
+    CANCEl,
+    CONFIRM,
+    CREATE_TIME,
+    CREATOR,
+    UPDATE_TIME,
+    UPDATE_MAN,
+    CANCEL_TIME,
+    CONFIRM_TIME,
+    HOTEL_ID
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_mp_hotel_goods where ID = #{id,jdbcType=VARCHAR}
+    </select>
+    <select id="selectInfoByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap1">
+        select 
+         t1.ID,
+    ROOMTYPE_ID,
+    t2.HOTEL_ID,
+    LABEL,
+    GOODS_NAME,
+    t1.STATUS,
+    t1.STATE,
+    t1.PRICE,
+    t1.DESCRIPTION,
+    t2.FREE_WIFI,
+    BREAKFAST,
+    t2.IS_WINDOW,
+    CANCEl,
+    CONFIRM,
+    CANCEL_TIME,
+    CONFIRM_TIME,
+    t2.APARTMENT_NAME,
+    t1.CREATE_TIME,
+    t1.CREATOR,
+    t1.UPDATE_TIME,
+    t1.UPDATE_MAN,t2.bed,t2.people,t2.AREA,t2.FLOOR,t2.ADD_BED,t2.BED_FEE,t2.BED_TYPE,t2.COVER_IMG,t2.SMOKE
+          from t_mp_hotel_goods t1 
+    		left join t_mp_roomtype t2 
+        on  t1.ROOMTYPE_ID=t2.ID 
+            where 
+            t1.STATUS=1 and t2.STATUS=1 and t2.STATES=1
+        and t1.ID = #{id,jdbcType=VARCHAR}
+       
+    </select>
+    <select id="selectHotelGoods" parameterType="java.lang.String" resultMap="BaseResultMap1">
+        select 
+         t1.ID,
+    ROOMTYPE_ID,
+    t2.HOTEL_ID,
+    LABEL,
+    GOODS_NAME,
+    t1.STATUS,
+    t1.STATE,
+    t1.PRICE,
+    t1.DESCRIPTION,
+    t2.FREE_WIFI,
+    BREAKFAST,
+    t2.IS_WINDOW,
+    t2.APARTMENT_NAME,
+    CANCEl,
+    CONFIRM,
+    CANCEL_TIME,
+    CONFIRM_TIME,
+    t1.CREATE_TIME,
+    t1.CREATOR,
+    t1.UPDATE_TIME,
+    t1.UPDATE_MAN,t2.bed,t2.people,t2.AREA,t2.FLOOR,t2.ADD_BED,t2.BED_FEE,t2.BED_TYPE,t2.COVER_IMG,t2.SMOKE
+          from t_mp_hotel_goods t1 
+    		left join t_mp_roomtype t2 
+        on  t1.ROOMTYPE_ID=t2.ID 
+            where 
+            t1.STATUS=1 and t2.STATUS=1 and t2.STATES = 1 and
+       t2.HOTEL_ID=#{hotelId}
+       order by t1.ROOMTYPE_ID,t1.PRICE
+    </select>
+    
+    
+    <select id="countHotelGoods" parameterType="java.lang.String" resultType="int">
+        select
+        count(*)
+        from t_mp_hotel_goods where HOTEL_ID = #{hotelId,jdbcType=VARCHAR}
+    </select>
+    
+    
+    <select id="selectHotelGoodsByHotelIds" parameterType="java.util.List" resultMap="BaseResultMap1">
+        select 
+         t1.ID,
+    ROOMTYPE_ID,
+    t1.HOTEL_ID,
+    LABEL,
+    GOODS_NAME,
+    t1.STATUS,
+    t1.STATE,
+    t1.PRICE,
+    t1.DESCRIPTION,
+    t2.FREE_WIFI,
+    BREAKFAST,
+    t2.IS_WINDOW,
+    CANCEl,
+    CONFIRM,
+    CANCEL_TIME,
+    CONFIRM_TIME,
+    t1.CREATE_TIME,
+    t1.CREATOR,
+    t1.UPDATE_TIME,
+    t1.UPDATE_MAN,t2.bed,t2.people,t2.AREA,t2.FLOOR,t2.ADD_BED,t2.BED_FEE,t2.BED_TYPE,t2.COVER_IMG,t2.SMOKE
+          from t_mp_hotel_goods t1 
+    		left join t_mp_roomtype t2 
+        on  t1.ROOMTYPE_ID=t2.ID 
+            where 
+            t1.STATUS=1 and t2.STATUS=1 and
+       t2.HOTEL_ID in 
+       <foreach item="item" index="index" collection="list" open="("
+            separator="," close=")">
+            #{item}  
+       </foreach>
+       order by t1.ROOMTYPE_ID,t1.PRICE
+    </select>
+    
+    
+    
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from t_mp_hotel_goods where ID = #{id,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="com.zzk.entity.HotelGoods">
+        insert into t_mp_hotel_goods
+        (ID,ROOMTYPE_ID,LABEL,GOODS_NAME,STATUS,STATE,PRICE,DESCRIPTION,BREAKFAST,CANCEl,CONFIRM,CREATE_TIME,CREATOR,UPDATE_TIME,UPDATE_MAN,CANCEL_TIME,
+    CONFIRM_TIME,HOTEL_ID)
+        values
+        (#{id,jdbcType=VARCHAR},#{roomtypeId,jdbcType=VARCHAR},#{label,jdbcType=VARCHAR},#{goodsName,jdbcType=VARCHAR},#{status,jdbcType=INTEGER},#{state,jdbcType=INTEGER},#{price,jdbcType=VARCHAR},#{description,jdbcType=VARCHAR},#{breakfast,jdbcType=INTEGER},#{cancel,jdbcType=INTEGER},#{confirm,jdbcType=INTEGER},#{createTime,jdbcType=TIMESTAMP},#{creator,jdbcType=VARCHAR},#{updateTime,jdbcType=TIMESTAMP},#{updateMan,jdbcType=VARCHAR}
+        ,#{cancelTime,jdbcType=VARCHAR},#{confirmTime,jdbcType=VARCHAR},#{hotelId,jdbcType=VARCHAR}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="com.zzk.entity.HotelGoods">
+        insert into t_mp_hotel_goods
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">ID,</if>
+            <if test="roomtypeId != null">ROOMTYPE_ID,</if>
+            <if test="label != null">LABEL,</if>
+            <if test="goodsName != null">GOODS_NAME,</if>
+            <if test="status != null">STATUS,</if>
+            <if test="state != null">STATE,</if>
+            <if test="price != null">PRICE,</if>
+            <if test="description != null">DESCRIPTION,</if>
+            <if test="breakfast != null">BREAKFAST,</if>
+            <if test="cancel != null">CANCEl,</if>
+            <if test="confirm != null">CONFIRM,</if>
+            <if test="createTime != null">CREATE_TIME,</if>
+            <if test="creator != null">CREATOR,</if>
+            <if test="updateTime != null">UPDATE_TIME,</if>
+            <if test="updateMan != null">UPDATE_MAN,</if>
+            <if test="cancelTime != null">CANCEL_TIME,</if>
+            <if test="confirmTime != null">CONFIRM_TIME,</if>
+            <if test="hotelId != null">HOTEL_ID,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id,jdbcType=VARCHAR},</if>
+            <if test="roomtypeId != null">#{roomtypeId,jdbcType=VARCHAR},</if>
+            <if test="label != null">#{label,jdbcType=VARCHAR},</if>
+            <if test="goodsName != null">#{goodsName,jdbcType=VARCHAR},</if>
+            <if test="status != null">#{status,jdbcType=INTEGER},</if>
+            <if test="state != null">#{state,jdbcType=INTEGER},</if>
+            <if test="price != null">#{price,jdbcType=VARCHAR},</if>
+            <if test="description != null">#{description,jdbcType=VARCHAR},</if>
+            <if test="breakfast != null">#{breakfast,jdbcType=INTEGER},</if>
+            <if test="cancel != null">#{cancel,jdbcType=INTEGER},</if>
+            <if test="confirm != null">#{confirm,jdbcType=INTEGER},</if>
+            <if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+            <if test="creator != null">#{creator,jdbcType=VARCHAR},</if>
+            <if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+            <if test="updateMan != null">#{updateMan,jdbcType=VARCHAR},</if>
+            <if test="cancelTime != null">#{cancelTime,jdbcType=TIMESTAMP},</if>
+            <if test="confirmTime != null">#{confirmTime,jdbcType=VARCHAR},</if>
+            <if test="hotelId != null">#{hotelId,jdbcType=VARCHAR},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.zzk.entity.HotelGoods">
+        update t_mp_hotel_goods
+        <set>
+                <if test="roomtypeId != null">ROOMTYPE_ID=#{roomtypeId,jdbcType=VARCHAR},
+                </if>
+                <if test="label != null">LABEL=#{label,jdbcType=VARCHAR},
+                </if>
+                <if test="goodsName != null">GOODS_NAME=#{goodsName,jdbcType=VARCHAR},
+                </if>
+                <if test="status != null">STATUS=#{status,jdbcType=INTEGER},
+                </if>
+                <if test="state != null">STATE=#{state,jdbcType=INTEGER},
+                </if>
+                <if test="price != null">PRICE=#{price,jdbcType=VARCHAR},
+                </if>
+                <if test="description != null">DESCRIPTION=#{description,jdbcType=VARCHAR},
+                </if>
+                <if test="breakfast != null">BREAKFAST=#{breakfast,jdbcType=INTEGER},
+                </if>
+                <if test="cancel != null">CANCEl=#{cancel,jdbcType=INTEGER},
+                </if>
+                <if test="confirm != null">CONFIRM=#{confirm,jdbcType=INTEGER},
+                </if>
+                <if test="createTime != null">CREATE_TIME=#{createTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="creator != null">CREATOR=#{creator,jdbcType=VARCHAR},
+                </if>
+                <if test="updateTime != null">UPDATE_TIME=#{updateTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="updateMan != null">UPDATE_MAN=#{updateMan,jdbcType=VARCHAR},
+                </if>
+                <if test="cancelTime != null">CANCEL_TIME=#{cancelTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="confirmTime != null">CONFIRM_TIME=#{confirmTime,jdbcType=VARCHAR},
+                </if>
+                 <if test="hotelId != null">HOTEL_ID=#{hotelId,jdbcType=VARCHAR},
+                </if>
+        </set>
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.zzk.entity.HotelGoods">
+        update
+    t_mp_hotel_goods
+        set
+        
+        ROOMTYPE_ID = #{roomtypeId,jdbcType=VARCHAR
+            },
+        LABEL = #{label,jdbcType=VARCHAR
+            },
+        GOODS_NAME = #{goodsName,jdbcType=VARCHAR
+            },
+        STATUS = #{status,jdbcType=INTEGER
+            },
+        STATE = #{state,jdbcType=INTEGER
+            },
+        PRICE = #{price,jdbcType=VARCHAR
+            },
+        DESCRIPTION = #{description,jdbcType=VARCHAR
+            },
+        BREAKFAST = #{breakfast,jdbcType=INTEGER
+            },
+        
+        CANCEl = #{cancel,jdbcType=INTEGER
+            },
+        CONFIRM = #{confirm,jdbcType=INTEGER
+            },
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP
+            },
+        CREATOR = #{creator,jdbcType=VARCHAR
+            },
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP
+            },
+        UPDATE_MAN = #{updateMan,jdbcType=VARCHAR
+            },
+        CANCEL_TIME = #{cancelTime,jdbcType=TIMESTAMP
+            },
+        CONFIRM_TIME = #{confirmTime,jdbcType=VARCHAR
+            },
+        HOTEL_ID = #{hotelId,jdbcType=VARCHAR
+            }
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+    <select id="selectByPage" parameterType="java.util.Map"
+            resultMap="BaseResultMap" resultType="java.util.List">
+        select
+        <include refid="Base_Column_List"/>
+        from t_mp_hotel_goods
+        <where>
+            1=1 and status = 1
+            <if test="search != null">
+                $(search)
+            </if>
+            <if test="orderName != null and orderName !=''">
+                order by ${orderName} ${descAsc}
+            </if>
+            <if test="startRow !=null">
+                limit ${startRow},${pageSize}
+            </if>
+        </where>
+    </select>
+    <select id="selectCount" parameterType="com.zzk.entity.HotelGoods"
+            resultType="int">
+        select count(*) from t_mp_hotel_goods
+        <where>
+            1=1
+            <if test="search != null">
+                $(search)
+            </if>
+        </where>
+    </select>
+    <select id="selectGoodIds" parameterType="java.lang.String" resultType="java.lang.String">
+    	select t1.ID as ID from t_mp_hotel_goods t1 
+    		left join t_mp_roomtype t2 
+        on  t1.ROOMTYPE_ID=t2.ID 
+            where 
+       t2.HOTEL_ID=#{hotelId}
+        order by t2.area
+    </select>
+    
+    <select id="selectStockandPricebyId" parameterType="java.lang.String" resultType="java.util.HashMap">
+  select t3.price,t2.type as type1,t3.type as type2,t2.stock,t1.* from t_mp_hotel_goods t1 
+           left join t_mp_stock_rule t2 on t1.ROOMTYPE_ID=t2.ROOMTYPE_ID 
+           left join t_mp_price_rule t3 on t1.ID=t3.GOOD_ID
+where  t1.ID=#{id,jdbcType=VARCHAR}               
+        and case when  t2.type=1 then (  case when t3.type=1 then 1=1
+                                                                        when t3.type=2 then  (concat(t3.WEEK_START) like '%'||#{dayOfWeek,jdbcType=VARCHAR}||'%') 
+                                                                         else  ( t3.end_time&gt;=#{date,jdbcType=VARCHAR} and t3.start_time&lt;=#{date,jdbcType=VARCHAR}) end  ) 
+                       when t2.type=2  then ( case when t3.type=1 then (concat(t2.WEEK_START) like '%'||#{dayOfWeek,jdbcType=VARCHAR}||'%')
+                                                                        when t3.type=2 then  ((concat(t2.WEEK_START) like '%'||#{dayOfWeek,jdbcType=VARCHAR}||'%') and (concat(t3.WEEK_START) like '%'||#{dayOfWeek,jdbcType=VARCHAR}||'%')) 
+                                                                         else  (concat(t2.WEEK_START) like '%'||#{dayOfWeek,jdbcType=VARCHAR}||'%') and (t3.end_time&gt;=#{date,jdbcType=VARCHAR} and t3.start_time&lt;=#{date,jdbcType=VARCHAR}) end)     
+                        else (case when t3.type=1 then (t2.end_time&gt;=#{date,jdbcType=VARCHAR} and t2.start_time&lt;=#{date,jdbcType=VARCHAR}) 
+                                         when  t3.type=2 then (t2.end_time&gt;=#{date,jdbcType=VARCHAR} and t2.start_time&lt;=#{date,jdbcType=VARCHAR} and (concat(t3.WEEK_START) like '%'||#{dayOfWeek,jdbcType=VARCHAR}||'%'))
+                                          else   (t2.end_time&gt;=#{date,jdbcType=VARCHAR} and t2.start_time&lt;=#{date,jdbcType=VARCHAR} and t3.end_time&gt;=#{date,jdbcType=VARCHAR} and t3.start_time&lt;=#{date,jdbcType=VARCHAR}) end) 
+                                          end
+ order by type1 DESC,type2 DESC limit 0,1
+    </select >
+    <select id="selectByRoomtypeId" parameterType="java.lang.String" resultMap="BaseResultMap" resultType="java.util.List">
+    	select * from t_mp_hotel_goods 
+        where 
+        ROOMTYPE_ID=#{roomtypeId}
+    </select>
+    	
+    
+    
+</mapper>

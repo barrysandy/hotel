@@ -1,0 +1,501 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzk.dao.HotelMapper">
+    <resultMap id="BaseResultMap"
+               type="com.zzk.entity.Hotel">
+        <id column="ID" jdbcType="VARCHAR" property="id"/>
+        <id column="NAME" jdbcType="VARCHAR" property="name"/>
+        <id column="OWNER_ID" jdbcType="VARCHAR" property="ownerId"/>
+        <id column="CONTACTS" jdbcType="VARCHAR" property="contacts"/>
+        <id column="CONTACT_PHONE" jdbcType="VARCHAR" property="contactPhone"/>
+        <id column="CONTACT_EMAIL" jdbcType="VARCHAR" property="contactEmail"/>
+        <id column="RECEPTION_PHONE" jdbcType="VARCHAR" property="receptionPhone"/>
+        <id column="ADDRESS" jdbcType="VARCHAR" property="address"/>
+        <id column="LAT" jdbcType="DOUBLE" property="lat"/>
+        <id column="LON" jdbcType="DOUBLE" property="lon"/>
+        <id column="STAR_LEVEL" jdbcType="VARCHAR" property="starLevel"/>
+        <id column="ROOM_NUMBER" jdbcType="INTEGER" property="roomNumber"/>
+        <id column="CHAIN_BRAND" jdbcType="VARCHAR" property="chainBrand"/>
+        <id column="OPEN_TIME" jdbcType="TIMESTAMP" property="openTime"/>
+        <id column="RENOVATION_DATE" jdbcType="TIMESTAMP" property="renovationDate"/>
+        <id column="CREATOR" jdbcType="VARCHAR" property="creator"/>
+        <id column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate"/>
+        <id column="UPDATER" jdbcType="VARCHAR" property="updater"/>
+        <id column="UPDATE_DATE" jdbcType="TIMESTAMP" property="updateDate"/>
+        <id column="RECORD_STATUS" jdbcType="INTEGER" property="recordStatus"/>
+        <id column="STATE" jdbcType="INTEGER" property="state"/>
+        <id column="DESCRIPTION" jdbcType="VARCHAR" property="description"/>
+        <id column="NOTE" jdbcType="VARCHAR" property="note"/>
+        <id column="CITY_ID" jdbcType="VARCHAR" property="cityId"/>
+        <id column="AREA_ID" jdbcType="VARCHAR" property="areaId"/>
+        <id column="COVER_IMG" jdbcType="VARCHAR" property="coverImg"/>
+        <id column="AREA_NAME" jdbcType="VARCHAR" property="areaName"/>
+        <id column="HOTEL_ICOS" jdbcType="VARCHAR" property="hotelIcos"/>
+        <id column="SELLING_POINT" jdbcType="VARCHAR" property="sellingPoint"/>
+		<id column="DETAIL_IMG" jdbcType="VARCHAR" property="detailImg"/>
+        <id column="ALBUM" jdbcType="VARCHAR" property="album"/>
+		<id column="COMMENT_NUM" jdbcType="INTEGER" property="commentNum"/>
+        <id column="COMMENT_SCORE" jdbcType="DOUBLE" property="commentScore"/>
+        <id column="MINI_PRICE" jdbcType="DOUBLE" property="miniPrice"/>
+        <id column="MAX_PRICE" jdbcType="DOUBLE" property="maxPrice"/>
+        <id column="distance" jdbcType="DOUBLE" property="distance"/>
+		<id column="avgmin" jdbcType="DOUBLE" property="avgmin"/>
+		<id column="date_price" jdbcType="VARCHAR" property="datePrice"/>
+	</resultMap>
+    <resultMap id="ProvinceResultMap" type="java.util.Map">
+    	<id column="province_id" jdbcType="VARCHAR" property="provinceId"/>
+        <id column="province_name" jdbcType="VARCHAR" property="provinceName"/>
+    </resultMap>
+    <resultMap id="CityResultMap" type="java.util.Map">
+    	<id column="city_id" jdbcType="VARCHAR" property="cityId"/>
+        <id column="city_name" jdbcType="VARCHAR" property="cityName"/>
+    </resultMap>
+    <resultMap id="AreaResultMap" type="java.util.Map">
+    	<id column="area_id" jdbcType="VARCHAR" property="areaId"/>
+        <id column="area_name" jdbcType="VARCHAR" property="areaName"/>
+    </resultMap>
+    <resultMap id="loginMap" type="com.zzk.entity.Hotel">
+    	<id column="id" jdbcType="VARCHAR" property="id"/>
+        <id column="name" jdbcType="VARCHAR" property="name"/>
+    </resultMap>
+    <resultMap id="searchResultMap" type="com.zzk.entity.Hotel">
+    	<id column="id" jdbcType="VARCHAR" property="id"/>
+    	<id column="name" jdbcType="VARCHAR" property="name"/>
+        <id column="cover_img" jdbcType="VARCHAR" property="coverImg"/>
+        <id column="star_level" jdbcType="VARCHAR" property="starLevel"/>
+        <id column="hotel_icos" jdbcType="VARCHAR" property="hotelIcos"/>
+        <id column="distance" jdbcType="DOUBLE" property="distance"/>
+        <id column="mini_price" jdbcType="DOUBLE" property="miniPrice"/>
+        <id column="comment_num" jdbcType="INTEGER" property="commentNum"/>
+        <id column="comment_score" jdbcType="DOUBLE" property="commentScore"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    ID,
+    NAME,
+    OWNER_ID,
+    CONTACTS,
+    CONTACT_PHONE,
+    CONTACT_EMAIL,
+    RECEPTION_PHONE,
+    ADDRESS,
+    LAT,
+    LON,
+    STAR_LEVEL,
+    ROOM_NUMBER,
+    CHAIN_BRAND,
+    OPEN_TIME,
+    RENOVATION_DATE,
+    CREATOR,
+    CREATE_DATE,
+    UPDATER,
+    UPDATE_DATE,
+    RECORD_STATUS,
+    STATE,
+    DESCRIPTION,
+    NOTE,
+    CITY_ID,
+    AREA_ID,
+    COVER_IMG,
+    HOTEL_ICOS,
+	SELLING_POINT,
+    DETAIL_IMG,
+    ALBUM,
+	COMMENT_NUM,
+    COMMENT_SCORE,
+	MINI_PRICE,
+	MAX_PRICE,
+	date_price
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        t1.*,t2.area_name
+        from t_mp_hotel t1 left join area t2 on t1.area_id= t2.area_id
+         where t1.ID = #{id,jdbcType=VARCHAR}
+    </select>
+    <select id="selectByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_mp_hotel where NAME = #{name,jdbcType=VARCHAR}
+    </select>
+    
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from t_mp_hotel where ID = #{id,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="com.zzk.entity.Hotel">
+        insert into t_mp_hotel
+        (ID,NAME,OWNER_ID,CONTACTS,CONTACT_PHONE,CONTACT_EMAIL,RECEPTION_PHONE,ADDRESS,LAT,LON,STAR_LEVEL,ROOM_NUMBER,CHAIN_BRAND,OPEN_TIME,RENOVATION_DATE,CREATOR,CREATE_DATE,UPDATER,UPDATE_DATE,RECORD_STATUS,STATE,DESCRIPTION,NOTE,CITY_ID,AREA_ID,COVER_IMG,HOTEL_ICOS,SELLING_POINT,DETAIL_IMG,ALBUM,MINI_PRICE,MAX_PRICE,COMMENT_SCORE,COMMENT_NUM,date_price)
+        values
+        (#{id,jdbcType=VARCHAR},#{name,jdbcType=VARCHAR},#{ownerId,jdbcType=VARCHAR},#{contacts,jdbcType=VARCHAR},#{contactPhone,jdbcType=VARCHAR},#{contactEmail,jdbcType=VARCHAR},#{receptionPhone,jdbcType=VARCHAR},#{address,jdbcType=VARCHAR},#{lat,jdbcType=DOUBLE},#{lon,jdbcType=DOUBLE},#{starLevel,jdbcType=VARCHAR},#{roomNumber,jdbcType=INTEGER},#{chainBrand,jdbcType=VARCHAR},#{openTime,jdbcType=TIMESTAMP},#{renovationDate,jdbcType=TIMESTAMP},#{creator,jdbcType=VARCHAR},#{createDate,jdbcType=TIMESTAMP},#{updater,jdbcType=VARCHAR},#{updateDate,jdbcType=TIMESTAMP},#{recordStatus,jdbcType=INTEGER},#{state,jdbcType=INTEGER},#{description,jdbcType=VARCHAR},#{note,jdbcType=VARCHAR},#{cityId,jdbcType=VARCHAR},#{areaId,jdbcType=VARCHAR},#{coverImg,jdbcType=VARCHAR},#{hotelIcos,jdbcType=VARCHAR},#{sellingPoint,jdbcType=VARCHAR},#{detailImg,jdbcType=VARCHAR},#{album,jdbcType=VARCHAR},#{miniPrice,jdbcType=DOUBLE},#{maxPrice,jdbcType=DOUBLE},#{commentScore,jdbcType=DOUBLE},#{commentNum,jdbcType=INTEGER},#{datePrice,jdbcType=VARCHAR}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="com.zzk.entity.Hotel">
+        insert into t_mp_hotel 
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">ID,</if>
+            <if test="name != null">NAME,</if>
+            <if test="ownerId != null">OWNER_ID,</if>
+            <if test="contacts != null">CONTACTS,</if>
+            <if test="contactPhone != null">CONTACT_PHONE,</if>
+            <if test="contactEmail != null">CONTACT_EMAIL,</if>
+            <if test="receptionPhone != null">RECEPTION_PHONE,</if>
+            <if test="address != null">ADDRESS,</if>
+            <if test="lat != null">LAT,</if>
+            <if test="lon != null">LON,</if>
+            <if test="starLevel != null">STAR_LEVEL,</if>
+            <if test="roomNumber != null">ROOM_NUMBER,</if>
+            <if test="chainBrand != null">CHAIN_BRAND,</if>
+            <if test="openTime != null">OPEN_TIME,</if>
+            <if test="renovationDate != null">RENOVATION_DATE,</if>
+            <if test="creator != null">CREATOR,</if>
+            <if test="createDate != null">CREATE_DATE,</if>
+            <if test="updater != null">UPDATER,</if>
+            <if test="updateDate != null">UPDATE_DATE,</if>
+            <if test="recordStatus != null">RECORD_STATUS,</if>
+            <if test="state != null">STATE,</if>
+            <if test="description != null">DESCRIPTION,</if>
+            <if test="note != null">NOTE,</if>
+            <if test="cityId != null">CITY_ID,</if>
+            <if test="areaId != null">AREA_ID,</if>
+            <if test="coverImg != null">COVER_IMG,</if>
+            <if test="hotelIcos != null">HOTEL_ICOS,</if>
+            <if test="sellingPoint != null">sellingPoint,</if>
+            <if test="detailImg != null">detailImg,</if>
+            <if test="album != null">album,</if>
+            <if test="miniPrice != null">MINI_PRICE,</if>
+            <if test="maxPrice != null">MAX_PRICE,</if>
+            <if test="commentScore != null">COMMENT_SCORE,</if>
+            <if test="commentNum != null">COMMENT_NUM,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id,jdbcType=VARCHAR},</if>
+            <if test="name != null">#{name,jdbcType=VARCHAR},</if>
+            <if test="ownerId != null">#{ownerId,jdbcType=VARCHAR},</if>
+            <if test="contacts != null">#{contacts,jdbcType=VARCHAR},</if>
+            <if test="contactPhone != null">#{contactPhone,jdbcType=VARCHAR},</if>
+            <if test="contactEmail != null">#{contactEmail,jdbcType=VARCHAR},</if>
+            <if test="receptionPhone != null">#{receptionPhone,jdbcType=VARCHAR},</if>
+            <if test="address != null">#{address,jdbcType=VARCHAR},</if>
+            <if test="lat != null">#{lat,jdbcType=DOUBLE},</if>
+            <if test="lon != null">#{lon,jdbcType=DOUBLE},</if>
+            <if test="starLevel != null">#{starLevel,jdbcType=VARCHAR},</if>
+            <if test="roomNumber != null">#{roomNumber,jdbcType=INTEGER},</if>
+            <if test="chainBrand != null">#{chainBrand,jdbcType=VARCHAR},</if>
+            <if test="openTime != null">#{openTime,jdbcType=TIMESTAMP},</if>
+            <if test="renovationDate != null">#{renovationDate,jdbcType=TIMESTAMP},</if>
+            <if test="creator != null">#{creator,jdbcType=VARCHAR},</if>
+            <if test="createDate != null">#{createDate,jdbcType=TIMESTAMP},</if>
+            <if test="updater != null">#{updater,jdbcType=VARCHAR},</if>
+            <if test="updateDate != null">#{updateDate,jdbcType=TIMESTAMP},</if>
+            <if test="recordStatus != null">#{recordStatus,jdbcType=INTEGER},</if>
+            <if test="state != null">#{state,jdbcType=INTEGER},</if>
+            <if test="description != null">#{description,jdbcType=VARCHAR},</if>
+            <if test="note != null">#{note,jdbcType=VARCHAR},</if>
+            <if test="cityId != null">#{cityId,jdbcType=VARCHAR},</if>
+            <if test="areaId != null">#{areaId,jdbcType=VARCHAR},</if>
+            <if test="coverImg != null">#{coverImg,jdbcType=VARCHAR},</if>
+            <if test="hotelIcos != null">#{hotelIcos,jdbcType=VARCHAR},</if>
+            <if test="sellingPoint != null">#{sellingPoint,jdbcType=VARCHAR},</if>
+            <if test="detailImg != null">#{detailImg,jdbcType=VARCHAR},</if>
+            <if test="album != null">#{album,jdbcType=VARCHAR},</if>
+            <if test="miniPrice != null">#{miniPrice,jdbcType=DOUBLE},</if>
+            <if test="maxPrice != null">#{maxPrice,jdbcType=DOUBLE},</if>
+            <if test="commentScore != null">#{commentScore,jdbcType=DOUBLE},</if>
+            <if test="commentNum != null">#{commentNum,jdbcType=INTEGER},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.zzk.entity.Hotel">
+        update t_mp_hotel
+        <set>
+                <if test="name != null">NAME=#{name,jdbcType=VARCHAR},
+                </if>
+                <if test="ownerId != null">OWNER_ID=#{ownerId,jdbcType=VARCHAR},
+                </if>
+                <if test="contacts != null">CONTACTS=#{contacts,jdbcType=VARCHAR},
+                </if>
+                <if test="contactPhone != null">CONTACT_PHONE=#{contactPhone,jdbcType=VARCHAR},
+                </if>
+                <if test="contactEmail != null">CONTACT_EMAIL=#{contactEmail,jdbcType=VARCHAR},
+                </if>
+                <if test="receptionPhone != null">RECEPTION_PHONE=#{receptionPhone,jdbcType=VARCHAR},
+                </if>
+                <if test="address != null">ADDRESS=#{address,jdbcType=VARCHAR},
+                </if>
+                <if test="lat != null">LAT=#{lat,jdbcType=DOUBLE},
+                </if>
+                <if test="lon != null">LON=#{lon,jdbcType=DOUBLE},
+                </if>
+                <if test="starLevel != null">STAR_LEVEL=#{starLevel,jdbcType=VARCHAR},
+                </if>
+                <if test="roomNumber != null">ROOM_NUMBER=#{roomNumber,jdbcType=INTEGER},
+                </if>
+                <if test="chainBrand != null">CHAIN_BRAND=#{chainBrand,jdbcType=VARCHAR},
+                </if>
+                <if test="openTime != null">OPEN_TIME=#{openTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="renovationDate != null">RENOVATION_DATE=#{renovationDate,jdbcType=TIMESTAMP},
+                </if>
+                <if test="creator != null">CREATOR=#{creator,jdbcType=VARCHAR},
+                </if>
+                <if test="createDate != null">CREATE_DATE=#{createDate,jdbcType=TIMESTAMP},
+                </if>
+                <if test="updater != null">UPDATER=#{updater,jdbcType=VARCHAR},
+                </if>
+                <if test="updateDate != null">UPDATE_DATE=#{updateDate,jdbcType=TIMESTAMP},
+                </if>
+                <if test="recordStatus != null">RECORD_STATUS=#{recordStatus,jdbcType=INTEGER},
+                </if>
+                <if test="state != null">STATE=#{state,jdbcType=INTEGER},
+                </if>
+                <if test="description != null">DESCRIPTION=#{description,jdbcType=VARCHAR},
+                </if>
+                <if test="note != null">NOTE=#{note,jdbcType=VARCHAR},
+                </if>
+                <if test="cityId != null">CITY_ID=#{cityId,jdbcType=VARCHAR},
+                </if>
+                <if test="areaId != null">AREA_ID=#{areaId,jdbcType=VARCHAR},
+                </if>
+                <if test="coverImg != null">COVER_IMG=#{coverImg,jdbcType=VARCHAR},
+                </if>
+                <if test="hotelIcos != null">HOTEL_ICOS=#{hotelIcos,jdbcType=VARCHAR},
+                </if>
+                <if test="sellingPoint != null">SELLING_POINT=#{sellingPoint,jdbcType=VARCHAR},
+                </if>
+                <if test="detailImg != null">DETAIL_IMG=#{detailImg,jdbcType=VARCHAR},
+                </if>
+                <if test="album != null">ALBUM=#{album,jdbcType=VARCHAR},
+                </if>
+                <if test="miniPrice != null">MINI_PRICE=#{miniPrice,jdbcType=DOUBLE},
+                </if>
+            	<if test="maxPrice != null">MAX_PRICE=#{maxPrice,jdbcType=DOUBLE},
+            	</if>
+                <if test="commentScore != null">COMMENT_SCORE=#{commentScore,jdbcType=DOUBLE},
+                </if>
+            	<if test="commentNum != null">COMMENT_NUM=#{commentNum,jdbcType=INTEGER},
+            	</if>
+                
+        </set>
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.zzk.entity.Hotel">
+        update
+    t_mp_hotel
+        set
+        
+        NAME = #{name,jdbcType=VARCHAR
+            },
+        OWNER_ID = #{ownerId,jdbcType=VARCHAR
+            },
+        CONTACTS = #{contacts,jdbcType=VARCHAR
+            },
+        CONTACT_PHONE = #{contactPhone,jdbcType=VARCHAR
+            },
+        CONTACT_EMAIL = #{contactEmail,jdbcType=VARCHAR
+            },
+        RECEPTION_PHONE = #{receptionPhone,jdbcType=VARCHAR
+            },
+        ADDRESS = #{address,jdbcType=VARCHAR
+            },
+        LAT = #{lat,jdbcType=DOUBLE
+            },
+        LON = #{lon,jdbcType=DOUBLE
+            },
+        STAR_LEVEL = #{starLevel,jdbcType=VARCHAR
+            },
+        ROOM_NUMBER = #{roomNumber,jdbcType=INTEGER
+            },
+        CHAIN_BRAND = #{chainBrand,jdbcType=VARCHAR
+            },
+        OPEN_TIME = #{openTime,jdbcType=TIMESTAMP
+            },
+        RENOVATION_DATE = #{renovationDate,jdbcType=TIMESTAMP
+            },
+        CREATOR = #{creator,jdbcType=VARCHAR
+            },
+        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP
+            },
+        UPDATER = #{updater,jdbcType=VARCHAR
+            },
+        UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP
+            },
+        RECORD_STATUS = #{recordStatus,jdbcType=INTEGER
+            },
+        STATE = #{state,jdbcType=INTEGER
+            },
+        DESCRIPTION = #{description,jdbcType=VARCHAR
+            },
+        NOTE = #{note,jdbcType=VARCHAR
+            },
+        CITY_ID = #{cityId,jdbcType=VARCHAR
+            },
+        AREA_ID = #{areaId,jdbcType=VARCHAR
+            },
+        COVER_IMG = #{coverImg,jdbcType=VARCHAR
+            },
+        HOTEL_ICOS = #{hotelIcos,jdbcType=VARCHAR
+            },
+        SELLING_POINT = #{sellingPoint,jdbcType=VARCHAR
+            },
+        DETAIL_IMG = #{detailImg,jdbcType=VARCHAR
+            },
+        ALBUM = #{album,jdbcType=VARCHAR
+            },
+        MINI_PRICE = #{miniPrice,jdbcType=DOUBLE
+            },
+        MAX_PRICE = #{maxPrice,jdbcType=DOUBLE
+            },
+        COMMENT_NUM = #{commentNum,jdbcType=INTEGER
+            },
+        COMMENT_SCORE = #{commentScore,jdbcType=DOUBLE
+            },
+        date_price = #{datePrice,jdbcType=VARCHAR}
+        
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+    <select id="selectByPage" parameterType="java.util.Map"
+            resultMap="BaseResultMap" resultType="java.util.List">
+        select
+        <include refid="Base_Column_List"/>
+        from t_mp_hotel
+        <where>
+            1=1 and record_status = 1
+            <if test="searchKey != null and searchKey !='' ">
+               and concat(address,CHAIN_BRAND,NAME) like #{searchKey,jdbcType=VARCHAR}
+            </if>
+            <if test="province != null and province !=''">
+               and substr(AREA_ID,1,2) = #{province,jdbcType=VARCHAR}
+            </if>
+            <if test="city != null and city !=''">
+               and substr(AREA_ID,1,4) = #{city,jdbcType=VARCHAR}
+            </if>
+            <if test="area != null and area !=''">
+               and AREA_ID = #{area,jdbcType=VARCHAR}
+            </if>
+            <if test="starLevel != null and starLevel != 0">
+               and STAR_LEVEL = #{starLevel,jdbcType=INTEGER}
+            </if>
+            <if test="startRow !=null">
+            	limit ${startRow},${pageSize}
+            </if>
+        </where>
+     </select>
+     
+    <select id="selectCount" parameterType="com.zzk.entity.Hotel"
+            resultType="int">
+        select count(*) from t_mp_hotel
+        <where>
+           	1=1 and record_status = 1
+            <if test="searchKey != null and searchKey !='' ">
+               and concat(address,CHAIN_BRAND,NAME) like concat('%',#{searchKey,jdbcType=VARCHAR},'%')
+            </if>
+            <if test="province != null and province !=''">
+               and substr(AREA_ID,1,2) = #{province,jdbcType=VARCHAR}
+            </if>
+            <if test="city != null and city !=''">
+               and substr(AREA_ID,1,4) = #{city,jdbcType=VARCHAR}
+            </if>
+            <if test="area != null and area !=''">
+               and AREA_ID = #{area,jdbcType=VARCHAR}
+            </if>
+            <if test="starLevel != null and starLevel != 0">
+               and STAR_LEVEL = #{starLevel,jdbcType=INTEGER}
+            </if>
+        </where>
+    </select>
+    
+    
+    <select id="selectList" resultMap="BaseResultMap" resultType="java.util.List">
+            
+        select * from t_mp_hotel
+        where record_status = 1 and state = 1
+    </select>
+    
+    <select id="selectCity" parameterType="java.lang.String" resultType="java.lang.String" >
+    	select city_name from city where city_id = #{ cityId,jdbcType=VARCHAR}
+    </select>
+    <select id="selectArea" parameterType="java.lang.String" resultType="java.lang.String" >
+    	select area_name from area where area_id = #{ arreaId,jdbcType=VARCHAR}
+    </select>
+    <select id="selectProvince" parameterType="java.lang.String" resultType="java.lang.String" >
+    	select province_name from province where province_id_short = #{ provinceId,jdbcType=VARCHAR}
+    </select>
+    <select id="getProvinceList"  resultMap="ProvinceResultMap">
+    	select province_id,province_name from province
+    </select>
+    <select id="getCityList" parameterType="java.lang.String" resultMap="CityResultMap">
+    	select city_id,city_name from city where province_id = #{ provinceId,jdbcType=VARCHAR}
+    </select>
+    <select id="getAreaList" parameterType="java.lang.String" resultMap="AreaResultMap">
+    	select area_id,area_name from area where city_id = #{ cityId,jdbcType=VARCHAR}
+    </select>
+    <select id="checkOwnerId" parameterType="java.lang.String" resultMap="loginMap">
+    	select id,name from t_mp_hotel where OWNER_ID = #{ id,jdbcType=VARCHAR}
+    </select>
+    
+    <select id="selectHotels1" parameterType="java.util.Map" resultMap="BaseResultMap">
+    	select  
+    	t1.*,avg(t2.min_price) as avgmin,avg(t2.max_price) avgmax,
+		round(6378.138*2*asin(sqrt(pow(sin( (lat*pi()/180-#{lat,jdbcType=DOUBLE}*pi()/180)/2),2)+cos(lat*pi()/180)*cos(#{lat,jdbcType=DOUBLE}*pi()/180)* pow(sin( (lon*pi()/180-#{lon,jdbcType=DOUBLE}*pi()/180)/2),2)))) 
+		as distance 
+		 from t_mp_hotel t1 left join t_mp_date_price t2 on t1.id = t2.hotel_id 
+		where t1.STATE = 1 and t1.RECORD_STATUS = 1
+		<if test="starLevel != null and starLevel !=''">
+		and STAR_LEVEL = #{starLevel,jdbcType=VARCHAR}
+		</if>
+		and execute_date&gt;=#{checkinDate,jdbcType=DOUBLE} and execute_date&lt;#{leaveDate,jdbcType=DOUBLE}
+		group by t1.id 
+		having 1= 1
+	<if test="name != null and name !=''">
+	and POSITION(#{name,jdbcType=VARCHAR} IN name )
+	</if>
+	<if test="miniPrice != null ">
+		and avgmin &lt;#{maxPrice,jdbcType=INTEGER} 
+	</if>
+	<if test="miniPrice != null ">
+		and avgmax &gt; #{miniPrice,jdbcType=INTEGER}
+	</if>
+	order by distance 
+    	<if test="startRow !=null">
+            	limit ${startRow},${pageSize}
+        </if>
+    </select>
+    <select id="selectHotels" parameterType="java.util.Map" resultMap="searchResultMap">
+    select 
+    t4.id,t4.name,t4.cover_img,t4.star_level,t4.hotel_icos,t4.comment_num,t4.comment_score,
+    t3.price as mini_price,
+	round(6378.138*2*asin(sqrt(pow(sin( (lat*pi()/180-#{lat,jdbcType=DOUBLE}*pi()/180)/2),2)+cos(lat*pi()/180)*cos(#{lat,jdbcType=DOUBLE}*pi()/180)* pow(sin( (lon*pi()/180-#{lon,jdbcType=DOUBLE}*pi()/180)/2),2))),2) 
+	as distance 
+		from 
+	(select min(t1.price) as price,hotel_id from (
+			select hotel_id,goods_id,avg(price) as price 
+			from t_mp_date_price  
+			where  execute_date&gt;=#{checkinDate,jdbcType=DOUBLE} and  execute_date&lt;#{leaveDate,jdbcType=DOUBLE}
+		group by goods_id) t1
+		where 1=1 
+		<if test="miniPrice != null">
+		and price &gt;= #{miniPrice,jdbcType=INTEGER} 
+		</if>
+		<if test="maxPrice != null">
+		and price &lt;= #{maxPrice,jdbcType=INTEGER} 
+		</if>
+		group by hotel_id) t3	
+	left join 
+		t_mp_hotel t4 
+	on t3.hotel_id = t4.id 
+	where 1=1 and t4.STATE = 1 and t4.RECORD_STATUS = 1
+	<if test="starLevel != null and starLevel !=''">
+	and STAR_LEVEL = #{starLevel,jdbcType=VARCHAR}
+	</if>
+	<if test="name != null and name !=''">
+	and (POSITION(#{name,jdbcType=VARCHAR} IN name )
+	or POSITION(#{address,jdbcType=VARCHAR} IN address ))
+	</if>
+	order by distance
+	<if test="startRow !=null">
+     limit ${startRow},${pageSize}
+    </if>
+    </select>
+    <select id="selectById" parameterType="java.lang.String" resultType="java.lang.String">
+    	select open_id from line_user where id =#{id,jdbcType=VARCHAR}
+    </select>
+    
+</mapper>

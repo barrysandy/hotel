@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzk.dao.PlatDealRecordMapper">
+
+	<resultMap id="BaseResultMap" type="com.zzk.entity.PlatDealRecord">
+		<id column="id" jdbcType="VARCHAR" property="id" />
+		<id column="ORDER_ID" jdbcType="VARCHAR" property="orderId" />
+		<id column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+		<id column="success_date" jdbcType="TIMESTAMP" property="successDate" />
+		<id column="SOURCE_ID" jdbcType="VARCHAR" property="sourceId" />
+		<id column="SOURCE_TYPE" jdbcType="INTEGER" property="sourceType" />
+		<id column="SOURCE_NAME" jdbcType="VARCHAR" property="sourceName" />
+		<id column="SOURCE_BANK" jdbcType="VARCHAR" property="sourceBank" />
+		<id column="DEST_ID" jdbcType="VARCHAR" property="destId" />
+		<id column="DEST_TYPE" jdbcType="INTEGER" property="destType" />
+		<id column="DEST_NAME" jdbcType="VARCHAR" property="destName" />
+		<id column="DEST_BANK" jdbcType="VARCHAR" property="destBank" />
+		<id column="STREAM_TYPE" jdbcType="INTEGER" property="streamType" />
+		<id column="pay_title" jdbcType="VARCHAR" property="payTitle" />
+		<id column="pay_price" jdbcType="DECIMAL" property="payPrice" />
+		<id column="PAY_STATE" jdbcType="INTEGER" property="payState" />
+		<id column="pay_fee" jdbcType="DECIMAL" property="payFee" />
+		<id column="pay_ratio" jdbcType="DECIMAL" property="payRatio" />
+		<id column="actual_money" jdbcType="DECIMAL" property="actualMoney" />
+		<id column="STATUS" jdbcType="INTEGER" property="status" />
+		<id column="pay_chanel" jdbcType="INTEGER" property="payChanel" />
+		<id column="EXCEPTION_DESC" jdbcType="VARCHAR" property="exceptionDesc" />
+		<id column="CHECK_STATE" jdbcType="INTEGER" property="checkState" />
+		<id column="IS_ACCOUNT" jdbcType="INTEGER" property="isAccount" />
+		<id column="MODIFY_USER" jdbcType="VARCHAR" property="modifyUser" />
+		<id column="MODIFY_DATE" jdbcType="TIMESTAMP" property="modifyDate" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id,
+		ORDER_ID,
+		create_date,
+		success_date,
+		SOURCE_ID,
+		SOURCE_TYPE,
+		SOURCE_NAME,
+		SOURCE_BANK,
+		DEST_ID,
+		DEST_TYPE,
+		DEST_NAME,
+		DEST_BANK,
+		STREAM_TYPE,
+		pay_title,
+		pay_price,
+		PAY_STATE,
+		pay_fee,
+		pay_ratio,
+		actual_money,
+		STATUS,
+		pay_chanel,
+		EXCEPTION_DESC,
+		CHECK_STATE,
+		IS_ACCOUNT,
+		MODIFY_USER,
+		MODIFY_DATE
+	</sql>
+	
+	<select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" /> from line_deal_record where ID = #{id,jdbcType=VARCHAR}
+	</select>
+	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from line_deal_record where ID = #{id,jdbcType=VARCHAR}
+	</delete>
+	
+	<insert id="insert" parameterType="com.zzk.entity.PlatDealRecord">
+		insert into line_deal_record
+		(id,ORDER_ID,create_date,success_date,SOURCE_ID,SOURCE_TYPE,SOURCE_NAME,SOURCE_BANK,DEST_ID,DEST_TYPE,DEST_NAME,DEST_BANK,STREAM_TYPE,pay_title,pay_price,PAY_STATE,pay_fee,pay_ratio,actual_money,STATUS,pay_chanel,EXCEPTION_DESC,CHECK_STATE,IS_ACCOUNT,MODIFY_USER,MODIFY_DATE)
+		values
+		(#{id,jdbcType=VARCHAR},#{orderId,jdbcType=VARCHAR},#{createDate,jdbcType=TIMESTAMP},#{successDate,jdbcType=TIMESTAMP},#{sourceId,jdbcType=VARCHAR},#{sourceType,jdbcType=INTEGER},#{sourceName,jdbcType=VARCHAR},#{sourceBank,jdbcType=VARCHAR},#{destId,jdbcType=VARCHAR},#{destType,jdbcType=INTEGER},#{destName,jdbcType=VARCHAR},#{destBank,jdbcType=VARCHAR},#{streamType,jdbcType=INTEGER},#{payTitle,jdbcType=VARCHAR},#{payPrice,jdbcType=DECIMAL},#{payState,jdbcType=INTEGER},#{payFee,jdbcType=DECIMAL},#{payRatio,jdbcType=DECIMAL},#{actualMoney,jdbcType=DECIMAL},#{status,jdbcType=INTEGER},#{payChanel,jdbcType=INTEGER},#{exceptionDesc,jdbcType=VARCHAR},#{checkState,jdbcType=INTEGER},#{isAccount,jdbcType=INTEGER},#{modifyUser,jdbcType=VARCHAR},#{modifyDate,jdbcType=TIMESTAMP})
+	</insert>
+	
+	<insert id="insertSelective" parameterType="com.zzk.entity.PlatDealRecord">
+		insert into line_deal_record
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="orderId != null">ORDER_ID,</if>
+			<if test="createDate != null">create_date,</if>
+			<if test="successDate != null">success_date,</if>
+			<if test="sourceId != null">SOURCE_ID,</if>
+			<if test="sourceType != null">SOURCE_TYPE,</if>
+			<if test="sourceName != null">SOURCE_NAME,</if>
+			<if test="sourceBank != null">SOURCE_BANK,</if>
+			<if test="destId != null">DEST_ID,</if>
+			<if test="destType != null">DEST_TYPE,</if>
+			<if test="destName != null">DEST_NAME,</if>
+			<if test="destBank != null">DEST_BANK,</if>
+			<if test="streamType != null">STREAM_TYPE,</if>
+			<if test="payTitle != null">pay_title,</if>
+			<if test="payPrice != null">pay_price,</if>
+			<if test="payState != null">PAY_STATE,</if>
+			<if test="payFee != null">pay_fee,</if>
+			<if test="payRatio != null">pay_ratio,</if>
+			<if test="actualMoney != null">actual_money,</if>
+			<if test="status != null">STATUS,</if>
+			<if test="payChanel != null">pay_chanel,</if>
+			<if test="exceptionDesc != null">EXCEPTION_DESC,</if>
+			<if test="checkState != null">CHECK_STATE,</if>
+			<if test="isAccount != null">IS_ACCOUNT,</if>
+			<if test="modifyUser != null">MODIFY_USER,</if>
+			<if test="modifyDate != null">MODIFY_DATE,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=VARCHAR},</if>
+			<if test="orderId != null">#{orderId,jdbcType=VARCHAR},</if>
+			<if test="createDate != null">#{createDate,jdbcType=TIMESTAMP},</if>
+			<if test="successDate != null">#{successDate,jdbcType=TIMESTAMP},</if>
+			<if test="sourceId != null">#{sourceId,jdbcType=VARCHAR},</if>
+			<if test="sourceType != null">#{sourceType,jdbcType=INTEGER},</if>
+			<if test="sourceName != null">#{sourceName,jdbcType=VARCHAR},</if>
+			<if test="sourceBank != null">#{sourceBank,jdbcType=VARCHAR},</if>
+			<if test="destId != null">#{destId,jdbcType=VARCHAR},</if>
+			<if test="destType != null">#{destType,jdbcType=INTEGER},</if>
+			<if test="destName != null">#{destName,jdbcType=VARCHAR},</if>
+			<if test="destBank != null">#{destBank,jdbcType=VARCHAR},</if>
+			<if test="streamType != null">#{streamType,jdbcType=INTEGER},</if>
+			<if test="payTitle != null">#{payTitle,jdbcType=VARCHAR},</if>
+			<if test="payPrice != null">#{payPrice,jdbcType=DECIMAL},</if>
+			<if test="payState != null">#{payState,jdbcType=INTEGER},</if>
+			<if test="payFee != null">#{payFee,jdbcType=DECIMAL},</if>
+			<if test="payRatio != null">#{payRatio,jdbcType=DECIMAL},</if>
+			<if test="actualMoney != null">#{actualMoney,jdbcType=DECIMAL},</if>
+			<if test="status != null">#{status,jdbcType=INTEGER},</if>
+			<if test="payChanel != null">#{payChanel,jdbcType=INTEGER},</if>
+			<if test="exceptionDesc != null">#{exceptionDesc,jdbcType=VARCHAR},</if>
+			<if test="checkState != null">#{checkState,jdbcType=INTEGER},</if>
+			<if test="isAccount != null">#{isAccount,jdbcType=INTEGER},</if>
+			<if test="modifyUser != null">#{modifyUser,jdbcType=VARCHAR},</if>
+			<if test="modifyDate != null">#{modifyDate,jdbcType=TIMESTAMP},</if>
+		</trim>
+	</insert>
+	
+	<update id="updateByPrimaryKeySelective" parameterType="com.zzk.entity.PlatDealRecord">
+		update line_deal_record
+		<set>
+			<if test="orderId != null">ORDER_ID =#{orderId,jdbcType=VARCHAR},</if>
+			<if test="createDate != null">create_date =#{createDate,jdbcType=TIMESTAMP},</if>
+			<if test="successDate != null">success_date =#{successDate,jdbcType=TIMESTAMP},</if>
+			<if test="sourceId != null">SOURCE_ID =#{sourceId,jdbcType=VARCHAR},</if>
+			<if test="sourceType != null">SOURCE_TYPE =#{sourceType,jdbcType=INTEGER},</if>
+			<if test="sourceName != null">SOURCE_NAME =#{sourceName,jdbcType=VARCHAR},</if>
+			<if test="sourceBank != null">SOURCE_BANK =#{sourceBank,jdbcType=VARCHAR},</if>
+			<if test="destId != null">DEST_ID =#{destId,jdbcType=VARCHAR},</if>
+			<if test="destType != null">DEST_TYPE =#{destType,jdbcType=INTEGER},</if>
+			<if test="destName != null">DEST_NAME =#{destName,jdbcType=VARCHAR},</if>
+			<if test="destBank != null">DEST_BANK =#{destBank,jdbcType=VARCHAR},</if>
+			<if test="streamType != null">STREAM_TYPE =#{streamType,jdbcType=INTEGER},</if>
+			<if test="payTitle != null">pay_title =#{payTitle,jdbcType=VARCHAR},</if>
+			<if test="payPrice != null">pay_price =#{payPrice,jdbcType=DECIMAL},</if>
+			<if test="payState != null">PAY_STATE =#{payState,jdbcType=INTEGER},</if>
+			<if test="payFee != null">pay_fee =#{payFee,jdbcType=DECIMAL},</if>
+			<if test="payRatio != null">pay_ratio =#{payRatio,jdbcType=DECIMAL},</if>
+			<if test="actualMoney != null">actual_money =#{actualMoney,jdbcType=DECIMAL},</if>
+			<if test="status != null">STATUS =#{status,jdbcType=INTEGER},</if>
+			<if test="payChanel != null">pay_chanel =#{payChanel,jdbcType=INTEGER},</if>
+			<if test="exceptionDesc != null">EXCEPTION_DESC =#{exceptionDesc,jdbcType=VARCHAR},</if>
+			<if test="checkState != null">CHECK_STATE =#{checkState,jdbcType=INTEGER},</if>
+			<if test="isAccount != null">IS_ACCOUNT =#{isAccount,jdbcType=INTEGER},</if>
+			<if test="modifyUser != null">MODIFY_USER =#{modifyUser,jdbcType=VARCHAR},</if>
+			<if test="modifyDate != null">MODIFY_DATE =#{modifyDate,jdbcType=TIMESTAMP},</if>
+		</set>
+		where ID = #{id,jdbcType=VARCHAR}
+	</update>
+	
+	<update id="updateByPrimaryKey" parameterType="com.zzk.entity.PlatDealRecord">
+		update
+		line_deal_record
+		set
+		
+		ORDER_ID = #{orderId,jdbcType=VARCHAR},
+		create_date = #{createDate,jdbcType=TIMESTAMP},
+		success_date = #{successDate,jdbcType=TIMESTAMP},
+		SOURCE_ID = #{sourceId,jdbcType=VARCHAR},
+		SOURCE_TYPE = #{sourceType,jdbcType=INTEGER},
+		SOURCE_NAME = #{sourceName,jdbcType=VARCHAR},
+		SOURCE_BANK = #{sourceBank,jdbcType=VARCHAR},
+		DEST_ID = #{destId,jdbcType=VARCHAR},
+		DEST_TYPE = #{destType,jdbcType=INTEGER},
+		DEST_NAME = #{destName,jdbcType=VARCHAR},
+		DEST_BANK = #{destBank,jdbcType=VARCHAR},
+		STREAM_TYPE = #{streamType,jdbcType=INTEGER},
+		pay_title = #{payTitle,jdbcType=VARCHAR},
+		pay_price = #{payPrice,jdbcType=DECIMAL},
+		PAY_STATE = #{payState,jdbcType=INTEGER},
+		pay_fee = #{payFee,jdbcType=DECIMAL},
+		pay_ratio = #{payRatio,jdbcType=DECIMAL},
+		actual_money = #{actualMoney,jdbcType=DECIMAL},
+		STATUS = #{status,jdbcType=INTEGER},
+		pay_chanel = #{payChanel,jdbcType=INTEGER},
+		EXCEPTION_DESC = #{exceptionDesc,jdbcType=VARCHAR},
+		CHECK_STATE = #{checkState,jdbcType=INTEGER},
+		IS_ACCOUNT = #{isAccount,jdbcType=INTEGER},
+		MODIFY_USER = #{modifyUser,jdbcType=VARCHAR},
+		MODIFY_DATE = #{modifyDate,jdbcType=TIMESTAMP}
+		where ID = #{id,jdbcType=VARCHAR}
+	</update>
+	
+	<select id="selectByPage" parameterType="java.util.Map" resultMap="BaseResultMap" resultType="java.util.List">
+		select
+		<include refid="Base_Column_List" />
+		from line_deal_record
+		<where>
+			1=1 and status = 1
+			<if test="search != null">
+			</if>
+			<if test="orderName != null and orderName !=''">
+				order by ${orderName} ${descAsc}
+			</if>
+			<if test="startRow !=null">
+				limit ${startRow},${pageSize}
+			</if>
+		</where>
+	</select>
+	
+	<select id="selectCount" parameterType="com.zzk.entity.PlatDealRecord" resultType="int">
+		select count(1) from line_deal_record
+		<where>
+			1=1 and status = 1
+			<if test="search != null">
+
+			</if>
+		</where>
+	</select>
+</mapper>

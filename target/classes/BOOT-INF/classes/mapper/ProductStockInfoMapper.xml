@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzk.dao.ProductStockInfoMapper">
+
+    <resultMap id="BaseResultMap" type="com.zzk.entity.ProductStockInfo">
+        <id column="ID" jdbcType="VARCHAR" property="id"/>
+        <id column="SKU_ID" jdbcType="VARCHAR" property="skuId"/>
+        <id column="ADULT_NUMBER" jdbcType="INTEGER" property="adultNumber"/>
+        <id column="ADULT_SALED_NUMBER" jdbcType="INTEGER" property="adultSaledNumber"/>
+        <id column="ADULT_PREEMPTED_NUMBER" jdbcType="INTEGER" property="adultPreemptedNumber"/>
+        <id column="CHILD_SALED_NUMBER" jdbcType="INTEGER" property="childSaledNumber"/>
+        <id column="CHILD_PREEMPTED_NUMBER" jdbcType="INTEGER" property="childPreemptedNumber"/>
+        <id column="CHILD_NUMBER" jdbcType="INTEGER" property="childNumber"/>
+        <id column="ADULT_SELL_PRICE" jdbcType="DECIMAL" property="adultSellPrice"/>
+        <id column="CHILD_SELL_PRICE" jdbcType="DECIMAL" property="childSellPrice"/>
+        <id column="ORIGINAL_PRICE" jdbcType="DECIMAL" property="originalPrice"/>
+        <id column="START_TIME" jdbcType="TIMESTAMP" property="startTime"/>
+        <id column="END_TIME" jdbcType="TIMESTAMP" property="endTime"/>
+        <id column="STATUS" jdbcType="INTEGER" property="status"/>
+        <id column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
+        <id column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+		ID,
+		SKU_ID,
+		ADULT_NUMBER,
+		ADULT_SALED_NUMBER,
+		ADULT_PREEMPTED_NUMBER,
+		CHILD_SALED_NUMBER,
+		CHILD_PREEMPTED_NUMBER,
+		CHILD_NUMBER,
+		ADULT_SELL_PRICE,
+		CHILD_SELL_PRICE,
+		ORIGINAL_PRICE,
+		START_TIME,
+		END_TIME,
+		STATUS,
+		CREATE_TIME,
+		UPDATE_TIME
+	</sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from product_stock_info where ID = #{id,jdbcType=VARCHAR}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from product_stock_info where ID = #{id,jdbcType=VARCHAR}
+	</delete>
+
+    <insert id="insert" parameterType="com.zzk.entity.ProductStockInfo">
+		insert into product_stock_info
+		(ID,SKU_ID,ADULT_NUMBER,ADULT_SALED_NUMBER,ADULT_PREEMPTED_NUMBER,CHILD_SALED_NUMBER,CHILD_PREEMPTED_NUMBER,CHILD_NUMBER,ADULT_SELL_PRICE,CHILD_SELL_PRICE,ORIGINAL_PRICE,START_TIME,END_TIME,STATUS,CREATE_TIME,UPDATE_TIME)
+		values
+		(#{id,jdbcType=VARCHAR},#{skuId,jdbcType=VARCHAR},#{adultNumber,jdbcType=INTEGER},#{adultSaledNumber,jdbcType=INTEGER},#{adultPreemptedNumber,jdbcType=INTEGER},#{childSaledNumber,jdbcType=INTEGER},#{childPreemptedNumber,jdbcType=INTEGER},#{childNumber,jdbcType=INTEGER},#{adultSellPrice,jdbcType=DECIMAL},#{childSellPrice,jdbcType=DECIMAL},#{originalPrice,jdbcType=DECIMAL},#{startTime,jdbcType=TIMESTAMP},#{endTime,jdbcType=TIMESTAMP},#{status,jdbcType=INTEGER},#{createTime,jdbcType=TIMESTAMP},#{updateTime,jdbcType=TIMESTAMP})
+	</insert>
+
+    <insert id="insertSelective" parameterType="com.zzk.entity.ProductStockInfo">
+        insert into product_stock_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">ID,</if>
+            <if test="skuId != null">SKU_ID,</if>
+            <if test="adultNumber != null">ADULT_NUMBER,</if>
+            <if test="adultSaledNumber != null">ADULT_SALED_NUMBER,</if>
+            <if test="adultPreemptedNumber != null">ADULT_PREEMPTED_NUMBER,</if>
+            <if test="childSaledNumber != null">CHILD_SALED_NUMBER,</if>
+            <if test="childPreemptedNumber != null">CHILD_PREEMPTED_NUMBER,</if>
+            <if test="childNumber != null">CHILD_NUMBER,</if>
+            <if test="adultSellPrice != null">ADULT_SELL_PRICE,</if>
+            <if test="childSellPrice != null">CHILD_SELL_PRICE,</if>
+            <if test="originalPrice != null">ORIGINAL_PRICE,</if>
+            <if test="startTime != null">START_TIME,</if>
+            <if test="endTime != null">END_TIME,</if>
+            <if test="status != null">STATUS,</if>
+            <if test="createTime != null">CREATE_TIME,</if>
+            <if test="updateTime != null">UPDATE_TIME,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id,jdbcType=VARCHAR},</if>
+            <if test="skuId != null">#{skuId,jdbcType=VARCHAR},</if>
+            <if test="adultNumber != null">#{adultNumber,jdbcType=INTEGER},</if>
+            <if test="adultSaledNumber != null">#{adultSaledNumber,jdbcType=INTEGER},</if>
+            <if test="adultPreemptedNumber != null">#{adultPreemptedNumber,jdbcType=INTEGER},</if>
+            <if test="childSaledNumber != null">#{childSaledNumber,jdbcType=INTEGER},</if>
+            <if test="childPreemptedNumber != null">#{childPreemptedNumber,jdbcType=INTEGER},</if>
+            <if test="childNumber != null">#{childNumber,jdbcType=INTEGER},</if>
+            <if test="adultSellPrice != null">#{adultSellPrice,jdbcType=DECIMAL},</if>
+            <if test="childSellPrice != null">#{childSellPrice,jdbcType=DECIMAL},</if>
+            <if test="originalPrice != null">#{originalPrice,jdbcType=DECIMAL},</if>
+            <if test="startTime != null">#{startTime,jdbcType=TIMESTAMP},</if>
+            <if test="endTime != null">#{endTime,jdbcType=TIMESTAMP},</if>
+            <if test="status != null">#{status,jdbcType=INTEGER},</if>
+            <if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+            <if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.zzk.entity.ProductStockInfo">
+        update product_stock_info
+        <set>
+            <if test="skuId != null">SKU_ID =#{skuId,jdbcType=VARCHAR},</if>
+            <if test="adultNumber != null">ADULT_NUMBER =#{adultNumber,jdbcType=INTEGER},</if>
+            <if test="adultSaledNumber != null">ADULT_SALED_NUMBER =#{adultSaledNumber,jdbcType=INTEGER},</if>
+            <if test="adultPreemptedNumber != null">ADULT_PREEMPTED_NUMBER =#{adultPreemptedNumber,jdbcType=INTEGER},
+            </if>
+            <if test="childSaledNumber != null">CHILD_SALED_NUMBER =#{childSaledNumber,jdbcType=INTEGER},</if>
+            <if test="childPreemptedNumber != null">CHILD_PREEMPTED_NUMBER =#{childPreemptedNumber,jdbcType=INTEGER},
+            </if>
+            <if test="childNumber != null">CHILD_NUMBER =#{childNumber,jdbcType=INTEGER},</if>
+            <if test="adultSellPrice != null">ADULT_SELL_PRICE =#{adultSellPrice,jdbcType=DECIMAL},</if>
+            <if test="childSellPrice != null">CHILD_SELL_PRICE =#{childSellPrice,jdbcType=DECIMAL},</if>
+            <if test="originalPrice != null">ORIGINAL_PRICE =#{originalPrice,jdbcType=DECIMAL},</if>
+            <if test="startTime != null">START_TIME =#{startTime,jdbcType=TIMESTAMP},</if>
+            <if test="endTime != null">END_TIME =#{endTime,jdbcType=TIMESTAMP},</if>
+            <if test="status != null">STATUS =#{status,jdbcType=INTEGER},</if>
+            <if test="createTime != null">CREATE_TIME =#{createTime,jdbcType=TIMESTAMP},</if>
+            <if test="updateTime != null">UPDATE_TIME =#{updateTime,jdbcType=TIMESTAMP},</if>
+        </set>
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.zzk.entity.ProductStockInfo">
+		update
+		product_stock_info
+		set
+
+		SKU_ID = #{skuId,jdbcType=VARCHAR},
+		ADULT_NUMBER = #{adultNumber,jdbcType=INTEGER},
+		ADULT_SALED_NUMBER = #{adultSaledNumber,jdbcType=INTEGER},
+		ADULT_PREEMPTED_NUMBER = #{adultPreemptedNumber,jdbcType=INTEGER},
+		CHILD_SALED_NUMBER = #{childSaledNumber,jdbcType=INTEGER},
+		CHILD_PREEMPTED_NUMBER = #{childPreemptedNumber,jdbcType=INTEGER},
+		CHILD_NUMBER = #{childNumber,jdbcType=INTEGER},
+		ADULT_SELL_PRICE = #{adultSellPrice,jdbcType=DECIMAL},
+		CHILD_SELL_PRICE = #{childSellPrice,jdbcType=DECIMAL},
+		ORIGINAL_PRICE = #{originalPrice,jdbcType=DECIMAL},
+		START_TIME = #{startTime,jdbcType=TIMESTAMP},
+		END_TIME = #{endTime,jdbcType=TIMESTAMP},
+		STATUS = #{status,jdbcType=INTEGER},
+		CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+		UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+		where ID = #{id,jdbcType=VARCHAR}
+	</update>
+
+    <select id="selectByPage" parameterType="java.util.Map" resultMap="BaseResultMap" resultType="java.util.List">
+        select
+        <include refid="Base_Column_List"/>
+        from product_stock_info
+        <where>
+            1=1 and status = 1
+            <if test="search != null">
+            </if>
+            <if test="orderName != null and orderName !=''">
+                order by ${orderName} ${descAsc}
+            </if>
+            <if test="startRow !=null">
+                limit ${startRow},${pageSize}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectCount" parameterType="com.zzk.entity.ProductStockInfo" resultType="int">
+        select count(1) from product_stock_info
+        <where>
+            1=1 and status = 1
+            <if test="search != null">
+
+            </if>
+        </where>
+    </select>
+
+    <insert id="insertBatch" parameterType="java.util.List">
+        insert into product_stock_info
+        (ID,SKU_ID,ADULT_NUMBER,CHILD_NUMBER,ADULT_SELL_PRICE,CHILD_SELL_PRICE,ORIGINAL_PRICE,START_TIME,END_TIME,STATUS,CREATE_TIME,UPDATE_TIME)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.id,jdbcType=VARCHAR},#{item.skuId,jdbcType=VARCHAR},#{item.adultNumber,jdbcType=INTEGER},#{item.childNumber,jdbcType=INTEGER},
+            #{item.adultSellPrice,jdbcType=DECIMAL},#{item.childSellPrice,jdbcType=DECIMAL},#{item.originalPrice,jdbcType=DECIMAL},
+            #{item.startTime,jdbcType=TIMESTAMP},#{item.endTime,jdbcType=TIMESTAMP},#{item.status,jdbcType=INTEGER},#{item.createTime,jdbcType=TIMESTAMP},
+            #{item.updateTime,jdbcType=TIMESTAMP})
+        </foreach>
+    </insert>
+
+    <delete id="deleteOldInfoBySkuId" parameterType="java.lang.String">
+        delete FROM product_stock_info where SKU_ID = #{skuId,jdbcType=VARCHAR}
+    </delete>
+
+    <select id="listLineGroupInfo" parameterType="java.util.Map" resultType="java.util.Map">
+        SELECT
+            t2.PRODUCT_STOCK_ID GROUP_ID,
+            t2.PRODUCT_ID,
+            t2.SKU_ID,
+            t1.ORDER_NO,
+            t2.PRODUCT_NAME,
+            t2.SKU_NAME,
+            SUM(t2.ADULT_NUMBER) ADULT_NUMBER,
+            SUM(t2.CHILD_NUMBER) CHILD_NUMBER,
+            t1.ORDER_TIME,
+            DATE_FORMAT(t1.TRIP_TIME,'%Y-%m-%d') START_TIME
+        FROM
+            order_base_info t1
+        INNER JOIN order_detail_info t2 ON t1.ORDER_NO = t2.ORDER_NO
+        WHERE 1 = 1 AND t1. STATUS = 1  AND t2. STATUS = 1
+        AND t1.SELLER_ID = #{sellerId}
+        <if test="productId != null and productId != ''">
+            AND t2.PRODUCT_ID = #{productId}
+        </if>
+        <if test="startDate!=null and startDate!='' and endDate!=null and endDate!=''">
+            and (t1.TRIP_TIME &gt;=#{startDate} and t1.TRIP_TIME &lt;=#{endDate})
+        </if>
+        GROUP BY
+        t2.PRODUCT_STOCK_ID
+        <if test="sort != null and sort != ''">
+            ORDER BY t1.TRIP_TIME ASC
+        </if>
+        <if test="sort == null or sort == ''">
+            ORDER BY t1.TRIP_TIME DESC
+        </if>
+    </select>
+
+    <select id="getSkuStockInfo" parameterType="java.util.Map" resultType="java.util.Map">
+        SELECT
+            ID groupId,
+            DATE_FORMAT(START_TIME,'%Y-%m-%d') groupTime,
+            (
+                ADULT_NUMBER - (CASE WHEN ADULT_SALED_NUMBER IS NULL THEN 0 ELSE ADULT_SALED_NUMBER END) - (CASE WHEN ADULT_PREEMPTED_NUMBER IS NULL THEN 0 ELSE ADULT_PREEMPTED_NUMBER END)
+            ) adultNumber,
+            (
+                CHILD_NUMBER - (CASE WHEN CHILD_SALED_NUMBER IS NULL THEN 0 ELSE CHILD_SALED_NUMBER END) - (CASE WHEN CHILD_PREEMPTED_NUMBER IS NULL THEN 0 ELSE CHILD_PREEMPTED_NUMBER END)
+            ) childNumber,
+            ADULT_SELL_PRICE adultSellPrice,
+            CHILD_SELL_PRICE childSellPrice,
+            ORIGINAL_PRICE originalPrice
+        FROM
+            product_stock_info
+        WHERE
+            SKU_ID = '${skuId}'
+        AND STATUS = 1 AND START_TIME > now()
+        AND ADULT_NUMBER - (CASE WHEN ADULT_SALED_NUMBER IS NULL THEN 0 ELSE ADULT_SALED_NUMBER END) - (CASE WHEN ADULT_PREEMPTED_NUMBER IS NULL THEN 0 ELSE ADULT_PREEMPTED_NUMBER END)  >0
+        AND TimeStampDiff( Hour , NOW(), START_TIME) > ${hour}
+    </select>
+
+    <select id="getSkuStockInfoOld" parameterType="java.lang.String" resultType="java.util.Map">
+        SELECT
+        ID groupId,
+        DATE_FORMAT(START_TIME,'%Y-%m-%d') groupTime,
+        (
+        ADULT_NUMBER - (CASE WHEN ADULT_SALED_NUMBER IS NULL THEN 0 ELSE ADULT_SALED_NUMBER END) - (CASE WHEN ADULT_PREEMPTED_NUMBER IS NULL THEN 0 ELSE ADULT_PREEMPTED_NUMBER END)
+        ) adultNumber,
+        (
+        CHILD_NUMBER - (CASE WHEN CHILD_SALED_NUMBER IS NULL THEN 0 ELSE CHILD_SALED_NUMBER END) - (CASE WHEN CHILD_PREEMPTED_NUMBER IS NULL THEN 0 ELSE CHILD_PREEMPTED_NUMBER END)
+        ) childNumber,
+        ADULT_SELL_PRICE adultSellPrice,
+        CHILD_SELL_PRICE childSellPrice,
+        ORIGINAL_PRICE originalPrice
+        FROM
+        product_stock_info
+        WHERE
+        SKU_ID = #{skuId}
+        AND STATUS = 1 AND START_TIME > now()
+        AND ADULT_NUMBER - (CASE WHEN ADULT_SALED_NUMBER IS NULL THEN 0 ELSE ADULT_SALED_NUMBER END) - (CASE WHEN ADULT_PREEMPTED_NUMBER IS NULL THEN 0 ELSE ADULT_PREEMPTED_NUMBER END)  >0
+    </select>
+    
+    <update id="updateInit">
+    	update product_stock_info set CHILD_PREEMPTED_NUMBER = 0,ADULT_PREEMPTED_NUMBER = 0 
+    	where CHILD_PREEMPTED_NUMBER!=0 or ADULT_PREEMPTED_NUMBER!=0
+    </update>
+
+</mapper>

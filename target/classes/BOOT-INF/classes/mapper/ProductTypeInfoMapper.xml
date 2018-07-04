@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzk.dao.ProductTypeInfoMapper">
+
+	<resultMap id="BaseResultMap" type="com.zzk.entity.ProductTypeInfo">
+		<id column="ID" jdbcType="VARCHAR" property="id" />
+		<id column="NAME" jdbcType="VARCHAR" property="name" />
+		<id column="DESC_M" jdbcType="VARCHAR" property="descM" />
+		<id column="PARENT_ID" jdbcType="VARCHAR" property="parentId" />
+		<id column="PRODUCT_ID" jdbcType="VARCHAR" property="productId" />
+		<id column="STATUS" jdbcType="INTEGER" property="status" />
+		<id column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+		<id column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		ID,
+		NAME,
+		DESC_M,
+		PARENT_ID,
+		PRODUCT_ID,
+		STATUS,
+		CREATE_TIME,
+		UPDATE_TIME
+	</sql>
+
+	<select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" /> from product_type_info where ID = #{id,jdbcType=VARCHAR}
+	</select>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from product_type_info where ID = #{id,jdbcType=VARCHAR}
+	</delete>
+
+	<insert id="insert" parameterType="com.zzk.entity.ProductTypeInfo">
+		insert into product_type_info
+		(ID,NAME,DESC_M,PARENT_ID,PRODUCT_ID,STATUS,CREATE_TIME,UPDATE_TIME)
+		values
+		(#{id,jdbcType=VARCHAR},#{name,jdbcType=VARCHAR},#{descM,jdbcType=VARCHAR},#{parentId,jdbcType=VARCHAR},#{productId,jdbcType=VARCHAR},#{status,jdbcType=INTEGER},#{createTime,jdbcType=TIMESTAMP},#{updateTime,jdbcType=TIMESTAMP})
+	</insert>
+
+	<insert id="insertSelective" parameterType="com.zzk.entity.ProductTypeInfo">
+		insert into product_type_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">ID,</if>
+			<if test="name != null">NAME,</if>
+			<if test="descM != null">DESC_M,</if>
+			<if test="parentId != null">PARENT_ID,</if>
+			<if test="productId != null">PRODUCT_ID,</if>
+			<if test="status != null">STATUS,</if>
+			<if test="createTime != null">CREATE_TIME,</if>
+			<if test="updateTime != null">UPDATE_TIME,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=VARCHAR},</if>
+			<if test="name != null">#{name,jdbcType=VARCHAR},</if>
+			<if test="descM != null">#{descM,jdbcType=VARCHAR},</if>
+			<if test="parentId != null">#{parentId,jdbcType=VARCHAR},</if>
+			<if test="productId != null">#{productId,jdbcType=VARCHAR},</if>
+			<if test="status != null">#{status,jdbcType=INTEGER},</if>
+			<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+			<if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+		</trim>
+	</insert>
+
+	<update id="updateByPrimaryKeySelective" parameterType="com.zzk.entity.ProductTypeInfo">
+		update product_type_info
+		<set>
+			<if test="name != null">NAME =#{name,jdbcType=VARCHAR},</if>
+			<if test="descM != null">DESC_M =#{descM,jdbcType=VARCHAR},</if>
+			<if test="parentId != null">PARENT_ID =#{parentId,jdbcType=VARCHAR},</if>
+			<if test="productId != null">PRODUCT_ID =#{productId,jdbcType=VARCHAR},</if>
+			<if test="status != null">STATUS =#{status,jdbcType=INTEGER},</if>
+			<if test="createTime != null">CREATE_TIME =#{createTime,jdbcType=TIMESTAMP},</if>
+			<if test="updateTime != null">UPDATE_TIME =#{updateTime,jdbcType=TIMESTAMP},</if>
+		</set>
+		where ID = #{id,jdbcType=VARCHAR}
+	</update>
+
+	<update id="updateByPrimaryKey" parameterType="com.zzk.entity.ProductTypeInfo">
+		update
+		product_type_info
+		set
+
+		NAME = #{name,jdbcType=VARCHAR},
+		DESC_M = #{descM,jdbcType=VARCHAR},
+		PARENT_ID = #{parentId,jdbcType=VARCHAR},
+		PRODUCT_ID = #{productId,jdbcType=VARCHAR},
+		STATUS = #{status,jdbcType=INTEGER},
+		CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+		UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+		where ID = #{id,jdbcType=VARCHAR}
+	</update>
+
+	<select id="selectByPage" parameterType="java.util.Map" resultMap="BaseResultMap" resultType="java.util.List">
+		select
+		<include refid="Base_Column_List" />
+		from product_type_info
+		<where>
+			1=1 and status = 1
+			<if test="search != null">
+			</if>
+			<if test="orderName != null and orderName !=''">
+				order by ${orderName} ${descAsc}
+			</if>
+			<if test="startRow !=null">
+				limit ${startRow},${pageSize}
+			</if>
+		</where>
+	</select>
+
+	<select id="selectCount" parameterType="com.zzk.entity.ProductTypeInfo" resultType="int">
+		select count(1) from product_type_info
+		<where>
+			1=1 and status = 1
+			<if test="search != null">
+
+			</if>
+		</where>
+	</select>
+
+    <select id="getByProductId" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT * FROM product_type_info where PRODUCT_ID = #{productId,jdbcType=VARCHAR} AND STATUS = 1
+    </select>
+
+</mapper>
